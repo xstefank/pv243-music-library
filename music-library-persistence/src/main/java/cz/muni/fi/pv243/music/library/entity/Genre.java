@@ -1,4 +1,4 @@
-package entity;
+package cz.muni.fi.pv243.music.library.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

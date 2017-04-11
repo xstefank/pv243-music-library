@@ -1,4 +1,4 @@
-package entity;
+package cz.muni.fi.pv243.music.library.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ public class Artist {
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
-    @OneToMany(mappedBy = "musician")
+    @OneToMany(mappedBy = "artist")
     private List<Song> songs = new ArrayList<>();
 
     public Artist() {

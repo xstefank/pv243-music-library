@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>/music</context-root>
+</jboss-web>
