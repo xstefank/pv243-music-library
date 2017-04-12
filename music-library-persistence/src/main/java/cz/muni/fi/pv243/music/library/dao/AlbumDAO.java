@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.music.library.dao.jpa;
+package cz.muni.fi.pv243.music.library.dao;
 
 import cz.muni.fi.pv243.music.library.dao.GenericDAO;
 import cz.muni.fi.pv243.music.library.entity.Album;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
-public interface JpaAlbumDAO extends GenericDAO<Album, Long> {
+public interface AlbumDAO extends GenericDAO<Album, String> {
 
     /**
      * Returns all albums containing given title fragment in their title

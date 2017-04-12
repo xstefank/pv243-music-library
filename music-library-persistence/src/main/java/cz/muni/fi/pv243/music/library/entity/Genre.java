@@ -2,31 +2,32 @@ package cz.muni.fi.pv243.music.library.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Genre {
+public class Genre implements UniqueId {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @NotNull
     @Column(nullable = false, unique = true)
     private String title;
 
-    public Genre(){
+    public Genre() {
     }
 
-    public Genre(Long id){
+    public Genre(String id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -49,7 +50,7 @@ public class Genre {
         if (obj == null) {
             return false;
         }
-        if(this == obj){
+        if (this == obj) {
             return true;
         }
         if (!(obj instanceof Album)) {
@@ -58,14 +59,11 @@ public class Genre {
 
         final Genre other = (Genre) obj;
 
-        if((title != null) ? !title.equals(other.getTitle()): other.getTitle()!= null){
+        if ((title != null) ? !title.equals(other.getTitle()) : other.getTitle() != null) {
             return false;
         }
 
         return true;
     }
 
-    private void setId(Long id) {
-        this.id = id;
-    }
 }

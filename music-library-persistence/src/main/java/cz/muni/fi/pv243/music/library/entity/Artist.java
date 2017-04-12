@@ -14,11 +14,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Artist {
+public class Artist implements UniqueId {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @NotNull
     @Column(nullable = false, unique = true)
@@ -34,7 +33,7 @@ public class Artist {
         this.songs = new ArrayList<>();
     }
 
-    public Artist(Long id) {
+    public Artist(String id) {
         this();
         this.id = id;
     }
@@ -47,11 +46,11 @@ public class Artist {
         this.songs = songs;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    private void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

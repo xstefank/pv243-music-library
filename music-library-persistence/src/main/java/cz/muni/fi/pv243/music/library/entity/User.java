@@ -11,11 +11,10 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "Users")
-public class User {
+public class User implements UniqueId {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @NotNull
     @Column(nullable = false, unique = true)
@@ -36,11 +35,11 @@ public class User {
     public User() {
     }
 
-    public User(Long id) {
+    public User(String id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -124,7 +123,7 @@ public class User {
         return true;
     }
 
-    private void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

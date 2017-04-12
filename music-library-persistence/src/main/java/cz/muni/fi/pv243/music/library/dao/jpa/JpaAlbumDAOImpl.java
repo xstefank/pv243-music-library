@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.music.library.dao.jpa;
 
+import cz.muni.fi.pv243.music.library.dao.AlbumDAO;
 import cz.muni.fi.pv243.music.library.dao.qualifier.JPADAO;
 import cz.muni.fi.pv243.music.library.entity.Album;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
 @JPADAO
-public class JpaAlbumDAOImpl extends BaseJPADAO implements JpaAlbumDAO {
+public class JpaAlbumDAOImpl extends BaseJPADAO implements AlbumDAO {
 
     @Override
     public void create(Album album) {
@@ -23,12 +24,12 @@ public class JpaAlbumDAOImpl extends BaseJPADAO implements JpaAlbumDAO {
     }
 
     @Override
-    public void remove(Long id) {
+    public void remove(String id) {
         getEntityManager().remove(find(id));
     }
 
     @Override
-    public Album find(Long id) {
+    public Album find(String id) {
         return getEntityManager().find(Album.class, id);
     }
 

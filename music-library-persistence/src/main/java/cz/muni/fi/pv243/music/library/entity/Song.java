@@ -8,11 +8,10 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Song {
+public class Song implements UniqueId{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @NotNull
     private String title;
@@ -39,7 +38,7 @@ public class Song {
     public Song() {
     }
 
-    public Song(Long id) {
+    public Song(String id) {
         this.id = id;
     }
 
@@ -47,11 +46,11 @@ public class Song {
         return title;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    private void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
