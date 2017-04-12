@@ -8,6 +8,7 @@ import org.infinispan.query.Search;
 import org.infinispan.query.dsl.Query;
 import org.infinispan.query.dsl.QueryFactory;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
@@ -28,26 +29,23 @@ public class BaseCacheDao<T extends UniqueId> implements GenericDAO<T, String> {
     private IdGenerator idGenerator;
 
     private Class<? extends UniqueId> persistentClass;
-    private Cache<String, T> cache;
 
     public BaseCacheDao() {
         this.persistentClass = getPersistentClass();
-        cache = cacheProvider.getCache(persistentClass);
-
     }
 
     public void create(T t) {
         t.setId(idGenerator.next());
-        cache.put(t.getId(), t);
+        cacheProvider.getCache(persistentClass).put(t.getId(), t);
     }
 
     public void remove(String id) {
-        cache.remove(id);
+        cacheProvider.getCache(persistentClass).remove(id);
     }
 
 
     public T find(String id) {
-        QueryFactory qf = Search.getQueryFactory(cache);
+        QueryFactory qf = Search.getQueryFactory(cacheProvider.getCache(persistentClass));
 
         Query query = qf.from(persistentClass)
                 .having("id").equal(id)
@@ -66,7 +64,7 @@ public class BaseCacheDao<T extends UniqueId> implements GenericDAO<T, String> {
 
     public List<T> findAll() {
         List<T> result = new ArrayList<>();
-
+        Cache<String, T> cache = cacheProvider.getCache(persistentClass);
         for (String key : cache.keySet()) {
             result.add(cache.get(key));
         }
@@ -76,7 +74,7 @@ public class BaseCacheDao<T extends UniqueId> implements GenericDAO<T, String> {
 
 
     public T update(T t) {
-        return cache.put(t.getId(), t);
+        return (T) cacheProvider.getCache(persistentClass).put(t.getId(), t);
     }
 
     protected Class<? extends UniqueId> getPersistentClass() {
