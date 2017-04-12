@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.music.library.dao;
+package cz.muni.fi.pv243.music.library.dao.jpa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

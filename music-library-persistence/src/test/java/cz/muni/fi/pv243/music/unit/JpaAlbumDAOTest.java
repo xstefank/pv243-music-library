@@ -1,7 +1,7 @@
-package cz.muni.fi.pv243.music;
+package cz.muni.fi.pv243.music.unit;
 
-import cz.muni.fi.pv243.music.library.dao.AlbumDAO;
-import cz.muni.fi.pv243.music.library.dao.AlbumDAOImpl;
+import cz.muni.fi.pv243.music.library.dao.jpa.JpaAlbumDAO;
+import cz.muni.fi.pv243.music.library.dao.jpa.JpaAlbumDAOImpl;
 import cz.muni.fi.pv243.music.library.entity.Album;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,13 +18,13 @@ import javax.persistence.EntityManager;
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
 @RunWith(MockitoJUnitRunner.class)
-public class AlbumDAOTest {
+public class JpaAlbumDAOTest {
 
     @Mock
     private EntityManager entityManager;
 
     @InjectMocks
-    private AlbumDAO albumDAO = new AlbumDAOImpl();
+    private JpaAlbumDAO jpaAlbumDAO = new JpaAlbumDAOImpl();
 
     private Album albumStub;
 
@@ -35,13 +35,13 @@ public class AlbumDAOTest {
     }
 
     @Test
-    public void testCreateValid() {
-        albumDAO.create(albumStub);
+    public void testCreateValidNoException() {
+        jpaAlbumDAO.create(albumStub);
     }
 
     @Test
     public void testFindValidId() {
-        Album result = albumDAO.find(1L);
+        Album result = jpaAlbumDAO.find(1L);
         
         Assert.assertEquals(albumStub, result);
     }

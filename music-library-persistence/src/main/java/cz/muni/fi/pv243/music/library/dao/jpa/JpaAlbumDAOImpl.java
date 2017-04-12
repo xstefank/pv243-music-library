@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.music.library.dao;
+package cz.muni.fi.pv243.music.library.dao.jpa;
 
 import cz.muni.fi.pv243.music.library.dao.qualifier.JPADAO;
 import cz.muni.fi.pv243.music.library.entity.Album;
@@ -10,7 +10,7 @@ import java.util.List;
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
 @JPADAO
-public class AlbumDAOImpl extends BaseJPADAO implements AlbumDAO {
+public class JpaAlbumDAOImpl extends BaseJPADAO implements JpaAlbumDAO {
 
     @Override
     public void create(Album album) {
