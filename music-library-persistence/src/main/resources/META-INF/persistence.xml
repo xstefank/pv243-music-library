@@ -24,7 +24,17 @@
       <!-- If you are running in a production environment, add a managed
          data source, this example data source is just for development and testing! -->
       <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+
+      <class>cz.muni.fi.pv243.music.library.entity.Album</class>
+      <class>cz.muni.fi.pv243.music.library.entity.Song</class>
+      <class>cz.muni.fi.pv243.music.library.entity.Artist</class>
+      <class>cz.muni.fi.pv243.music.library.entity.Genre</class>
+      <class>cz.muni.fi.pv243.music.library.entity.User</class>
+
       <properties>
+         <!--TODO-->
+         <!--<property name="hibernate.archive.autodetection" value="class, hbm"/>-->
+
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
          <property name="hibernate.show_sql" value="false" />
