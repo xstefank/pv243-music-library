@@ -15,7 +15,6 @@ import java.util.List;
 public class Album implements UniqueId {
 
     @Id
-    @Field
     private String id;
 
     @Field
