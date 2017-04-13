@@ -1,6 +1,7 @@
 package cz.muni.fi.pv243.music.library.dao.cache;
 
 import cz.muni.fi.pv243.music.library.dao.GenericDAO;
+import cz.muni.fi.pv243.music.library.entity.Album;
 import cz.muni.fi.pv243.music.library.entity.UniqueId;
 import cz.muni.fi.pv243.music.library.util.IdGenerator;
 import org.infinispan.Cache;

@@ -47,8 +47,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-parent</artifactId>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>wildfly-javaee7-with-tools</artifactId>
                 <version>10.1.0.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
