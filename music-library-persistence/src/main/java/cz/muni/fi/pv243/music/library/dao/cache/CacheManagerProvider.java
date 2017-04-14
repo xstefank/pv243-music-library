@@ -30,39 +30,35 @@ public class CacheManagerProvider {
     @Produces
     public EmbeddedCacheManager getCacheContainer() {
         if (manager == null) {
-//            GlobalConfiguration glob = new GlobalConfigurationBuilder()
-//                    .clusteredDefault().globalJmxStatistics().enable()
-//                    .build();
-//
-//            Configuration defaultConfig = new ConfigurationBuilder()
-//                    .transaction().transactionMode(TransactionMode.TRANSACTIONAL)
-//                    .build();
-//
-//            JpaStoreConfigurationBuilder jpaConfig = new ConfigurationBuilder()
-//                    .transaction().transactionMode(TransactionMode.TRANSACTIONAL)
-//                    .persistence().addStore(JpaStoreConfigurationBuilder.class)
-//                    .persistenceUnitName("primary")
-//                    .preload(true)
-//                    .shared(false)
-//                    .fetchPersistentState(true)
-//                    .ignoreModifications(false)
-//                    .purgeOnStartup(false);
-
-            Configuration cacheConfig = new ConfigurationBuilder().persistence()
-                    .addStore(JpaStoreConfigurationBuilder.class)
-                    .persistenceUnitName("org.infinispan.loaders.jpa.configurationTest")
-                    .entityClass(User.class)
+            GlobalConfiguration glob = new GlobalConfigurationBuilder()
+                    .clusteredDefault().globalJmxStatistics().enable()
                     .build();
 
+            Configuration defaultConfig = new ConfigurationBuilder()
+                    .transaction().transactionMode(TransactionMode.NON_TRANSACTIONAL).autoCommit(false)
+                    .build();
 
-            manager = new DefaultCacheManager();
+            JpaStoreConfigurationBuilder jpaConfig = new ConfigurationBuilder()
+                    .transaction().transactionMode(TransactionMode.NON_TRANSACTIONAL).autoCommit(false)
+                    .persistence().addStore(JpaStoreConfigurationBuilder.class)
+                    .persistenceUnitName("primary")
+                    .preload(true);
+
+//            Configuration cacheConfig = new ConfigurationBuilder().persistence()
+//                    .addStore(JpaStoreConfigurationBuilder.class)
+//                    .persistenceUnitName("primary")
+//                    .entityClass(User.class)
+//                    .build();
+
+
+            manager = new DefaultCacheManager(glob, defaultConfig);
 
             //define all caches - one for every entity
-            manager.defineConfiguration(User.class.getSimpleName(), cacheConfig);
-//            manager.defineConfiguration(Song.class.getSimpleName(), jpaConfig.entityClass(Song.class).build());
-//            manager.defineConfiguration(Genre.class.getSimpleName(), jpaConfig.entityClass(Genre.class).build());
-//            manager.defineConfiguration(Artist.class.getSimpleName(), jpaConfig.entityClass(Artist.class).build());
-//            manager.defineConfiguration(Album.class.getSimpleName(), jpaConfig.entityClass(Album.class).build());
+            manager.defineConfiguration(User.class.getSimpleName(), jpaConfig.entityClass(Song.class).build());
+            manager.defineConfiguration(Song.class.getSimpleName(), jpaConfig.entityClass(Song.class).build());
+            manager.defineConfiguration(Genre.class.getSimpleName(), jpaConfig.entityClass(Genre.class).build());
+            manager.defineConfiguration(Artist.class.getSimpleName(), jpaConfig.entityClass(Artist.class).build());
+            manager.defineConfiguration(Album.class.getSimpleName(), jpaConfig.entityClass(Album.class).build());
             manager.start();
         }
         return manager;

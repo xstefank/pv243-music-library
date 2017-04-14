@@ -30,6 +30,9 @@
       <class>cz.muni.fi.pv243.music.library.entity.Artist</class>
       <class>cz.muni.fi.pv243.music.library.entity.Genre</class>
       <class>cz.muni.fi.pv243.music.library.entity.User</class>
+      <class>org.infinispan.persistence.jpa.impl.MetadataEntity</class>
+      <class>org.infinispan.persistence.jpa.impl.MetadataEntityKey</class>
+
 
       <properties>
          <!--TODO-->

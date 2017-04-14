@@ -31,8 +31,9 @@ public class BaseCacheDao<T extends UniqueId> implements GenericDAO<T, String> {
 
     private Class<? extends UniqueId> persistentClass;
 
-    public BaseCacheDao() {
-        this.persistentClass = getPersistentClass();
+
+    public BaseCacheDao(Class<T> persistentClass) {
+        this.persistentClass = persistentClass;
     }
 
     public void create(T t) {

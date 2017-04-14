@@ -14,20 +14,14 @@ import java.util.*;
  */
 @CacheDAO
 @ApplicationScoped
-public class AlbumDaoCacheImpl extends BaseCacheDao<Album> implements AlbumDAO {
+public class GenreDaoCacheImpl extends BaseCacheDao<Genre> implements GenreDAO {
 
-    public AlbumDaoCacheImpl(){
-        super(Album.class);
+    public GenreDaoCacheImpl(){
+        super(Genre.class);
     }
 
     @Override
-    public List<Album> searchByTitle(String titleFragment) {
-        //TODO insert query
-        return null;
-    }
-
-    @Override
-    public List<Album> getAlbumSample(int count) {
+    public List<Genre> searchByTitle(String titleFragment) {
         //TODO insert query
         return null;
     }

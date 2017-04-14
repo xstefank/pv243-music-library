@@ -12,22 +12,22 @@ import java.util.*;
 /**
  * Created by mstyk on 4/12/17.
  */
-@Path("/albums")
-public class AlbumEndpoint {
+@Path("/genres")
+public class GenreEndpoint {
 
     @CacheDAO
     @Inject
-    AlbumDAO albumDAO;
+    GenreDAO genreDAO;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Album> getAll() {
-        return albumDAO.findAll();
+    public List<Genre> getAll() {
+        return genreDAO.findAll();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createAlbum(Album album) {
-        albumDAO.create(album);
+    public void createGenre(Genre genre) {
+        genreDAO.create(genre);
     }
 }
