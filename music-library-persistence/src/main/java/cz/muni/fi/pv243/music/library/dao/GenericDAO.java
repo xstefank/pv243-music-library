@@ -1,13 +1,13 @@
 package cz.muni.fi.pv243.music.library.dao;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
 public interface GenericDAO<T, U> {
 
-    void create(T t);
+    T create(T t);
 
     void remove(U id);
 

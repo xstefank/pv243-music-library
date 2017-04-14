@@ -1,20 +1,18 @@
 package cz.muni.fi.pv243.music.library.entity;
 
 import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Indexed
-public class Song implements UniqueId{
+public class Song {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Field(analyze = Analyze.YES, index = Index.YES)
@@ -42,7 +40,7 @@ public class Song implements UniqueId{
     public Song() {
     }
 
-    public Song(String id) {
+    public Song(Long id) {
         this.id = id;
     }
 
@@ -50,11 +48,11 @@ public class Song implements UniqueId{
         return title;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -99,9 +97,9 @@ public class Song implements UniqueId{
     }
 
     public void setAlbum(Album album) {
-        if(this.album == album) {
+        if (this.album == album) {
             return;
-        } else if(album != null) {
+        } else if (album != null) {
             album.addSong(this);
         } else if (this.album != null) {
             this.album.removeSong(this);
@@ -139,7 +137,8 @@ public class Song implements UniqueId{
         if (Double.compare(song.getBitrate(), bitrate) != 0) return false;
         if (title != null ? !title.equals(song.getTitle()) : song.getTitle() != null) return false;
         if (commentary != null ? !commentary.equals(song.getCommentary()) : song.getCommentary() != null) return false;
-        if (youtubeLink != null ? !youtubeLink.equals(song.getYoutubeLink()) : song.getYoutubeLink()!= null) return false;
+        if (youtubeLink != null ? !youtubeLink.equals(song.getYoutubeLink()) : song.getYoutubeLink() != null)
+            return false;
         if (album != null ? !album.equals(song.getAlbum()) : song.getAlbum() != null) return false;
         if (artist != null ? !artist.equals(song.getArtist()) : song.getArtist() != null) return false;
         return !(genre != null ? !genre.equals(song.getGenre()) : song.getGenre() != null);

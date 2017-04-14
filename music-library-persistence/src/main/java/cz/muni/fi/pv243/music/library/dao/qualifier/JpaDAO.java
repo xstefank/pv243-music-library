@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.music.library.dao.qualifier;
 
-import javax.inject.Qualifier;
+import javax.inject.*;
 import java.lang.annotation.*;
 
 /**
@@ -13,5 +13,5 @@ import java.lang.annotation.*;
         ElementType.PARAMETER,
         ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CacheDAO {
+public @interface JpaDAO {
 }

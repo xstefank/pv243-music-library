@@ -1,7 +1,7 @@
 package cz.muni.fi.pv243.music.library.rest;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
 
 /**
  * Created by mstyk on 4/11/17.

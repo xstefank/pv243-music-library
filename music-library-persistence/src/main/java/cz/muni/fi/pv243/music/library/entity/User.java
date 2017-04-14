@@ -9,10 +9,11 @@ import javax.validation.constraints.*;
 @Entity
 @Indexed
 @Table(name = "Users")
-public class User implements UniqueId {
+public class User {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(nullable = false, unique = true)
@@ -36,12 +37,16 @@ public class User implements UniqueId {
     public User() {
     }
 
-    public User(String id) {
+    public User(Long id) {
         this.id = id;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -124,7 +129,4 @@ public class User implements UniqueId {
         return true;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 }

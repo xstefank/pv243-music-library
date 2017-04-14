@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by mstyk on 4/14/17.
  */
-public interface GenreDAO extends GenericDAO<Genre, String> {
+public interface GenreDAO extends GenericDAO<Genre, Long> {
 
     /**
      * Returns all genres containing given title fragment in their title

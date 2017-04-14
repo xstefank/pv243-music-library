@@ -1,26 +1,19 @@
 package cz.muni.fi.pv243.music.library.entity;
 
 import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.util.*;
 
 @Entity
 @Indexed
-public class Artist implements UniqueId {
+public class Artist {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(nullable = false, unique = true)
@@ -37,7 +30,7 @@ public class Artist implements UniqueId {
         this.songs = new ArrayList<>();
     }
 
-    public Artist(String id) {
+    public Artist(Long id) {
         this();
         this.id = id;
     }
@@ -50,11 +43,11 @@ public class Artist implements UniqueId {
         this.songs = songs;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

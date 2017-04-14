@@ -1,44 +1,40 @@
 package cz.muni.fi.pv243.music.library.entity;
 
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.DateBridge;
-import org.hibernate.search.annotations.Field;
+import org.apache.lucene.analysis.core.*;
+import org.apache.lucene.analysis.standard.*;
+import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
-import org.hibernate.search.annotations.Resolution;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.util.*;
 
+
+@AnalyzerDef(name = "myAnalyzer",
+        tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+        filters = {
+                @TokenFilterDef(factory = StandardFilterFactory.class),
+                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                @TokenFilterDef(factory = StopFilterFactory.class),
+        }
+)
 @Entity
 @Indexed
-public class Album implements UniqueId {
+public class Album {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(nullable = false, unique = true)
-    @Field(analyze = Analyze.YES, index = Index.YES)
+    @Field(analyze = Analyze.YES, index = Index.YES, analyzer = @Analyzer(definition = "myAnalyzer"))
     private String title;
 
     @Field(analyze = Analyze.NO, index = Index.YES)
     private String commentary;
 
     @Temporal(TemporalType.DATE)
-    @Field(analyze = Analyze.NO, index = Index.YES)
-    @DateBridge(resolution = Resolution.YEAR)
     private Date dateOfRelease;
 
     @Lob
@@ -47,22 +43,22 @@ public class Album implements UniqueId {
     private String albumArtMimeType;
 
     @IndexedEmbedded
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private List<Song> songs = new ArrayList<>();
 
     public Album() {
     }
 
-    public Album(String id) {
+    public Album(Long id) {
         this();
         this.id = id;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

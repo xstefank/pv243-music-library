@@ -1,18 +1,18 @@
 package cz.muni.fi.pv243.music.library.entity;
 
 import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Indexed
-public class Genre implements UniqueId {
+public class Genre {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(nullable = false, unique = true)
@@ -22,15 +22,15 @@ public class Genre implements UniqueId {
     public Genre() {
     }
 
-    public Genre(String id) {
+    public Genre(Long id) {
         this.id = id;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

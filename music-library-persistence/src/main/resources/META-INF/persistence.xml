@@ -16,31 +16,25 @@
     limitations under the License.
 -->
 <persistence version="2.1"
-   xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
         http://xmlns.jcp.org/xml/ns/persistence
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-   <persistence-unit name="primary" transaction-type="RESOURCE_LOCAL">
-      <!-- If you are running in a production environment, add a managed
-         data source, this example data source is just for development and testing! -->
-      <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+    <persistence-unit name="primary" transaction-type="JTA">
+        <!-- If you are running in a production environment, add a managed
+           data source, this example data source is just for development and testing! -->
+        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
 
-      <class>cz.muni.fi.pv243.music.library.entity.Album</class>
-      <class>cz.muni.fi.pv243.music.library.entity.Song</class>
-      <class>cz.muni.fi.pv243.music.library.entity.Artist</class>
-      <class>cz.muni.fi.pv243.music.library.entity.Genre</class>
-      <class>cz.muni.fi.pv243.music.library.entity.User</class>
-      <class>org.infinispan.persistence.jpa.impl.MetadataEntity</class>
-      <class>org.infinispan.persistence.jpa.impl.MetadataEntityKey</class>
+        <class>cz.muni.fi.pv243.music.library.entity.Album</class>
+        <class>cz.muni.fi.pv243.music.library.entity.Song</class>
+        <class>cz.muni.fi.pv243.music.library.entity.Artist</class>
+        <class>cz.muni.fi.pv243.music.library.entity.Genre</class>
+        <class>cz.muni.fi.pv243.music.library.entity.User</class>
 
-
-      <properties>
-         <!--TODO-->
-         <!--<property name="hibernate.archive.autodetection" value="class, hbm"/>-->
-
-         <!-- Properties for Hibernate -->
-         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-         <property name="hibernate.show_sql" value="false" />
-      </properties>
-   </persistence-unit>
+        <properties>
+            <!-- Properties for Hibernate -->
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.show_sql" value="false"/>
+        </properties>
+    </persistence-unit>
 </persistence>

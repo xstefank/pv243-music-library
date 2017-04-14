@@ -15,7 +15,7 @@ import java.util.*;
 @Path("/genres")
 public class GenreEndpoint {
 
-    @CacheDAO
+    @JpaDAO
     @Inject
     GenreDAO genreDAO;
 
