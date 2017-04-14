@@ -1,12 +1,13 @@
 package cz.muni.fi.pv243.music.library.rest;
 
-import cz.muni.fi.pv243.music.library.entity.*;
-import cz.muni.fi.pv243.music.library.service.*;
+import cz.muni.fi.pv243.music.library.entity.Album;
+import cz.muni.fi.pv243.music.library.service.AlbumService;
 
-import javax.inject.*;
+import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import java.util.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Created by mstyk on 4/12/17.
@@ -26,7 +27,7 @@ public class AlbumEndpoint {
         } else {
             albums = albumService.searchByTitle(title);
         }
-        return Response.status(Response.Status.OK).entity(albums).build();
+        return Response.ok(albums).build();
     }
 
     @GET
@@ -34,30 +35,51 @@ public class AlbumEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("id") Long id) {
         Album album = albumService.findById(id);
-        return Response.status(Response.Status.OK).entity(album).build();
+        return Response.ok(album).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Album createAlbum(Album album) {
-        return albumService.create(album);
+    public Response createAlbum(Album album) {
+        Response.ResponseBuilder builder;
+        try {
+            Album created = albumService.create(album);
+            builder = Response.ok(created);
+        } catch (Exception e) {
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
+        }
+        return builder.build();
     }
-
     @DELETE
     @Path("{id}")
-    public void removeAlbum(@PathParam("id") Long id) throws Exception {
+    public Response removeAlbum(@PathParam("id") Long id) throws Exception {
+        Response.ResponseBuilder builder;
         Album album = albumService.findById(id);
-        albumService.remove(album);
+        try {
+            albumService.remove(album);
+            builder = Response.ok();
+        } catch (Exception e) {
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
+        }
+        return builder.build();
     }
 
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Album update(@PathParam("id") Long id, Album album) {
-        //TODO
-        return null;
+    public Response update(@PathParam("id") Long id, Album album) {
+        Response.ResponseBuilder builder;
+        Album oldAlbum = albumService.findById(id);
+        album.setId(oldAlbum.getId());
+        try {
+            Album updated = albumService.update(album);
+            builder = Response.ok(updated);
+        } catch (Exception e) {
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
+        }
+        return builder.build();
     }
 
 }
