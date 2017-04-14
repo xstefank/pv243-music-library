@@ -1,15 +1,13 @@
 package cz.muni.fi.pv243.music.library.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
+@Indexed
 @Table(name = "Users")
 public class User implements UniqueId {
 
@@ -18,16 +16,19 @@ public class User implements UniqueId {
 
     @NotNull
     @Column(nullable = false, unique = true)
-    @Pattern(regexp=".+@.+\\....?")
+    @Pattern(regexp = ".+@.+\\....?")
+    @Field(analyze = Analyze.NO, index = Index.YES)
     private String email;
 
     @NotNull
     private String passwordHash;
 
     @NotNull
+    @Field(analyze = Analyze.NO, index = Index.YES)
     private String firstName;
 
     @NotNull
+    @Field(analyze = Analyze.NO, index = Index.YES)
     private String lastName;
 
     private boolean admin;
@@ -98,26 +99,26 @@ public class User implements UniqueId {
         if (obj == null) {
             return false;
         }
-        if(this == obj){
+        if (this == obj) {
             return true;
         }
         if (!(obj instanceof User)) {
             return false;
         }
         final User other = (User) obj;
-        if((email != null) ? !email.equals(other.getEmail()): other.getEmail()!= null){
+        if ((email != null) ? !email.equals(other.getEmail()) : other.getEmail() != null) {
             return false;
         }
 
-        if((passwordHash != null) ? !passwordHash.equals(other.getPasswordHash()): other.getPasswordHash()!= null){
+        if ((passwordHash != null) ? !passwordHash.equals(other.getPasswordHash()) : other.getPasswordHash() != null) {
             return false;
         }
 
-        if((firstName != null) ? !firstName.equals(other.getFirstName()): other.getFirstName()!= null){
+        if ((firstName != null) ? !firstName.equals(other.getFirstName()) : other.getFirstName() != null) {
             return false;
         }
 
-        if((lastName != null) ? !lastName.equals(other.getLastName()): other.getLastName()!= null){
+        if ((lastName != null) ? !lastName.equals(other.getLastName()) : other.getLastName() != null) {
             return false;
         }
         return true;

@@ -1,5 +1,7 @@
 package cz.muni.fi.pv243.music.library.entity;
 
+import org.hibernate.search.annotations.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,12 +10,14 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Indexed
 public class Song implements UniqueId{
 
     @Id
     private String id;
 
     @NotNull
+    @Field(analyze = Analyze.YES, index = Index.YES)
     private String title;
 
     private String commentary;

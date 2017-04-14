@@ -28,24 +28,22 @@ public class Album implements UniqueId {
     @Id
     private String id;
 
-    @Field
     @NotNull
     @Column(nullable = false, unique = true)
+    @Field(analyze = Analyze.YES, index = Index.YES)
     private String title;
 
-    @Field(analyze = Analyze.NO)
+    @Field(analyze = Analyze.NO, index = Index.YES)
     private String commentary;
 
-    @Field(analyze = Analyze.NO)
-    @DateBridge(resolution = Resolution.DAY)
     @Temporal(TemporalType.DATE)
+    @Field(analyze = Analyze.NO, index = Index.YES)
+    @DateBridge(resolution = Resolution.YEAR)
     private Date dateOfRelease;
 
     @Lob
-    @Field(analyze = Analyze.NO, index = Index.NO)
     private byte[] albumArt;
 
-    @Field(analyze = Analyze.NO, index = Index.NO)
     private String albumArtMimeType;
 
     @IndexedEmbedded

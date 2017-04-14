@@ -1,11 +1,14 @@
 package cz.muni.fi.pv243.music.library.entity;
 
+import org.hibernate.search.annotations.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Indexed
 public class Genre implements UniqueId {
 
     @Id
@@ -13,6 +16,7 @@ public class Genre implements UniqueId {
 
     @NotNull
     @Column(nullable = false, unique = true)
+    @Field(analyze = Analyze.NO, index = Index.YES)
     private String title;
 
     public Genre() {

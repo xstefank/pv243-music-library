@@ -1,5 +1,7 @@
 package cz.muni.fi.pv243.music.library.entity;
 
+import org.hibernate.search.annotations.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Indexed
 public class Artist implements UniqueId {
 
     @Id
@@ -21,6 +24,7 @@ public class Artist implements UniqueId {
 
     @NotNull
     @Column(nullable = false, unique = true)
+    @Field(analyze = Analyze.NO, index = Index.YES)
     private String artistName;
 
     @Temporal(TemporalType.DATE)
