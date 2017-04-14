@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.music.library.rest;
+package cz.muni.fi.pv243.music.library.rest.endpoint;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;

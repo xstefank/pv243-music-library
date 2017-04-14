@@ -6,6 +6,7 @@ import java.util.*;
 
 /**
  * Created by mstyk on 4/14/17.
+ *
  */
 public interface AlbumService {
 

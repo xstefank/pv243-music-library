@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.music.library.rest;
+package cz.muni.fi.pv243.music.library.rest.endpoint;
 
 import cz.muni.fi.pv243.music.library.dao.*;
 import cz.muni.fi.pv243.music.library.dao.qualifier.*;

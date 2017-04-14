@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.music.library.rest;
+package cz.muni.fi.pv243.music.library.rest.endpoint;
 
 import cz.muni.fi.pv243.music.library.entity.Album;
 import cz.muni.fi.pv243.music.library.service.AlbumService;
