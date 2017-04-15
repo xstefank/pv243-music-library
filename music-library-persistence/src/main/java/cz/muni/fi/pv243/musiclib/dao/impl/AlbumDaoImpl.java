@@ -2,6 +2,7 @@ package cz.muni.fi.pv243.musiclib.dao.impl;
 
 import cz.muni.fi.pv243.musiclib.dao.AlbumDAO;
 import cz.muni.fi.pv243.musiclib.entity.Album;
+import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.util.LuceneQueryUtil;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
@@ -31,6 +32,17 @@ public class AlbumDaoImpl extends GenericDaoImpl<Album, Long> implements AlbumDA
                 .createFuzzyFieldQuery(fullTextEntityManager, Album.class, "title", titleFragment));
 
         return jpaQuery.getResultList();
+    }
+
+    @Override
+    public List<Album> searchByArtist(Artist artist) {
+        if (artist == null) {
+            throw new IllegalArgumentException("artist cannot be null");
+        }
+
+        TypedQuery<Album> q = em.createQuery("SELECT a FROM Album a WHERE a.artist = :artistId",
+                Album.class).setParameter("artistId", artist);
+        return q.getResultList();
     }
 
     @Override

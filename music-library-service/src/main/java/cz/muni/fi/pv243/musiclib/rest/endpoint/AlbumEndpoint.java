@@ -24,7 +24,7 @@ import java.util.List;
 public class AlbumEndpoint {
 
     @Inject
-    AlbumService albumService;
+    private AlbumService albumService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

@@ -19,6 +19,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -47,6 +48,9 @@ public class Album {
     @Column(nullable = false, unique = true)
     @Field(analyze = Analyze.YES, index = Index.YES)
     private String title;
+
+    @ManyToOne
+    private Artist artist;
 
     @Field(analyze = Analyze.NO, index = Index.YES)
     private String commentary;
@@ -83,6 +87,14 @@ public class Album {
         this.title = title;
     }
 
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
     public String getCommentary() {
         return commentary;
     }
@@ -116,14 +128,13 @@ public class Album {
     }
 
 
-
     @Override
     public int hashCode() {
         int hash = 5;
         hash = 53 * hash + ((title == null) ? 0 : title.hashCode());
         hash = 53 * hash + ((commentary == null) ? 0 : commentary.hashCode());
+        hash = 53 * hash + ((artist == null) ? 0 : artist.hashCode());
         hash = 53 * hash + ((dateOfRelease == null) ? 0 : dateOfRelease.hashCode());
-        hash = 53 * hash + ((albumArtMimeType == null) ? 0 : albumArtMimeType.hashCode());
         return hash;
     }
 
@@ -147,17 +158,14 @@ public class Album {
             return false;
         }
 
+        if ((artist != null) ? !artist.equals(other.getArtist()) : other.getArtist() != null) {
+            return false;
+        }
+
         if ((dateOfRelease != null) ? !dateOfRelease.equals(other.getDateOfRelease()) : other.getDateOfRelease() != null) {
             return false;
         }
 
-        if ((albumArt != null) ? !albumArt.equals(other.getAlbumArt()) : other.getAlbumArt() != null) {
-            return false;
-        }
-
-        if ((albumArtMimeType != null) ? !albumArtMimeType.equals(other.getAlbumArtMimeType()) : other.getAlbumArtMimeType() != null) {
-            return false;
-        }
         return true;
     }
 }

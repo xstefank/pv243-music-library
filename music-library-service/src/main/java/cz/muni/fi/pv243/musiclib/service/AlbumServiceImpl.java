@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.musiclib.service;
 import cz.muni.fi.pv243.musiclib.dao.AlbumDAO;
 import cz.muni.fi.pv243.musiclib.dao.SongDao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
+import cz.muni.fi.pv243.musiclib.entity.Artist;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -43,6 +44,11 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<Album> searchByTitle(String title) {
         return albumDao.searchByTitle(title);
+    }
+
+    @Override
+    public List<Album> searchByArtist(Artist artist) {
+        return albumDao.searchByArtist(artist);
     }
 
     @Override
