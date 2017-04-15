@@ -7,7 +7,7 @@ INSERT INTO Genre (title) VALUES ('Funk')
 INSERT INTO Genre (title) VALUES ('Metal')
 INSERT INTO Genre (title) VALUES ('Country')
 
-INSERT INTO Artist (artistName, dateOfBirth) VALUES('Linkin Park', '1996-06-20')
+INSERT INTO Artist (name, dateOfBirth) VALUES('Linkin Park', '1996-06-20')
 
 INSERT INTO Album (title, commentary, dateOfRelease) VALUES ('Living Things', 'Living Things is the fifth studio album by ', '2012-06-20')
 

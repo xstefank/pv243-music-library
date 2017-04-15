@@ -26,7 +26,7 @@ public class Artist {
     private Long id;
 
     @NotNull
-    @Column(name = "artistName", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     @Field(analyze = Analyze.YES, index = Index.YES)
     private String name;
 
