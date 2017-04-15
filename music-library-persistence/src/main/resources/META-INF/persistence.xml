@@ -35,6 +35,12 @@
             <!-- Properties for Hibernate -->
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.search.default.directory_provider"
+                      value="filesystem"/>
+            <!--Lucene is not deleting entries on the DB drop, so on the app restart
+            previously used indexed create new entries in this directory so moving into target folder-->
+            <property name="hibernate.search.default.indexBase"
+                      value="${build.directory}/lucene/indexes"/>
         </properties>
     </persistence-unit>
 </persistence>
