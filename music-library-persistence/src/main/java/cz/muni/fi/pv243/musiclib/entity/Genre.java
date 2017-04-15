@@ -1,6 +1,7 @@
 package cz.muni.fi.pv243.musiclib.entity;
 
 import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Indexed
+@Analyzer(definition = "entityAnalyzer")
 public class Genre {
 
     @Id
@@ -22,7 +24,7 @@ public class Genre {
 
     @NotNull
     @Column(nullable = false, unique = true)
-    @Field(analyze = Analyze.NO, index = Index.YES)
+    @Field(analyze = Analyze.YES, index = Index.YES)
     private String title;
 
     public Genre() {

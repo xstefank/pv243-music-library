@@ -3,25 +3,23 @@ package cz.muni.fi.pv243.musiclib.service;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.entity.Song;
+import cz.muni.fi.pv243.musiclib.service.generic.GenericCRUDService;
 
 import java.util.List;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
+ * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
-public interface AlbumService {
+public interface AlbumService extends GenericCRUDService<Album, Long> {
 
-    Album create(Album album);
-
-    Album update(Album album);
-
-    void remove(Album album);
-
-    Album findById(Long id);
-
+    /**
+     * Returns valid {@link Album} object for the given title
+     *
+     * @param title search string
+     * @return matched {@link Album} instances or empty list
+     */
     List<Album> searchByTitle(String title);
-
-    List<Album> findAll();
 
     /**
      * Adds a new song to the album

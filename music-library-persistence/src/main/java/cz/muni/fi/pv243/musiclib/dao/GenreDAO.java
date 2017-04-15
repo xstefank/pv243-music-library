@@ -10,10 +10,10 @@ import java.util.List;
 public interface GenreDAO extends GenericDAO<Genre, Long> {
 
     /**
-     * Returns all genres containing given title fragment in their title
+     * Returns all {@link Genre} containing the given title fragment in their title
      *
-     * @param titleFragment title fragment of genre to look for
-     * @return list of all genre entities containing given title fragment , empty if no such album exists
+     * @param titleFragment title fragment of the {@link Genre} to look for
+     * @return list of valid {@link Genre} entities or empty list
      */
     List<Genre> searchByTitle(String titleFragment);
 }

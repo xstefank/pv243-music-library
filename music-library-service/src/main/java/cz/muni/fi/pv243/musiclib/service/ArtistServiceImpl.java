@@ -41,7 +41,7 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public List<Artist> findByName(String name) {
+    public List<Artist> searchByName(String name) {
         return artistDao.searchByName(name);
     }
 

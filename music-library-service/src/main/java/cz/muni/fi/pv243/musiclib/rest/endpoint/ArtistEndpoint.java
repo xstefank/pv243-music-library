@@ -36,7 +36,7 @@ public class ArtistEndpoint {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getArtistByName(@QueryParam("name") String name) {
-        List<Artist> artists = artistService.findByName(name);
+        List<Artist> artists = artistService.searchByName(name);
         return Response.ok(artists).build();
     }
 

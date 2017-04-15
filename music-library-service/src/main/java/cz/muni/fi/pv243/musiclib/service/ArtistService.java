@@ -1,30 +1,21 @@
 package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.entity.Artist;
+import cz.muni.fi.pv243.musiclib.service.generic.GenericCRUDService;
 
 import java.util.List;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
-public interface ArtistService {
-
-    Artist create(Artist artist);
-
-    Artist update(Artist artist);
-
-    void remove(Artist artist);
-
-    Artist findById(Long id);
-
-    List<Artist> findByName(String name);
+public interface ArtistService extends GenericCRUDService<Artist, Long> {
 
     /**
-     * Returns all artists.
-     *
-     * @return list of all artists
+     * Returns {@link Artist} for the given name
+     * @param name search string
+     * @return list of valid {@link Artist} or empty list
      */
-    List<Artist> findAll();
+    List<Artist> searchByName(String name);
 
     /**
      * Get detailed biography of artist
