@@ -33,14 +33,14 @@ public class SongDaoImpl extends GenericDaoImpl<Song, Long> implements SongDao {
     }
 
     @Override
-    public List<Song> findByAlbum(Album album) {
+    public List<Song> searchByAlbum(Album album) {
         TypedQuery<Song> q = em.createQuery("SELECT s FROM Song s WHERE s.album = :albumId",
                 Song.class).setParameter("albumId", album);
         return q.getResultList();
     }
 
     @Override
-    public List<Song> findByArtist(Artist artist) {
+    public List<Song> searchByArtist(Artist artist) {
         if (artist == null) {
             throw new IllegalArgumentException("artist cannot be null");
         }
@@ -51,7 +51,7 @@ public class SongDaoImpl extends GenericDaoImpl<Song, Long> implements SongDao {
     }
 
     @Override
-    public List<Song> findByGenre(Genre genre) {
+    public List<Song> searchByGenre(Genre genre) {
         if (genre == null) {
             throw new IllegalArgumentException("genre cannot be null");
         }

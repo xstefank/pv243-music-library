@@ -14,9 +14,9 @@ public interface SongDao extends GenericDAO<Song, Long> {
 
     List<Song> searchByTitle(String titleFragment);
 
-    List<Song> findByAlbum(Album album);
+    List<Song> searchByAlbum(Album album);
 
-    List<Song> findByArtist(Artist artist);
+    List<Song> searchByArtist(Artist artist);
 
-    List<Song> findByGenre(Genre genre);
+    List<Song> searchByGenre(Genre genre);
 }
