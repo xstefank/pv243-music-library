@@ -1,6 +1,7 @@
 package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.dao.ArtistDao;
+import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.rest.client.LastFmRestClient;
 
@@ -16,6 +17,9 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Inject
     private ArtistDao artistDao;
+
+    @Inject
+    private AlbumService albumService;
 
     @Inject
     private LastFmRestClient lastFmClient;
@@ -58,5 +62,8 @@ public class ArtistServiceImpl implements ArtistService {
         return lastFmClient.getArtistBio(artist.getName());
     }
 
-
+    @Override
+    public List<Album> getAlbumsForId(Long id) {
+        return albumService.searchByArtist(findById(id));
+    }
 }

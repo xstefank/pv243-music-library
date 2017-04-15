@@ -56,8 +56,6 @@ public class AlbumServiceImpl implements AlbumService {
         return albumDao.findAll();
     }
 
-
-
     @Override
     public List<Album> getAlbumSample(int count) {
         if (count <= 0) {

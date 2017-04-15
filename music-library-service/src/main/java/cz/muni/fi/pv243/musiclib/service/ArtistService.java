@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.musiclib.service;
 
+import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.service.generic.GenericCRUDService;
 
@@ -24,5 +25,12 @@ public interface ArtistService extends GenericCRUDService<Artist, Long> {
      * @return artists bio
      */
     String fetchArtistsBio(Artist artist);
+
+    /**
+     * Retrieve the list of {@link Album} for the album
+     * @param id album id
+     * @return list of {@link Album} for artist or empty list
+     */
+    List<Album> getAlbumsForId(Long id);
 
 }

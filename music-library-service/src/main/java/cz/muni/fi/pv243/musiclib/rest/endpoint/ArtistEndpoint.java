@@ -2,7 +2,6 @@ package cz.muni.fi.pv243.musiclib.rest.endpoint;
 
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
-import cz.muni.fi.pv243.musiclib.service.AlbumService;
 import cz.muni.fi.pv243.musiclib.service.ArtistService;
 
 import javax.inject.Inject;
@@ -17,7 +16,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,9 +26,6 @@ public class ArtistEndpoint {
 
     @Inject
     private ArtistService artistService;
-
-    @Inject
-    private AlbumService albumService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,8 +53,7 @@ public class ArtistEndpoint {
     public Response getAlbums(@PathParam("id") Long id) {
         Response.ResponseBuilder builder;
         try {
-            Artist artist = artistService.findById(id);
-            Collection<Album> albums = albumService.searchByArtist(artist);
+            List<Album> albums = artistService.getAlbumsForId(id);
             builder = Response.ok(albums);
         } catch (Exception e) {
             builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
