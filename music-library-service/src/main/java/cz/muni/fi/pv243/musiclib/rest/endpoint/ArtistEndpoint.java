@@ -28,15 +28,13 @@ public class ArtistEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
-        List<Artist> artists = artistService.findAll();
-        return Response.ok(artists).build();
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getArtistByName(@QueryParam("name") String name) {
-        List<Artist> artists = artistService.searchByName(name);
+    public Response getArtists(@QueryParam("name") String name) {
+        List<Artist> artists;
+        if (name == null) {
+            artists = artistService.findAll();
+        } else {
+            artists = artistService.searchByName(name);
+        }
         return Response.ok(artists).build();
     }
 

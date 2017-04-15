@@ -28,15 +28,13 @@ public class AlbumEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
-        List<Album> albums = albumService.findAll();
-        return Response.ok(albums).build();
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAlbumByTitle(@QueryParam("title") String title) {
-        List<Album> albums = albumService.searchByTitle(title);
+    public Response getAlbums(@QueryParam("title") String title) {
+        List<Album> albums;
+        if (title == null) {
+            albums = albumService.findAll();
+        } else {
+            albums = albumService.searchByTitle(title);
+        }
         return Response.ok(albums).build();
     }
 

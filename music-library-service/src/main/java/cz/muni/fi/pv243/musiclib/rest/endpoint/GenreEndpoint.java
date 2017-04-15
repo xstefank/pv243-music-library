@@ -72,15 +72,13 @@ public class GenreEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllGenres() {
-        List<Genre> genres = genreService.findAll();
-        return Response.ok(genres).build();
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getGenreByTitle(@QueryParam("title") String title) {
-        List<Genre> genres = genreService.searchByTitle(title);
+        List<Genre> genres;
+        if (title == null) {
+            genres = genreService.findAll();
+        } else {
+            genres = genreService.searchByTitle(title);
+        }
         return Response.ok(genres).build();
     }
 
