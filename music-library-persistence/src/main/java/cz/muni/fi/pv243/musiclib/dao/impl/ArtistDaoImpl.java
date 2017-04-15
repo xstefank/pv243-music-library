@@ -22,15 +22,15 @@ public class ArtistDaoImpl extends GenericDaoImpl<Artist, Long> implements Artis
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Artist> searchByName(String artistNameFragment) {
-        if (artistNameFragment == null) {
+    public List<Artist> searchByName(String nameFragment) {
+        if (nameFragment == null) {
             throw new IllegalArgumentException("artistNameFragment cannot be null.");
         }
 
         FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
 
         javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(LuceneQueryUtil
-                .createFuzzyFieldQuery(fullTextEntityManager, Artist.class, "name"));
+                .createFuzzyFieldQuery(fullTextEntityManager, Artist.class, "name", nameFragment));
 
         return jpaQuery.getResultList();
     }

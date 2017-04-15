@@ -28,7 +28,7 @@ public class AlbumDaoImpl extends GenericDaoImpl<Album, Long> implements AlbumDA
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
 
         javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(LuceneQueryUtil
-                .createFuzzyFieldQuery(fullTextEntityManager, Album.class, "title"));
+                .createFuzzyFieldQuery(fullTextEntityManager, Album.class, "title", titleFragment));
 
         return jpaQuery.getResultList();
     }

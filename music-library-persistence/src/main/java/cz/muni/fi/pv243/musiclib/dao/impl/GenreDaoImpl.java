@@ -31,7 +31,7 @@ public class GenreDaoImpl extends GenericDaoImpl<Genre, Long> implements GenreDA
 
         FullTextEntityManager ftem = Search.getFullTextEntityManager(em);
         javax.persistence.Query jpaQuery = ftem.createFullTextQuery(LuceneQueryUtil
-                .createFuzzyFieldQuery(ftem, Genre.class, "title"));
+                .createFuzzyFieldQuery(ftem, Genre.class, "title", titleFragment));
 
         return jpaQuery.getResultList();
     }
