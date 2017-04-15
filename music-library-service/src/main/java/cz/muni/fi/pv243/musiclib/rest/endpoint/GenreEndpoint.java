@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
-@Path("/genres")
+@Path("/genre")
 public class GenreEndpoint {
 
     @Inject

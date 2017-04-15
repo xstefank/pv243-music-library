@@ -1,6 +1,7 @@
 package cz.muni.fi.pv243.musiclib.entity;
 
 import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Entity
 @Indexed
+@Analyzer(definition = "entityAnalyzer")
 public class Artist {
 
     @Id
@@ -28,8 +30,8 @@ public class Artist {
 
     @NotNull
     @Column(nullable = false, unique = true)
-    @Field(analyze = Analyze.NO, index = Index.YES)
-    private String artistName;
+    @Field(analyze = Analyze.YES, index = Index.YES)
+    private String name;
 
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
@@ -62,12 +64,12 @@ public class Artist {
         this.id = id;
     }
 
-    public String getArtistName() {
-        return artistName;
+    public String getName() {
+        return name;
     }
 
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getDateOfBirth() {
@@ -89,7 +91,7 @@ public class Artist {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 23 * hash + ((artistName == null) ? 0 : artistName.hashCode());
+        hash = 23 * hash + ((name == null) ? 0 : name.hashCode());
         hash = 23 * hash + ((dateOfBirth == null) ? 0 : dateOfBirth.hashCode());
         return hash;
     }
@@ -103,7 +105,7 @@ public class Artist {
             return false;
         }
         final Artist other = (Artist) obj;
-        if ((artistName != null) ? !artistName.equals(other.getArtistName()) : other.getArtistName() != null) {
+        if ((name != null) ? !name.equals(other.getName()) : other.getName() != null) {
             return false;
         }
         if ((dateOfBirth != null) ? !dateOfBirth.equals(other.getDateOfBirth()) : other.getDateOfBirth() != null) {

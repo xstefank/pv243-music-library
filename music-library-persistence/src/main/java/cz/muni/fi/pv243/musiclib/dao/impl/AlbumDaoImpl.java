@@ -2,9 +2,9 @@ package cz.muni.fi.pv243.musiclib.dao.impl;
 
 import cz.muni.fi.pv243.musiclib.dao.AlbumDAO;
 import cz.muni.fi.pv243.musiclib.entity.Album;
+import cz.muni.fi.pv243.musiclib.util.LuceneQueryUtil;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.TypedQuery;
@@ -26,19 +26,9 @@ public class AlbumDaoImpl extends GenericDaoImpl<Album, Long> implements AlbumDA
     @SuppressWarnings("unchecked")
     public List<Album> searchByTitle(String titleFragment) {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
-        QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-                .buildQueryBuilder().forEntity(Album.class).get();
-        org.apache.lucene.search.Query luceneQuery = qb
-                .keyword()
-                .fuzzy()
-                .withPrefixLength(1)
-                .withEditDistanceUpTo(2)
-                .onFields("title")
-                .matching(titleFragment)
-                .createQuery();
 
-        javax.persistence.Query jpaQuery =
-                fullTextEntityManager.createFullTextQuery(luceneQuery, Album.class);
+        javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(LuceneQueryUtil
+                .createFuzzyFieldQuery(fullTextEntityManager, Album.class, "title"));
 
         return jpaQuery.getResultList();
     }

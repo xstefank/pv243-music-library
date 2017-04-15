@@ -18,9 +18,9 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
- * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
+ * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
-@Path("/artists")
+@Path("/artist")
 public class ArtistEndpoint {
 
     @Inject
@@ -28,13 +28,15 @@ public class ArtistEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll(@QueryParam("name") String name) {
-        List<Artist> artists = null;
-        if (name == null) {
-            artists = artistService.findAll();
-        } else {
-           //TODO// albums = artistService.(title);
-        }
+    public Response getAll() {
+        List<Artist> artists = artistService.findAll();
+        return Response.ok(artists).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getArtistByName(@QueryParam("name") String name) {
+        List<Artist> artists = artistService.findByName(name);
         return Response.ok(artists).build();
     }
 

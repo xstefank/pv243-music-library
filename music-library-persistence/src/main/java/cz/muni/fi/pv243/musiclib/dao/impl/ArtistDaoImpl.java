@@ -2,13 +2,15 @@ package cz.muni.fi.pv243.musiclib.dao.impl;
 
 import cz.muni.fi.pv243.musiclib.dao.ArtistDao;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
+import cz.muni.fi.pv243.musiclib.util.LuceneQueryUtil;
+import org.hibernate.search.jpa.FullTextEntityManager;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
+ * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
 @ApplicationScoped
 @Transactional(value = Transactional.TxType.REQUIRED)
@@ -19,11 +21,17 @@ public class ArtistDaoImpl extends GenericDaoImpl<Artist, Long> implements Artis
     }
 
     @Override
-    public List<Artist> searchByArtistName(String artistNameFragment) {
+    @SuppressWarnings("unchecked")
+    public List<Artist> searchByName(String artistNameFragment) {
         if (artistNameFragment == null) {
             throw new IllegalArgumentException("artistNameFragment cannot be null.");
         }
-        return em.createQuery("SELECT m FROM Musician m WHERE UPPER(m.artistName) LIKE '%'||:artistNameFragment||'%'", Artist.class)
-                .setParameter("artistNameFragment", artistNameFragment.toUpperCase()).getResultList();
+
+        FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+
+        javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(LuceneQueryUtil
+                .createFuzzyFieldQuery(fullTextEntityManager, Artist.class, "name"));
+
+        return jpaQuery.getResultList();
     }
 }

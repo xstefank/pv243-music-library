@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 
-@AnalyzerDef(name = "myAnalyzer",
+@AnalyzerDef(name = "entityAnalyzer",
         tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
         filters = {
                 @TokenFilterDef(factory = StandardFilterFactory.class),
@@ -39,8 +39,10 @@ import java.util.List;
                 @TokenFilterDef(factory = StopFilterFactory.class),
         }
 )
+
 @Entity
 @Indexed
+@Analyzer(definition = "entityAnalyzer")
 public class Album {
 
     @Id
@@ -49,7 +51,7 @@ public class Album {
 
     @NotNull
     @Column(nullable = false, unique = true)
-    @Field(analyze = Analyze.YES, index = Index.YES, analyzer = @Analyzer(definition = "myAnalyzer"))
+    @Field(analyze = Analyze.YES, index = Index.YES)
     private String title;
 
     @Field(analyze = Analyze.NO, index = Index.YES)

@@ -5,16 +5,16 @@ import cz.muni.fi.pv243.musiclib.entity.Artist;
 import java.util.List;
 
 /**
- * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
+ * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
 public interface ArtistDao extends GenericDAO<Artist, Long> {
 
     /**
      * Returns all artists containing given artist name fragment in their name
      *
-     * @param artistNameFragment fragment of artist name to look for
-     * @return list of all musician entities containing given artist name fragment, empty if no such musician exists
+     * @param artistNameFragment fragment of the artist name to look for
+     * @return list of {@code {@link Artist}} valid entities or empty list
      */
-    List<Artist> searchByArtistName(String artistNameFragment);
+    List<Artist> searchByName(String artistNameFragment);
 
 }

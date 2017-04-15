@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
-@Path("/albums")
+@Path("/album")
 public class AlbumEndpoint {
 
     @Inject
@@ -28,20 +28,22 @@ public class AlbumEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll(@QueryParam("title") String title) {
-        List<Album> albums = null;
-        if (title == null) {
-            albums = albumService.findAll();
-        } else {
-            albums = albumService.searchByTitle(title);
-        }
+    public Response getAll() {
+        List<Album> albums = albumService.findAll();
         return Response.ok(albums).build();
     }
 
     @GET
-    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@PathParam("id") Long id) {
+    public Response getAlbumByTitle(@QueryParam("title") String title) {
+        List<Album> albums = albumService.searchByTitle(title);
+        return Response.ok(albums).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAlbumById(@PathParam("id") Long id) {
         Album album = albumService.findById(id);
         return Response.ok(album).build();
     }
@@ -59,6 +61,7 @@ public class AlbumEndpoint {
         }
         return builder.build();
     }
+
     @DELETE
     @Path("{id}")
     public Response removeAlbum(@PathParam("id") Long id) throws Exception {
@@ -77,7 +80,7 @@ public class AlbumEndpoint {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") Long id, Album album) {
+    public Response updateAlbum(@PathParam("id") Long id, Album album) {
         Response.ResponseBuilder builder;
         Album oldAlbum = albumService.findById(id);
         album.setId(oldAlbum.getId());

@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
+ * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
 @Stateless
 public class ArtistServiceImpl implements ArtistService {
@@ -41,16 +41,21 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
+    public List<Artist> findByName(String name) {
+        return artistDao.searchByName(name);
+    }
+
+    @Override
     public List<Artist> findAll() {
         return artistDao.findAll();
     }
 
     @Override
     public String fetchArtistsBio(Artist artist) {
-        if (artist == null || artist.getArtistName() == null) {
+        if (artist == null || artist.getName() == null) {
             throw new IllegalArgumentException("No artist name is specified in entity " + artist);
         }
-        return lastFmClient.getArtistBio(artist.getArtistName());
+        return lastFmClient.getArtistBio(artist.getName());
     }
 
 
