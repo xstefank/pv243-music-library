@@ -5,7 +5,7 @@ import cz.muni.fi.pv243.musiclib.entity.Artist;
 import java.util.List;
 
 /**
- * Created by mstyk on 4/14/17.
+ * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
 public interface ArtistDao extends GenericDAO<Artist, Long> {
 

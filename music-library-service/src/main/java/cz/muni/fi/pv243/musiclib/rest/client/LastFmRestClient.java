@@ -9,8 +9,9 @@ import javax.ws.rs.core.Response;
 import java.io.StringReader;
 
 /**
- * @author Martin Styk
- * @version 14.04.2017
+ * Access REST API endpoints of Last.fm
+ *
+ * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
 @RequestScoped
 public class LastFmRestClient {

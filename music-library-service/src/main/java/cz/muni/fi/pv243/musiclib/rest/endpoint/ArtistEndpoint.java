@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
- * Created by mstyk on 4/12/17.
+ * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
 @Path("/artists")
 public class ArtistEndpoint {

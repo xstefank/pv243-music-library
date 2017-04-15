@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by mstyk on 4/14/17.
+ * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
 @Stateless
 public class AlbumServiceImpl implements AlbumService {

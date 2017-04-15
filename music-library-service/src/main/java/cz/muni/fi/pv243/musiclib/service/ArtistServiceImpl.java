@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * Created by mstyk on 4/14/17.
+ * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
 @Stateless
 public class ArtistServiceImpl implements ArtistService {

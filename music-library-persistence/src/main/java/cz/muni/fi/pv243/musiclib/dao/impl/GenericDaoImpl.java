@@ -6,6 +6,9 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+/**
+ * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
+ */
 public abstract class GenericDaoImpl<T, U> implements GenericDAO<T, U> {
 
     @Inject

@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 /**
- * Created by mstyk on 4/14/17.
+ * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
 @ApplicationScoped
 @Transactional(value = Transactional.TxType.REQUIRED)

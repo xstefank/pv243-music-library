@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * Created by mstyk on 4/14/17.
+ * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
 @ApplicationScoped
 @Transactional(value = Transactional.TxType.REQUIRED)
@@ -40,7 +40,7 @@ public class SongDaoImpl extends GenericDaoImpl<Song, Long> implements SongDao {
     }
 
     @Override
-    public List<Song> findByMusician(Artist artist) {
+    public List<Song> findByArtist(Artist artist) {
         if (artist == null) {
             throw new IllegalArgumentException("artist cannot be null");
         }
