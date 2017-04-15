@@ -7,10 +7,10 @@ import java.util.List;
 /**
  * Created by mstyk on 4/14/17.
  *
- * Application name	Music Library
- API key	0af72b19227c2a416d268f2fb768218b
- Shared secret	19f5b60f2a6c29639e53a7bcb7277567
- Registered to	madki81
+ * Application name Music Library
+ * API key - 0af72b19227c2a416d268f2fb768218b
+ * Shared secret - 19f5b60f2a6c29639e53a7bcb7277567
+ * Registered to - madki81
  */
 public interface ArtistService {
 

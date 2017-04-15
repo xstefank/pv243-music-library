@@ -23,6 +23,7 @@ public class AlbumDaoImpl extends GenericDaoImpl<Album, Long> implements AlbumDA
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Album> searchByTitle(String titleFragment) {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
         QueryBuilder qb = fullTextEntityManager.getSearchFactory()
