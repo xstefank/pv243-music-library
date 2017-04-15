@@ -18,13 +18,6 @@ public interface SongDao extends GenericDAO<Song, Long> {
     List<Song> searchByTitle(String titleFragment);
 
     /**
-     * Returns all Songs in the DB
-     *
-     * @return all persisted Song entities
-     */
-    List<Song> findAll();
-
-    /**
      * Returns all songs for the given album
      *
      * @param album album to which songs belong

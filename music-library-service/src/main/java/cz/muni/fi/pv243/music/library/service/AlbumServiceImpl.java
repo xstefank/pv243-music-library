@@ -1,12 +1,17 @@
 package cz.muni.fi.pv243.music.library.service;
 
-import cz.muni.fi.pv243.music.library.dao.*;
-import cz.muni.fi.pv243.music.library.dao.qualifier.*;
-import cz.muni.fi.pv243.music.library.entity.*;
+import cz.muni.fi.pv243.music.library.dao.AlbumDAO;
+import cz.muni.fi.pv243.music.library.dao.SongDao;
+import cz.muni.fi.pv243.music.library.entity.Album;
+import cz.muni.fi.pv243.music.library.entity.Genre;
+import cz.muni.fi.pv243.music.library.entity.Song;
 
-import javax.ejb.*;
-import javax.inject.*;
-import java.util.*;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mstyk on 4/14/17.
@@ -15,11 +20,9 @@ import java.util.*;
 public class AlbumServiceImpl implements AlbumService {
 
     @Inject
-    @JpaDAO
     private AlbumDAO albumDao;
 
     @Inject
-    @JpaDAO
     private SongDao songDao;
 
     @Override

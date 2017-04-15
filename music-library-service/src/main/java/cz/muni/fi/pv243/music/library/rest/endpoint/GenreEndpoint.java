@@ -1,13 +1,16 @@
 package cz.muni.fi.pv243.music.library.rest.endpoint;
 
-import cz.muni.fi.pv243.music.library.dao.*;
-import cz.muni.fi.pv243.music.library.dao.qualifier.*;
-import cz.muni.fi.pv243.music.library.entity.*;
+import cz.muni.fi.pv243.music.library.dao.GenreDAO;
+import cz.muni.fi.pv243.music.library.entity.Genre;
 
-import javax.inject.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import java.util.*;
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  * Created by mstyk on 4/12/17.
@@ -15,7 +18,6 @@ import java.util.*;
 @Path("/genres")
 public class GenreEndpoint {
 
-    @JpaDAO
     @Inject
     GenreDAO genreDAO;
 

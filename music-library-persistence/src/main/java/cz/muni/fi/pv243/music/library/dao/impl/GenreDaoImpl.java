@@ -1,18 +1,16 @@
 package cz.muni.fi.pv243.music.library.dao.impl;
 
-import cz.muni.fi.pv243.music.library.dao.*;
-import cz.muni.fi.pv243.music.library.dao.qualifier.*;
-import cz.muni.fi.pv243.music.library.entity.*;
+import cz.muni.fi.pv243.music.library.dao.GenreDAO;
+import cz.muni.fi.pv243.music.library.entity.Genre;
 
-import javax.enterprise.context.*;
-import javax.persistence.*;
-import javax.transaction.*;
-import java.util.*;
+import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created by mstyk on 4/14/17.
  */
-@JpaDAO
 @ApplicationScoped
 @Transactional(value = Transactional.TxType.REQUIRED)
 public class GenreDaoImpl extends GenericDaoImpl<Genre, Long> implements GenreDAO {

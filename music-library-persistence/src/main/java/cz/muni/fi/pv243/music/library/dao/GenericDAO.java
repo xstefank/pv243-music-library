@@ -7,7 +7,7 @@ import java.util.*;
  */
 public interface GenericDAO<T, U> {
 
-    T create(T t);
+    T create(final T t);
 
     void remove(U id);
 
@@ -15,6 +15,6 @@ public interface GenericDAO<T, U> {
 
     List<T> findAll();
 
-    T update(T t);
+    T update(final T t);
 
 }

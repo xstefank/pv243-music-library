@@ -1,17 +1,15 @@
 package cz.muni.fi.pv243.music.library.dao.impl;
 
-import cz.muni.fi.pv243.music.library.dao.*;
-import cz.muni.fi.pv243.music.library.dao.qualifier.*;
-import cz.muni.fi.pv243.music.library.entity.*;
+import cz.muni.fi.pv243.music.library.dao.UserDao;
+import cz.muni.fi.pv243.music.library.entity.User;
 
-import javax.enterprise.context.*;
-import javax.persistence.*;
-import javax.transaction.*;
+import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 /**
  * Created by mstyk on 4/14/17.
  */
-@JpaDAO
 @ApplicationScoped
 @Transactional(value = Transactional.TxType.REQUIRED)
 public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao {

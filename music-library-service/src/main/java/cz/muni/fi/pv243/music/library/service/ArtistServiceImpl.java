@@ -1,7 +1,6 @@
 package cz.muni.fi.pv243.music.library.service;
 
 import cz.muni.fi.pv243.music.library.dao.ArtistDao;
-import cz.muni.fi.pv243.music.library.dao.qualifier.JpaDAO;
 import cz.muni.fi.pv243.music.library.entity.Artist;
 import cz.muni.fi.pv243.music.library.rest.client.LastFmRestClient;
 
@@ -16,7 +15,6 @@ import java.util.List;
 public class ArtistServiceImpl implements ArtistService {
 
     @Inject
-    @JpaDAO
     private ArtistDao artistDao;
 
     @Inject
