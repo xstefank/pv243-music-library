@@ -24,12 +24,6 @@ public class Song {
     @Field(analyze = Analyze.YES, index = Index.YES)
     private String title;
 
-    private String commentary;
-
-    private int positionInAlbum;
-
-    private double bitrate;
-
     private String youtubeLink;
 
     @ManyToOne
@@ -64,30 +58,6 @@ public class Song {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getCommentary() {
-        return commentary;
-    }
-
-    public void setCommentary(String commentary) {
-        this.commentary = commentary;
-    }
-
-    public int getPositionInAlbum() {
-        return positionInAlbum;
-    }
-
-    public void setPositionInAlbum(int positionInAlbum) {
-        this.positionInAlbum = positionInAlbum;
-    }
-
-    public double getBitrate() {
-        return bitrate;
-    }
-
-    public void setBitrate(double bitrate) {
-        this.bitrate = bitrate;
     }
 
     public String getYoutubeLink() {
@@ -129,10 +99,7 @@ public class Song {
 
         Song song = (Song) o;
 
-        if (positionInAlbum != song.getPositionInAlbum()) return false;
-        if (Double.compare(song.getBitrate(), bitrate) != 0) return false;
         if (title != null ? !title.equals(song.getTitle()) : song.getTitle() != null) return false;
-        if (commentary != null ? !commentary.equals(song.getCommentary()) : song.getCommentary() != null) return false;
         if (youtubeLink != null ? !youtubeLink.equals(song.getYoutubeLink()) : song.getYoutubeLink() != null)
             return false;
         if (album != null ? !album.equals(song.getAlbum()) : song.getAlbum() != null) return false;
@@ -144,13 +111,8 @@ public class Song {
     @Override
     public int hashCode() {
         int result;
-        long temp;
         result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (commentary != null ? commentary.hashCode() : 0);
         result = 31 * result + (youtubeLink != null ? youtubeLink.hashCode() : 0);
-        result = 31 * result + positionInAlbum;
-        temp = Double.doubleToLongBits(bitrate);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (album != null ? album.hashCode() : 0);
         result = 31 * result + (artist != null ? artist.hashCode() : 0);
         result = 31 * result + (genre != null ? genre.hashCode() : 0);

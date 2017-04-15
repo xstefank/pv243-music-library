@@ -15,4 +15,4 @@ INSERT INTO Users (admin, email, firstName, lastName, passwordHash) VALUES ('tru
 
 COMMIT
 
-INSERT INTO Song (bitrate, commentary, positionInAlbum, title , youtubeLink, album_id, artist_id, genre_id) VALUES ('1','comm','1','Lost in the echo', 'aaa', '1', '1', '1')
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Lost in the echo', 'https://www.youtube.com/watch?v=co4YpHTqmfQ', '1', '1', '2')
