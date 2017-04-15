@@ -10,25 +10,19 @@ import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 
 @AnalyzerDef(name = "entityAnalyzer",
@@ -64,10 +58,6 @@ public class Album {
     private byte[] albumArt;
 
     private String albumArtMimeType;
-
-    @IndexedEmbedded
-    @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
-    private List<Song> songs = new ArrayList<>();
 
     public Album() {
     }
@@ -125,22 +115,7 @@ public class Album {
         this.albumArtMimeType = albumArtMimeType;
     }
 
-    public List<Song> getSongs() {
-        return Collections.unmodifiableList(songs);
-    }
 
-    public void setSongs(List<Song> songs) {
-        //Collections.copy(this.songs, songs);
-        this.songs = new ArrayList<>(songs);
-    }
-
-    public void addSong(Song song) {
-        this.songs.add(song);
-    }
-
-    public void removeSong(Song song) {
-        this.songs.remove(song);
-    }
 
     @Override
     public int hashCode() {

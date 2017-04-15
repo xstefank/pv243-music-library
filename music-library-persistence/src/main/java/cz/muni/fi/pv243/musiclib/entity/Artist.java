@@ -11,13 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Indexed
@@ -36,24 +33,13 @@ public class Artist {
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
-    @OneToMany(mappedBy = "artist")
-    private List<Song> songs = new ArrayList<>();
 
     public Artist() {
-        this.songs = new ArrayList<>();
     }
 
     public Artist(Long id) {
         this();
         this.id = id;
-    }
-
-    public List<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
     }
 
     public Long getId() {
@@ -80,13 +66,6 @@ public class Artist {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void addSong(Song song) {
-        this.songs.add(song);
-    }
-
-    public void removeSong(Song song) {
-        this.songs.remove(song);
-    }
 
     @Override
     public int hashCode() {

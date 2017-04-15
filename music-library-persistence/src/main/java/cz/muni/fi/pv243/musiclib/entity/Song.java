@@ -103,13 +103,6 @@ public class Song {
     }
 
     public void setAlbum(Album album) {
-        if (this.album == album) {
-            return;
-        } else if (album != null) {
-            album.addSong(this);
-        } else if (this.album != null) {
-            this.album.removeSong(this);
-        }
         this.album = album;
     }
 
@@ -119,9 +112,6 @@ public class Song {
 
     public void setArtist(Artist artist) {
         this.artist = artist;
-        if (artist != null) {
-            artist.addSong(this);
-        }
     }
 
     public Genre getGenre() {
