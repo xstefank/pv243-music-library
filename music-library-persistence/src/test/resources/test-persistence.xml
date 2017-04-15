@@ -25,11 +25,11 @@
            data source, this example data source is just for development and testing! -->
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
 
-        <class>cz.muni.fi.pv243.music.library.entity.Album</class>
-        <class>cz.muni.fi.pv243.music.library.entity.Song</class>
-        <class>cz.muni.fi.pv243.music.library.entity.Artist</class>
-        <class>cz.muni.fi.pv243.music.library.entity.Genre</class>
-        <class>cz.muni.fi.pv243.music.library.entity.User</class>
+        <class>cz.muni.fi.pv243.musiclib.entity.Album</class>
+        <class>cz.muni.fi.pv243.musiclib.entity.Song</class>
+        <class>cz.muni.fi.pv243.musiclib.entity.Artist</class>
+        <class>cz.muni.fi.pv243.musiclib.entity.Genre</class>
+        <class>cz.muni.fi.pv243.musiclib.entity.User</class>
 
         <properties>
             <!-- Properties for Hibernate -->

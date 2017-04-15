@@ -19,5 +19,5 @@ hs_err_pid*
 target
 
 #index
-cz.muni.fi.pv243.music.library.entity.*
+cz.muni.fi.pv243.musiclib.entity.*
 *.lock
