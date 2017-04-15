@@ -1,0 +1,31 @@
+{
+  "name": "music-library-web",
+  "description": "Music library project front-end",
+  "main": "src/main/webapp/index.html",
+  "authors": [
+    "Ondrej Oravcok"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "java",
+    "maven",
+    "angularjs",
+    "seed"
+  ],
+  "homepage": "http://127.0.0.1:8080/music",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/main/webapp/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-loader": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "angular": "^1.6.4",
+    "bootstrap": "^3.3.7"
+  }
+}
