@@ -4,12 +4,13 @@ import cz.muni.fi.pv243.musiclib.dao.GenericDAO;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
-public abstract class GenericDaoImpl<T, U> implements GenericDAO<T, U> {
+public abstract class GenericDaoImpl<T, U> implements GenericDAO<T, U>, Serializable {
 
     @Inject
     protected EntityManager em;
@@ -21,9 +22,14 @@ public abstract class GenericDaoImpl<T, U> implements GenericDAO<T, U> {
     }
 
     @Override
-    public T create(final T t) {
-        em.persist(t);
-        return t;
+    public T create(final T entity) {
+        em.persist(entity);
+        return entity;
+    }
+
+    @Override
+    public T update(final T entity) {
+        return em.merge(entity);
     }
 
     @Override
@@ -34,11 +40,6 @@ public abstract class GenericDaoImpl<T, U> implements GenericDAO<T, U> {
     @Override
     public T find(U id) {
         return em.find(type, id);
-    }
-
-    @Override
-    public T update(final T t) {
-        return em.merge(t);
     }
 
     @Override

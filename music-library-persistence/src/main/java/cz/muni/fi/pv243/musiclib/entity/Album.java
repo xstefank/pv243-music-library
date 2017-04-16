@@ -26,6 +26,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @AnalyzerDef(name = "entityAnalyzer",
@@ -40,7 +41,7 @@ import java.time.LocalDate;
 @Entity
 @Indexed
 @Analyzer(definition = "entityAnalyzer")
-public class Album {
+public class Album implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,6 +10,8 @@ import org.hibernate.search.jpa.Search;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
  */
 @ApplicationScoped
 @Transactional(value = Transactional.TxType.REQUIRED)
-public class AlbumDaoImpl extends GenericDaoImpl<Album, Long> implements AlbumDAO {
+public class AlbumDaoImpl extends GenericDaoImpl<Album, Long> implements AlbumDAO, Serializable {
 
     public AlbumDaoImpl() {
         super(Album.class);
@@ -25,7 +27,7 @@ public class AlbumDaoImpl extends GenericDaoImpl<Album, Long> implements AlbumDA
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Album> searchByTitle(String titleFragment) {
+    public List<Album> searchByTitle(@NotNull String titleFragment) {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
 
         javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(LuceneQueryUtil
@@ -35,7 +37,7 @@ public class AlbumDaoImpl extends GenericDaoImpl<Album, Long> implements AlbumDA
     }
 
     @Override
-    public List<Album> searchByArtist(Artist artist) {
+    public List<Album> searchByArtist(@NotNull Artist artist) {
         if (artist == null) {
             throw new IllegalArgumentException("artist cannot be null");
         }

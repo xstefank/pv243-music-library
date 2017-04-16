@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.musiclib.dao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public interface AlbumDAO extends GenericDAO<Album, Long> {
      * @param titleFragment title fragment of albums to look for
      * @return list of all album entities containing given title fragment , empty if no such album exists
      */
-    List<Album> searchByTitle(String titleFragment);
+    List<Album> searchByTitle(@NotNull String titleFragment);
 
     /**
      * Returns all albums of given artist
@@ -24,7 +25,7 @@ public interface AlbumDAO extends GenericDAO<Album, Long> {
      * @param artist artist of album
      * @return list of all albums by given artist
      */
-    List<Album> searchByArtist(Artist artist);
+    List<Album> searchByArtist(@NotNull Artist artist);
 
 
     /**
