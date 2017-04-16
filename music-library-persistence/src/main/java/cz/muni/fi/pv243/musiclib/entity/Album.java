@@ -1,5 +1,10 @@
 package cz.muni.fi.pv243.musiclib.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import cz.muni.fi.pv243.musiclib.util.LocalDateDeserializer;
+import cz.muni.fi.pv243.musiclib.util.LocalDateSerializer;
+import cz.muni.fi.pv243.musiclib.validation.PastDate;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.core.StopFilterFactory;
 import org.apache.lucene.analysis.standard.StandardFilterFactory;
@@ -52,6 +57,9 @@ public class Album {
     @Field(analyze = Analyze.NO, index = Index.YES)
     private String commentary;
 
+    @PastDate
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateOfRelease;
 
     @Lob

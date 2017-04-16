@@ -1,5 +1,10 @@
 package cz.muni.fi.pv243.musiclib.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import cz.muni.fi.pv243.musiclib.util.LocalDateDeserializer;
+import cz.muni.fi.pv243.musiclib.util.LocalDateSerializer;
+import cz.muni.fi.pv243.musiclib.validation.PastDate;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -28,8 +33,10 @@ public class Artist {
     @Field(analyze = Analyze.YES, index = Index.YES)
     private String name;
 
+    @PastDate
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateOfBirth;
-
 
     public Artist() {
     }
