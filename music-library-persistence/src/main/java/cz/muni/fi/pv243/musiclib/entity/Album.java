@@ -17,6 +17,7 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +26,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -48,7 +48,7 @@ public class Album implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotEmpty
     @Column(nullable = false, unique = true)
     @Field(analyze = Analyze.YES, index = Index.YES)
     private String title;
@@ -175,11 +175,11 @@ public class Album implements Serializable {
         return true;
     }
 
-    public static AlbumBuilder builder() {
-        return new AlbumBuilder();
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public static class AlbumBuilder {
+    public static class Builder {
 
         private String title;
 
@@ -191,30 +191,30 @@ public class Album implements Serializable {
 
         private String albumArtMimeType;
 
-        AlbumBuilder() {
+        Builder() {
         }
 
-        public AlbumBuilder title(String title) {
+        public Builder title(String title) {
             this.title = title;
             return this;
         }
 
-        public AlbumBuilder commentary(String commentary) {
+        public Builder commentary(String commentary) {
             this.commentary = commentary;
             return this;
         }
 
-        public AlbumBuilder dateOfRelease(LocalDate dateOfRelease) {
+        public Builder dateOfRelease(LocalDate dateOfRelease) {
             this.dateOfRelease = dateOfRelease;
             return this;
         }
 
-        public AlbumBuilder albumArt(byte[] albumArt) {
+        public Builder albumArt(byte[] albumArt) {
             this.albumArt = Arrays.copyOf(albumArt, albumArt.length);
             return this;
         }
 
-        public AlbumBuilder albumArtMimeType(String albumArtMimeType) {
+        public Builder albumArtMimeType(String albumArtMimeType) {
             this.albumArtMimeType = albumArtMimeType;
             return this;
         }
