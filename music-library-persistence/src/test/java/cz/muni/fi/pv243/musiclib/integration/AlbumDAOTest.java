@@ -2,7 +2,6 @@ package cz.muni.fi.pv243.musiclib.integration;
 
 import cz.muni.fi.pv243.musiclib.dao.AlbumDAO;
 import cz.muni.fi.pv243.musiclib.entity.Album;
-import cz.muni.fi.pv243.musiclib.util.AlbumBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -50,12 +49,12 @@ public class AlbumDAOTest {
 
     @Before
     public void before() {
-        testAlbum1 = new AlbumBuilder()
+        testAlbum1 = Album.builder()
                 .title("testAlbum1")
                 .dateOfRelease(LocalDate.now().minusDays(1))
                 .build();
 
-        testAlbum2 = new AlbumBuilder()
+        testAlbum2 = Album.builder()
                 .title("testAlbum2")
                 .dateOfRelease(LocalDate.now().minusDays(2))
                 .build();
