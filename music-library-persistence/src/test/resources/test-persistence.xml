@@ -20,7 +20,7 @@
              xsi:schemaLocation="
         http://xmlns.jcp.org/xml/ns/persistence
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="primary" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="primary" transaction-type="JTA">
         <!-- If you are running in a production environment, add a managed
            data source, this example data source is just for development and testing! -->
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
@@ -34,7 +34,14 @@
         <properties>
             <!-- Properties for Hibernate -->
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.search.default.directory_provider"
+                      value="filesystem"/>
+            <!--Lucene is not deleting entries on the DB drop, so on the app restart
+            previously used indexed create new entries in this directory so moving into target folder-->
+            <property name="hibernate.search.default.indexBase"
+                      value="${build.directory}/lucene/test/indexes"/>
         </properties>
     </persistence-unit>
 </persistence>
