@@ -48,11 +48,9 @@ public class GenreDAOTest {
 
     @Before
     public void before() {
-        rock = new Genre();
-        rock.setTitle("rock");
+        rock = Genre.builder().title("rock").build();
 
-        pop = new Genre();
-        pop.setTitle("pop");
+        pop = Genre.builder().title("pop").build();
     }
 
     @After

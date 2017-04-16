@@ -79,4 +79,38 @@ public class Genre implements Serializable {
         return true;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private Long id;
+        private String title;
+
+        Builder() {
+        }
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Genre build() {
+            Genre s = new Genre(id);
+            s.setTitle(title);
+            clear();
+            return s;
+        }
+
+        private void clear() {
+            this.id = null;
+            this.title = null;
+        }
+    }
 }
