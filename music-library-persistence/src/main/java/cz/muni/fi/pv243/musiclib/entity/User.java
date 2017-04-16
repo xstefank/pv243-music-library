@@ -4,6 +4,7 @@ import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotEmpty
     @Column(nullable = false, unique = true)
     @Pattern(regexp = ".+@.+\\....?")
     @Field(analyze = Analyze.NO, index = Index.YES)
@@ -33,11 +34,11 @@ public class User implements Serializable {
     @NotNull
     private String passwordHash;
 
-    @NotNull
+    @NotEmpty
     @Field(analyze = Analyze.NO, index = Index.YES)
     private String firstName;
 
-    @NotNull
+    @NotEmpty
     @Field(analyze = Analyze.NO, index = Index.YES)
     private String lastName;
 
