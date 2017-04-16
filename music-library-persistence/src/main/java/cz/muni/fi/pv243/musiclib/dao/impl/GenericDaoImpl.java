@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.musiclib.dao.impl;
 
-import cz.muni.fi.pv243.musiclib.dao.GenericDAO;
+import cz.muni.fi.pv243.musiclib.dao.GenericDao;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
-public abstract class GenericDaoImpl<T, U> implements GenericDAO<T, U>, Serializable {
+public abstract class GenericDaoImpl<T, U> implements GenericDao<T, U>, Serializable {
 
     @Inject
     protected EntityManager em;

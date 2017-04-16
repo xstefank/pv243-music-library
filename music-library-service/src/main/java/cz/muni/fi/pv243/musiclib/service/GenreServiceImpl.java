@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.musiclib.service;
 
-import cz.muni.fi.pv243.musiclib.dao.GenreDAO;
+import cz.muni.fi.pv243.musiclib.dao.GenreDao;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 
 import javax.ejb.Stateless;
@@ -14,7 +14,7 @@ import java.util.List;
 public class GenreServiceImpl implements GenreService {
 
     @Inject
-    private GenreDAO genreDAO;
+    private GenreDao genreDAO;
 
     @Override
     public Genre create(Genre genre) {

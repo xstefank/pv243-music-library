@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.musiclib.service;
 
-import cz.muni.fi.pv243.musiclib.dao.AlbumDAO;
+import cz.muni.fi.pv243.musiclib.dao.AlbumDao;
 import cz.muni.fi.pv243.musiclib.dao.SongDao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
@@ -16,7 +16,7 @@ import java.util.List;
 public class AlbumServiceImpl implements AlbumService {
 
     @Inject
-    private AlbumDAO albumDao;
+    private AlbumDao albumDao;
 
     @Inject
     private SongDao songDao;

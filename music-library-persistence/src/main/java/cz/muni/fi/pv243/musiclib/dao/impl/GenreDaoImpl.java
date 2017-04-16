@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.musiclib.dao.impl;
 
-import cz.muni.fi.pv243.musiclib.dao.GenreDAO;
+import cz.muni.fi.pv243.musiclib.dao.GenreDao;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.util.LuceneQueryUtil;
 import org.hibernate.search.jpa.FullTextEntityManager;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 @ApplicationScoped
 @Transactional(value = Transactional.TxType.REQUIRED)
-public class GenreDaoImpl extends GenericDaoImpl<Genre, Long> implements GenreDAO, Serializable {
+public class GenreDaoImpl extends GenericDaoImpl<Genre, Long> implements GenreDao, Serializable {
 
     public GenreDaoImpl() {
         super(Genre.class);

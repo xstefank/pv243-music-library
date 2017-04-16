@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
-public interface UserDao extends GenericDAO<User, Long> {
+public interface UserDao extends GenericDao<User, Long> {
 
     User findByEmail(@NotNull String email);
 }

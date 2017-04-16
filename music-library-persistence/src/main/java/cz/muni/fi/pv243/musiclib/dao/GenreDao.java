@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
-public interface GenreDAO extends GenericDAO<Genre, Long> {
+public interface GenreDao extends GenericDao<Genre, Long> {
 
     /**
      * Returns all {@link Genre} containing the given title fragment in their title

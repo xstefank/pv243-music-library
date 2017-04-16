@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.musiclib.dao.impl;
 
-import cz.muni.fi.pv243.musiclib.dao.AlbumDAO;
+import cz.muni.fi.pv243.musiclib.dao.AlbumDao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.util.LuceneQueryUtil;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 @ApplicationScoped
 @Transactional(value = Transactional.TxType.REQUIRED)
-public class AlbumDaoImpl extends GenericDaoImpl<Album, Long> implements AlbumDAO, Serializable {
+public class AlbumDaoImpl extends GenericDaoImpl<Album, Long> implements AlbumDao, Serializable {
 
     public AlbumDaoImpl() {
         super(Album.class);

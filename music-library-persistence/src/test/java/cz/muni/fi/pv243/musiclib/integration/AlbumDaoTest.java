@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.musiclib.integration;
 
-import cz.muni.fi.pv243.musiclib.dao.AlbumDAO;
+import cz.muni.fi.pv243.musiclib.dao.AlbumDao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -28,18 +28,18 @@ import java.util.List;
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
 @RunWith(Arquillian.class)
-public class AlbumDAOTest {
+public class AlbumDaoTest {
 
     @Deployment
     public static WebArchive deployment() {
-        return ShrinkWrap.create(WebArchive.class, AlbumDAOTest.class.getSimpleName() + ".war")
+        return ShrinkWrap.create(WebArchive.class, AlbumDaoTest.class.getSimpleName() + ".war")
                 .addPackages(true, "cz.muni.fi.pv243.musiclib")
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Inject
-    private AlbumDAO albumDAO;
+    private AlbumDao albumDao;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -62,29 +62,29 @@ public class AlbumDAOTest {
 
     @After
     public void after() {
-        albumDAO.findAll().stream().map(Album::getId).forEach(albumDAO::remove);
+        albumDao.findAll().stream().map(Album::getId).forEach(albumDao::remove);
     }
 
     @Test
     public void testValidCreateThenFind() {
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
 
-        Assert.assertEquals(testAlbum1, albumDAO.find(testAlbum1.getId()));
+        Assert.assertEquals(testAlbum1, albumDao.find(testAlbum1.getId()));
     }
 
     @Test
     public void testCreateSameTitle() {
         expectedException.expect(PersistenceException.class);
 
-        albumDAO.create(testAlbum1);
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
+        albumDao.create(testAlbum1);
     }
 
     @Test
     public void testCreateNull() {
         expectedException.expect(IllegalArgumentException.class);
 
-        albumDAO.create(null);
+        albumDao.create(null);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class AlbumDAOTest {
         expectedException.expect(ConstraintViolationException.class);
 
         testAlbum1.setTitle(null);
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
     }
 
     @Test
@@ -100,15 +100,15 @@ public class AlbumDAOTest {
         expectedException.expect(ConstraintViolationException.class);
 
         testAlbum1.setDateOfRelease(LocalDate.now());
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
     }
 
     @Test
     public void testUpdateValid() {
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
         testAlbum1.setTitle("I'm not from Hobbit");
 
-        Album updated = albumDAO.update(testAlbum1);
+        Album updated = albumDao.update(testAlbum1);
         Assert.assertEquals(updated, testAlbum1);
     }
 
@@ -116,67 +116,67 @@ public class AlbumDAOTest {
     public void updateNullTest() {
         expectedException.expect(IllegalArgumentException.class);
 
-        albumDAO.update(null);
+        albumDao.update(null);
     }
 
     @Test
     public void testUpdateNullTitle() {
         expectedException.expect(RollbackException.class);
 
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
         testAlbum1.setTitle(null);
 
-        albumDAO.update(testAlbum1);
+        albumDao.update(testAlbum1);
     }
 
     @Test
     public void testRemoveValid() {
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
 
-        albumDAO.remove(testAlbum1.getId());
-        Assert.assertNull(albumDAO.find(testAlbum1.getId()));
+        albumDao.remove(testAlbum1.getId());
+        Assert.assertNull(albumDao.find(testAlbum1.getId()));
     }
 
     @Test
     public void testRemoveAlreadyRemoved() {
         expectedException.expect(EntityNotFoundException.class);
 
-        albumDAO.create(testAlbum1);
-        albumDAO.remove(testAlbum1.getId());
+        albumDao.create(testAlbum1);
+        albumDao.remove(testAlbum1.getId());
 
         Assert.assertNotNull(testAlbum1);
-        albumDAO.remove(testAlbum1.getId());
+        albumDao.remove(testAlbum1.getId());
     }
 
     @Test
     public void removeNullTest() {
         expectedException.expect(IllegalArgumentException.class);
 
-        albumDAO.remove(null);
+        albumDao.remove(null);
     }
 
     @Test
     public void testFindValidId() {
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
 
-        Album result = albumDAO.find(testAlbum1.getId());
+        Album result = albumDao.find(testAlbum1.getId());
         Assert.assertEquals(result, testAlbum1);
     }
 
     @Test
     public void testFindInvalidId() {
-        Album album = albumDAO.find(0L);
+        Album album = albumDao.find(0L);
         Assert.assertNull(album);
     }
 
     @Test
     public void testFindRemoved() {
-        albumDAO.create(testAlbum1);
-        Album result = albumDAO.find(testAlbum1.getId());
+        albumDao.create(testAlbum1);
+        Album result = albumDao.find(testAlbum1.getId());
         Assert.assertNotNull(result);
 
-        albumDAO.remove(testAlbum1.getId());
-        result = albumDAO.find(testAlbum1.getId());
+        albumDao.remove(testAlbum1.getId());
+        result = albumDao.find(testAlbum1.getId());
         Assert.assertNull(result);
     }
 
@@ -184,16 +184,16 @@ public class AlbumDAOTest {
     public void testFindNullId() {
         expectedException.expect(IllegalArgumentException.class);
 
-        albumDAO.find(null);
+        albumDao.find(null);
     }
 
     @Test
     public void testSearchByTitleExact() {
         String title = "testAlbum";
         testAlbum1.setTitle(title);
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
 
-        List<Album> result = albumDAO.searchByTitle(title);
+        List<Album> result = albumDao.searchByTitle(title);
         Assert.assertTrue(result.contains(testAlbum1));
     }
 
@@ -201,9 +201,9 @@ public class AlbumDAOTest {
     public void testSearchByTitleSimilar() {
         String title = "testAlbum";
         testAlbum1.setTitle(title);
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
 
-        List<Album> result = albumDAO.searchByTitle("testElbum");
+        List<Album> result = albumDao.searchByTitle("testElbum");
         Assert.assertTrue(result.contains(testAlbum1));
     }
 
@@ -211,9 +211,9 @@ public class AlbumDAOTest {
     public void testSearchByTitleFragment() {
         String title = "testAlbum";
         testAlbum1.setTitle(title);
-        albumDAO.create(testAlbum1);
+        albumDao.create(testAlbum1);
 
-        List<Album> result = albumDAO.searchByTitle("testAlb");
+        List<Album> result = albumDao.searchByTitle("testAlb");
         Assert.assertTrue(result.contains(testAlbum1));
     }
 
@@ -221,41 +221,41 @@ public class AlbumDAOTest {
     public void testSearchByTitleNull() {
         expectedException.expect(ConstraintViolationException.class);
 
-        albumDAO.searchByTitle(null);
+        albumDao.searchByTitle(null);
     }
 
     @Test
     public void testSearchByArtistNull() {
         expectedException.expect(ConstraintViolationException.class);
 
-        albumDAO.searchByArtist(null);
+        albumDao.searchByArtist(null);
     }
 
     @Test
     public void testFindAllValid() {
-        albumDAO.create(testAlbum1);
-        albumDAO.create(testAlbum2);
+        albumDao.create(testAlbum1);
+        albumDao.create(testAlbum2);
 
-        List<Album> result = albumDAO.findAll();
+        List<Album> result = albumDao.findAll();
         Assert.assertEquals(result, Arrays.asList(testAlbum1, testAlbum2));
     }
 
     @Test
     public void testGetAlbumSampleValid() {
-        albumDAO.create(testAlbum1);
-        albumDAO.create(testAlbum2);
+        albumDao.create(testAlbum1);
+        albumDao.create(testAlbum2);
 
-        List<Album> result = albumDAO.getAlbumSample(2);
+        List<Album> result = albumDao.getAlbumSample(2);
         Assert.assertNotNull(result);
         Assert.assertEquals(result.size(), 2);
     }
 
     @Test
     public void testGetAlbumSampleValidLessCount() {
-        albumDAO.create(testAlbum1);
-        albumDAO.create(testAlbum2);
+        albumDao.create(testAlbum1);
+        albumDao.create(testAlbum2);
 
-        List<Album> result = albumDAO.getAlbumSample(1);
+        List<Album> result = albumDao.getAlbumSample(1);
         Assert.assertNotNull(result);
         Assert.assertEquals(result.size(), 1);
     }
@@ -264,9 +264,9 @@ public class AlbumDAOTest {
     public void getAlbumSampleInvlaidCountTest() {
         expectedException.expect(IllegalArgumentException.class);
 
-        albumDAO.create(testAlbum1);
-        albumDAO.create(testAlbum2);
+        albumDao.create(testAlbum1);
+        albumDao.create(testAlbum2);
 
-        albumDAO.getAlbumSample(0);
+        albumDao.getAlbumSample(0);
     }
 }

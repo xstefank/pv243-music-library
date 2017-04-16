@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
-public interface SongDao extends GenericDAO<Song, Long> {
+public interface SongDao extends GenericDao<Song, Long> {
 
     List<Song> searchByTitle(@NotNull String titleFragment);
 

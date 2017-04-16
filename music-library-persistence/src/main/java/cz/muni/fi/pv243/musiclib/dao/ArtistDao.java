@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
-public interface ArtistDao extends GenericDAO<Artist, Long> {
+public interface ArtistDao extends GenericDao<Artist, Long> {
 
     /**
      * Returns all artists containing given artist name fragment in their name

@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.musiclib.integration;
 
-import cz.muni.fi.pv243.musiclib.dao.GenreDAO;
+import cz.muni.fi.pv243.musiclib.dao.GenreDao;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -27,11 +27,11 @@ import java.util.List;
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
 @RunWith(Arquillian.class)
-public class GenreDAOTest {
+public class GenreDaoTest {
 
     @Deployment
     public static WebArchive deployment() {
-        return ShrinkWrap.create(WebArchive.class, GenreDAOTest.class.getSimpleName() + ".war")
+        return ShrinkWrap.create(WebArchive.class, GenreDaoTest.class.getSimpleName() + ".war")
                 .addPackages(true, "cz.muni.fi.pv243.musiclib")
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -41,7 +41,7 @@ public class GenreDAOTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Inject
-    private GenreDAO genreDAO;
+    private GenreDao genreDAO;
 
     private Genre rock;
     private Genre pop;

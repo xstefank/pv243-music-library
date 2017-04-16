@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
-public interface AlbumDAO extends GenericDAO<Album, Long> {
+public interface AlbumDao extends GenericDao<Album, Long> {
 
     /**
      * Returns all albums containing given title fragment in their title

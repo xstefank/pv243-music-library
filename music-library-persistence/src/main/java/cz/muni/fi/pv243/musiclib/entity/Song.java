@@ -120,4 +120,61 @@ public class Song implements Serializable {
         result = 31 * result + (genre != null ? genre.hashCode() : 0);
         return result;
     }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private String title;
+        private Album album;
+        private Artist artist;
+        private Genre genre;
+
+        Builder() {
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder album(Album album) {
+            this.album = album;
+            return this;
+        }
+
+        public Builder artist(Artist artist) {
+            this.artist = artist;
+            return this;
+        }
+
+        public Builder genre(Genre genre) {
+            this.genre = genre;
+            return this;
+        }
+
+        public Song build() {
+            Song s = new Song();
+
+            s.setTitle(title);
+            s.setAlbum(album);
+            s.setArtist(artist);
+            s.setGenre(genre);
+
+            clear();
+
+            return s;
+        }
+
+        private void clear() {
+            this.title = null;
+            this.album = null;
+            this.artist= null;
+            this.genre = null;
+        }
+
+    }
+
 }
