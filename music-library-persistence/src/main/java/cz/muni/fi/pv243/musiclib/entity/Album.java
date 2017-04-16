@@ -20,11 +20,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-
+import java.time.LocalDate;
 
 @AnalyzerDef(name = "entityAnalyzer",
         tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
@@ -55,8 +52,7 @@ public class Album {
     @Field(analyze = Analyze.NO, index = Index.YES)
     private String commentary;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateOfRelease;
+    private LocalDate dateOfRelease;
 
     @Lob
     private byte[] albumArt;
@@ -103,11 +99,11 @@ public class Album {
         this.commentary = commentary;
     }
 
-    public Date getDateOfRelease() {
+    public LocalDate getDateOfRelease() {
         return dateOfRelease;
     }
 
-    public void setDateOfRelease(Date dateOfRelease) {
+    public void setDateOfRelease(LocalDate dateOfRelease) {
         this.dateOfRelease = dateOfRelease;
     }
 
