@@ -5,6 +5,7 @@ import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.entity.Song;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -12,11 +13,11 @@ import java.util.List;
  */
 public interface SongDao extends GenericDAO<Song, Long> {
 
-    List<Song> searchByTitle(String titleFragment);
+    List<Song> searchByTitle(@NotNull String titleFragment);
 
-    List<Song> searchByAlbum(Album album);
+    List<Song> searchByAlbum(@NotNull Album album);
 
-    List<Song> searchByArtist(Artist artist);
+    List<Song> searchByArtist(@NotNull Artist artist);
 
-    List<Song> searchByGenre(Genre genre);
+    List<Song> searchByGenre(@NotNull Genre genre);
 }

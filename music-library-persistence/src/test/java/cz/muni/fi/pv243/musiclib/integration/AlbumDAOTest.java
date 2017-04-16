@@ -249,7 +249,6 @@ public class AlbumDAOTest {
         List<Album> result = albumDAO.getAlbumSample(2);
         Assert.assertNotNull(result);
         Assert.assertEquals(result.size(), 2);
-        Assert.assertEquals(result, Arrays.asList(testAlbum1, testAlbum2));
     }
 
     @Test

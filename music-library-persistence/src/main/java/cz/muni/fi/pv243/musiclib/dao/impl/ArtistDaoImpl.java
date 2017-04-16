@@ -7,6 +7,8 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ import java.util.List;
  */
 @ApplicationScoped
 @Transactional(value = Transactional.TxType.REQUIRED)
-public class ArtistDaoImpl extends GenericDaoImpl<Artist, Long> implements ArtistDao {
+public class ArtistDaoImpl extends GenericDaoImpl<Artist, Long> implements ArtistDao, Serializable {
 
     public ArtistDaoImpl() {
         super(Artist.class);
@@ -22,11 +24,7 @@ public class ArtistDaoImpl extends GenericDaoImpl<Artist, Long> implements Artis
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Artist> searchByName(String nameFragment) {
-        if (nameFragment == null) {
-            throw new IllegalArgumentException("artistNameFragment cannot be null.");
-        }
-
+    public List<Artist> searchByName(@NotNull String nameFragment) {
         FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
 
         javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(LuceneQueryUtil

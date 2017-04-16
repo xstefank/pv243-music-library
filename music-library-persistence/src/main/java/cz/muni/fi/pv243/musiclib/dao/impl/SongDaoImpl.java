@@ -9,6 +9,8 @@ import cz.muni.fi.pv243.musiclib.entity.Song;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,46 +18,35 @@ import java.util.List;
  */
 @ApplicationScoped
 @Transactional(value = Transactional.TxType.REQUIRED)
-public class SongDaoImpl extends GenericDaoImpl<Song, Long> implements SongDao {
+public class SongDaoImpl extends GenericDaoImpl<Song, Long> implements SongDao, Serializable {
 
     public SongDaoImpl() {
         super(Song.class);
     }
 
     @Override
-    public List<Song> searchByTitle(String titleFragment) {
-        if (titleFragment == null) {
-            throw new IllegalArgumentException("titleFragment cannot be null.");
-        }
+    public List<Song> searchByTitle(@NotNull String titleFragment) {
         return em.createQuery("SELECT s FROM Song s WHERE UPPER(s.title) LIKE '%'||:titleFragment||'%'", Song.class)
                 .setParameter("titleFragment", titleFragment.toUpperCase())
                 .getResultList();
     }
 
     @Override
-    public List<Song> searchByAlbum(Album album) {
+    public List<Song> searchByAlbum(@NotNull Album album) {
         TypedQuery<Song> q = em.createQuery("SELECT s FROM Song s WHERE s.album = :albumId",
                 Song.class).setParameter("albumId", album);
         return q.getResultList();
     }
 
     @Override
-    public List<Song> searchByArtist(Artist artist) {
-        if (artist == null) {
-            throw new IllegalArgumentException("artist cannot be null");
-        }
-
+    public List<Song> searchByArtist(@NotNull Artist artist) {
         TypedQuery<Song> q = em.createQuery("SELECT s FROM Song s WHERE s.artist = :artistId",
                 Song.class).setParameter("artistId", artist);
         return q.getResultList();
     }
 
     @Override
-    public List<Song> searchByGenre(Genre genre) {
-        if (genre == null) {
-            throw new IllegalArgumentException("genre cannot be null");
-        }
-
+    public List<Song> searchByGenre(@NotNull Genre genre) {
         TypedQuery<Song> q = em.createQuery("SELECT s FROM Song s WHERE s.genre = :genreId",
                 Song.class).setParameter("genreId", genre);
         return q.getResultList();

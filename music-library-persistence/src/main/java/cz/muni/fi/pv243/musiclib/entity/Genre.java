@@ -12,11 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Indexed
 @Analyzer(definition = "entityAnalyzer")
-public class Genre {
+public class Genre implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
