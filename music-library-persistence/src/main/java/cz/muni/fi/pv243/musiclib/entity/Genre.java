@@ -66,7 +66,7 @@ public class Genre implements Serializable {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Album)) {
+        if (!(obj instanceof Genre)) {
             return false;
         }
 
