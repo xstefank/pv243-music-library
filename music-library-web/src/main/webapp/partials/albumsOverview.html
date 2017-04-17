@@ -1,0 +1,38 @@
+<div class="jumbotron">
+    <table class="title-table">
+        <tbody>
+        <tr>
+            <td class="button-width"></td>
+            <td class="middle-icon-title">
+                <span class="glyphicon glyphicon-cd"></span> Albums
+            </td>
+            <td class="button-width">
+                <a title="Create new" class="btn-success" ng-href="#!/createAlbum"><span class="glyphicon glyphicon-plus"></span></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div ng-repeat="alert in alerts" ng-class="'alert alert-' + (alert.type || 'warning') + ' alert-dismissible'" >
+    <a ng-click="closeAlert($index)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{alert.title}} </strong>{{alert.msg}}
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Commentary</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="album in albums">
+        <td>{{album.title}}</td>
+        <td>{{album.artist}}</td>
+        <td>{{album.commentary}}</td>
+        <td><a title="Edit" class="btn list-item-href" ng-click="updateAlbum(album)"><span class="glyphicon glyphicon-tag"></span></a></td>
+    </tr>
+    </tbody>
+</table>

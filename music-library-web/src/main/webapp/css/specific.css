@@ -51,3 +51,35 @@ body {
         margin-bottom: 30px;
     }
 }
+
+.button-width {
+    width: 50px;
+}
+.button-width a {
+    padding: 8px 11px 7px 12px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 21px;
+}
+
+.list-item-href {
+    padding: 0;
+}
+
+.middle-icon-title {
+    font-size: 30px;
+}
+.middle-icon-title span {
+    vertical-align: middle;
+}
+
+.title-table {
+    width: 100%;
+}
+
+/* override */
+.jumbotron {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
