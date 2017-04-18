@@ -10,6 +10,7 @@
     <script src="vendor/angular-route/angular-route.min.js"></script>
 
     <script src="js/app.js"></script>
+    <script src="js/websocket.js"></script>
     <script src="partials/albumsOverview.js"></script>
     <script src="partials/artistsOverview.js"></script>
     <script src="partials/homeController.js"></script>
@@ -46,6 +47,12 @@
 
 <div class="container">
     <div ng-view=""></div>
+</div>
+<a href="javascript:open();">Open Session</a>
+<br>
+<a href="javascript:close();">Close Session</a>
+<div id="websocketMessages" style="border: 1px solid">
+
 </div>
 
 <div class="footer">
