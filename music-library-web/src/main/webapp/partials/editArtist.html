@@ -1,0 +1,48 @@
+<div class="jumbotron">
+    <p class="lead">
+        Create New Artist
+    </p>
+</div>
+
+<div>
+    <form name="form" class="css-form" novalidate>
+        <table class="form-table">
+            <tbody>
+            <tr>
+                <td style="width: 80px">Name</td>
+                <td style="width: 350px"><input class="form-control" type="text" ng-model="artist.name" name="aName" required /></td>
+                <td style="width: auto" class="form-warning">
+                    <div ng-show="form.$submitted || form.aName.$touched">
+                        <div ng-show="form.aTitle.$error.required">Name is required.</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Formed</td>
+                <td><input class="form-control" type="date" ng-model="artist.dateOfBirth" name="aDateOfBirth" required /></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <table>
+                <tr ng-show="doing == 'create'">
+                    <td align="right">
+                        <input class="form-control input-button" type="submit" ng-click="reset(form)" value="Reset" />
+                    </td>
+                    <td align="left">
+                        <input class="form-control input-button do-btn" type="submit" ng-click="form.$invalid ? null : update(artist)" value="Create" />
+                    </td>
+                </tr>
+                <tr ng-hide="doing == 'create'">
+                    <td align="center">
+                        <input class="form-control input-button do-btn" type="submit" ng-click="form.$invalid ? null : update(artist)" value="Update" />
+                    </td>
+                    <td>
+                        <a title="Remove" class="btn remove-a" ng-click="removeArtist()"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

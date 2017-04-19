@@ -6,14 +6,34 @@ angular.module('app', [
 ]).factory('commonTools', ['$http', function ($http) {
     return {
         getAlbumsAvailable: function () {
-            return $http.get("/music/album").then(function(response) {
+            return $http.get("/music/api/album").then(function(response) {
                 return response.data;
             });
         },
         getArtistsAvailable: function () {
-            return $http.get("/music/artist").then(function(response) {
+            return $http.get("/music/api/artist").then(function(response) {
                 return response.data;
             });
+        },
+        formatDateForRest: function (dateToFormat) {
+            // return [dateToFormat.getFullYear(), (dateToFormat.getMonth() + 1), dateToFormat.getDate()];
+            if (dateToFormat == undefined) {
+                return null;
+            }
+            var m = "";
+            if (dateToFormat.getMonth() + 1 > 9) {
+                m = (dateToFormat.getMonth() + 1);
+            } else {
+                m = "0" + (dateToFormat.getMonth() + 1);
+            }
+            var d = "";
+            if (dateToFormat.getDate() > 9) {
+                d = dateToFormat.getDate();
+            } else {
+                d = "0" + dateToFormat.getDate();
+            }
+
+            return dateToFormat.getFullYear() +"-"+ m +"-"+ d;
         }
     };
 }]).service('createUpdateTools', function () {
@@ -49,5 +69,7 @@ angular.module('app', [
             .when('/about', { templateUrl: 'partials/about.html' })
             .when('/albumsOverview', { templateUrl: 'partials/albumsOverview.html', controller: 'albumsOverviewCtrl' })
             .when('/artistsOverview', { templateUrl: 'partials/artistsOverview.html', controller: 'artistsOverviewCtrl' })
+            .when('/editAlbum', { templateUrl: 'partials/editAlbum.html', controller: 'editAlbumCtrl' })
+            .when('/editArtist', { templateUrl: 'partials/editArtist.html', controller: 'editArtistCtrl' })
             .otherwise({ redirectTo: '/' });
     }]);

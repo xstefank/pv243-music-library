@@ -7,7 +7,7 @@
                 <span class="glyphicon glyphicon-cd"></span> Albums
             </td>
             <td class="button-width">
-                <a title="Create new" class="btn-success" ng-href="#!/createAlbum"><span class="glyphicon glyphicon-plus"></span></a>
+                <a title="Create new" class="btn-success" ng-href="#!/editAlbum"><span class="glyphicon glyphicon-plus"></span></a>
             </td>
         </tr>
         </tbody>
@@ -30,8 +30,8 @@
     <tbody>
     <tr ng-repeat="album in albums">
         <td>{{album.title}}</td>
-        <td>{{album.artist}}</td>
-        <td>{{album.commentary}}</td>
+        <td>{{album.artist.name}}</td>
+        <td>{{album.commentary | limitTo: 60}}{{album.commentary.length > 60 ? '...' : ''}}</td>
         <td><a title="Edit" class="btn list-item-href" ng-click="updateAlbum(album)"><span class="glyphicon glyphicon-tag"></span></a></td>
     </tr>
     </tbody>

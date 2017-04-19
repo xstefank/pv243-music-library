@@ -1,4 +1,11 @@
 
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
 body {
     padding: 0;
 }
@@ -29,9 +36,28 @@ body {
     padding-top: 19px;
     color: #777;
     border-top: 1px solid #e5e5e5;
-    width: 100%;
-    bottom: 0;
-    position: absolute;
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 40px 0;
+}
+.marketing p + h4 {
+    margin-top: 28px;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -42,6 +68,7 @@ body {
 
     /* Remove the padding we set earlier */
     .header,
+    .marketing,
     .footer {
         padding-left: 0;
         padding-right: 0;
@@ -50,6 +77,109 @@ body {
     .header {
         margin-bottom: 30px;
     }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
+}
+
+/* override */
+.jumbotron {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.vis-item {
+    border-color: black;
+}
+.form-table td {
+    padding: 12px 20px;
+}
+table {
+    width: 100%;
+}
+
+.overview-table div {
+    padding: 0px 20px;
+    text-align: center;
+}
+.overview-table td {
+    width: 45%;
+}
+
+.loader-div {
+    text-align: center;
+    padding-top: 10px
+}
+
+.timesheet-table tr {
+    height: 1px;
+}
+.timesheet-data-td {
+    vertical-align: middle;
+}
+.timesheet-date-td {
+    border: 0 !important;
+    font-size: 27px;
+}
+.timesheet-date-week-td {
+    border: 0 !important;
+    font-size: 27px;
+    color: #d4514a;
+}
+
+.form-warning {
+    color: #d4514a;
+}
+
+.input-button {
+    width: 30%;
+    margin: 15px 20px;
+}
+
+.do-btn {
+    background-color: #286090;
+    color: #fff;
+    border-color: #204d74;
+}
+
+.do-btn:hover {
+    color: #dddddd;
+}
+
+.remove-a {
+    background-color: #d4514a;
+    color: #fff;
+    padding: 5px 11px 5px 10px;
+}
+
+.remove-a:hover {
+    color: #dddddd;
+}
+
+.reset-a {
+    color: #d4514a;
+    cursor: pointer;
+    font-size: 18px;
+}
+.reset-a:hover {
+    color: #a52d27;
+}
+
+.label-radio {
+    font-weight: normal;
+}
+
+.label-radio input {
+    margin-right: 5px;
+}
+
+.half-width {
+    width: 50%;
+}
+
+.vertical-space-before {
+    margin-top: 25px;
 }
 
 .button-width {
@@ -67,19 +197,26 @@ body {
 }
 
 .middle-icon-title {
-    font-size: 30px;
+    font-size: 40px;
 }
 .middle-icon-title span {
     vertical-align: middle;
 }
 
-.title-table {
-    width: 100%;
+#js-navbar-collapse a:hover,
+#js-navbar-collapse a:focus {
+    background-color: #ddd;
 }
 
-/* override */
-.jumbotron {
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.create-job-alert {
+    margin-bottom: 0px;
+    padding: 3px;
+    margin-top: 3px;
+}
+.create-job-alert .close {
+    position: static;
+}
+
+.vis-labelset {
+    width: 150px;
 }
