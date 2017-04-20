@@ -20,3 +20,7 @@ function close() {
         websocketSession.close();
     }
 }
+
+function recommendSong(msg) {
+    websocketSession.send(msg);
+}

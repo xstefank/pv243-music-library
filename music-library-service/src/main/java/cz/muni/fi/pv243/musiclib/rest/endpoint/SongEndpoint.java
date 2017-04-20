@@ -30,9 +30,6 @@ public class SongEndpoint {
     @Inject
     private SongService songService;
 
-    @Inject
-    private RecommendationService recommendationService;
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSongs(@QueryParam("title") String title) {
@@ -51,15 +48,6 @@ public class SongEndpoint {
     public Response getSongForId(@PathParam("id") Long id) {
         Song song = songService.findById(id);
         return Response.ok(song).build();
-    }
-
-    @GET
-    @Path("/{id}/recommend")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response recommend(@PathParam("id") Long id) {
-        Song song = songService.findById(id);
-        recommendationService.recommend(song);
-        return Response.ok().build();
     }
 
     @POST

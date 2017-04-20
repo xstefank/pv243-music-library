@@ -50,6 +50,10 @@
 <div class="container">
     <div ng-view=""></div>
 </div>
+<br/>
+<input id="songId" type="text" name="songId" placeholder="Message" />
+<a href="javascript:recommendSong(document.getElementById('songId').value)">Recommend song id</a>
+<br/>
 <a href="javascript:open();">Open Session</a>
 <br>
 <a href="javascript:close();">Close Session</a>

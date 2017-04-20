@@ -13,14 +13,17 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
+import static cz.muni.fi.pv243.musiclib.service.RecommendationMDB.RECOMMENDED_SONGS_QUEUE;
+import static cz.muni.fi.pv243.musiclib.service.RecommendationMDB.RECOMMENDED_SONGS_QUEUE_JNDI;
+
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
 @JMSDestinationDefinitions({
         @JMSDestinationDefinition(
-                name = "java:jboss/exported/jms/queue/RecommendedSongs",
+                name = RECOMMENDED_SONGS_QUEUE_JNDI,
                 interfaceName = "javax.jms.Queue",
-                destinationName = "RecommendedSongs"
+                destinationName = RECOMMENDED_SONGS_QUEUE
         )
 })
 @MessageDriven(
@@ -28,20 +31,28 @@ import javax.jms.MessageListener;
                 @ActivationConfigProperty(propertyName = "destinationType",
                         propertyValue = "javax.jms.Queue"),
                 @ActivationConfigProperty(propertyName = "destination",
-                        propertyValue = "java:jboss/exported/jms/queue/RecommendedSongs")
+                        propertyValue = RECOMMENDED_SONGS_QUEUE_JNDI)
         })
 public class RecommendationMDB implements MessageListener {
 
+    public static final String RECOMMENDED_SONGS_QUEUE = "RecommendedSongs";
+    public static final String RECOMMENDED_SONGS_QUEUE_JNDI = "java:jboss/exported/jms/queue/" + RECOMMENDED_SONGS_QUEUE;
+    public static final String SONG_ID_PROPERTY = "songId";
+
     @Inject
     @RecommendationMessage
-    Event<Song> recommendEvent;
+    private Event<Song> recommendEvent;
+
+    @Inject
+    private SongService songService;
 
     @Override
     public void onMessage(Message msg) {
 
         try {
-            Song song = msg.getBody(Song.class);
-            //TODO : to make sense, we should do something here - something with DB?
+            Long songId = msg.getLongProperty(SONG_ID_PROPERTY);
+            Song song = songService.findById(songId);
+
             System.out.println("onMessage song " + song.getTitle());
             recommendEvent.fire(song);
         } catch (JMSException e) {
