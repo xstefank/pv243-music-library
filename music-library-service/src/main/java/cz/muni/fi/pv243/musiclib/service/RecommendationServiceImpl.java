@@ -2,6 +2,8 @@ package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.dao.RecommendationDao;
 import cz.muni.fi.pv243.musiclib.entity.Recommendation;
+import cz.muni.fi.pv243.musiclib.entity.Song;
+import cz.muni.fi.pv243.musiclib.entity.User;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -10,7 +12,10 @@ import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Queue;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
@@ -33,7 +38,6 @@ public class RecommendationServiceImpl implements RecommendationService {
         try {
             message.setLongProperty(RecommendationMDB.SONG_ID_PROPERTY, songId);
             message.setStringProperty(RecommendationMDB.USER_NAME_PROPERTY, userName);
-
         } catch (JMSException e) {
             e.printStackTrace();
             return;
@@ -43,7 +47,26 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     @Override
+    public Map<Song, List<User>> getTopTenMostRecommendedLastDay() {
+        return getMostRecommended(
+                LocalDateTime.now(Clock.systemUTC()).minusDays(1),
+                LocalDateTime.now(Clock.systemUTC()),
+                10);
+    }
+
+    @Override
+    public Map<Song, List<User>> getMostRecommended(LocalDateTime from, LocalDateTime to, int count) {
+        if (from.isAfter(to)) {
+            throw new IllegalArgumentException("Timeframe is invalid from is before to");
+        }
+        return recommendationDao.getMostRecommended(from, to, count);
+    }
+
+    @Override
     public Recommendation create(Recommendation entity) {
+        if (entity.getTime() == null) {
+            entity.setTime(LocalDateTime.now(Clock.systemUTC()));
+        }
         return recommendationDao.create(entity);
     }
 

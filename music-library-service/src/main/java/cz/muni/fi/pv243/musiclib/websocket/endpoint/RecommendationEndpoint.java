@@ -1,6 +1,7 @@
 package cz.muni.fi.pv243.musiclib.websocket.endpoint;
 
 import cz.muni.fi.pv243.musiclib.entity.Song;
+import cz.muni.fi.pv243.musiclib.entity.User;
 import cz.muni.fi.pv243.musiclib.qualifier.RecommendationMessage;
 import cz.muni.fi.pv243.musiclib.service.RecommendationService;
 import cz.muni.fi.pv243.musiclib.websocket.service.SessionService;
@@ -13,6 +14,8 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
@@ -43,22 +46,30 @@ public class RecommendationEndpoint {
     @OnMessage
     public void onRecommendationMessage(long songId, Session session) {
         System.out.println("onRecommendationMessage");
-     //TODO this will work when security is configured, use workaround
-     //   String loggedUserName = session.getUserPrincipal().getName();
+        //TODO this will work when security is configured, use workaround
+        //   String loggedUserName = session.getUserPrincipal().getName();
         String loggedUserName = "admin@musiclib.com";
         recommendationService.recommend(songId, loggedUserName);
     }
 
 
-    public void onRecommend(@Observes @RecommendationMessage Song song) {
-        System.out.println("onRecommend event!" + song.getTitle());
-        sendPushUpdate(song);
+    public void onRecommend(@Observes @RecommendationMessage Map<Song, List<User>> mostRecommended) {
+        System.out.println("Most Recommended");
+        for (Map.Entry<Song, List<User>> entry : mostRecommended.entrySet()) {
+            System.out.println(entry.getKey().getTitle());
+            for (User u : entry.getValue()) {
+                System.out.println(u.getEmail());
+            }
+            System.out.println("------------");
+        }
+
+        sendPushUpdate(mostRecommended);
     }
 
-    private void sendPushUpdate(Song song) {
+    private void sendPushUpdate(Map<Song, List<User>> mostRecommended) {
         sessionService.getAllSessions().stream()
                 .forEach(session -> {
-                    session.getAsyncRemote().sendObject(song.getTitle());
+                    session.getAsyncRemote().sendObject(mostRecommended);
                 });
     }
 }

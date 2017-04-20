@@ -14,6 +14,10 @@ import javax.jms.JMSDestinationDefinitions;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 import static cz.muni.fi.pv243.musiclib.service.RecommendationMDB.RECOMMENDED_SONGS_QUEUE;
 import static cz.muni.fi.pv243.musiclib.service.RecommendationMDB.RECOMMENDED_SONGS_QUEUE_JNDI;
@@ -21,8 +25,8 @@ import static cz.muni.fi.pv243.musiclib.service.RecommendationMDB.RECOMMENDED_SO
 /**
  * Message driven bean which reads messages from RecommendedSongs queue and process new recommendation of song.
  * Recommendation messages are produced in @link{RecommendationServiceImpl.recommend} and handled async here in MDB.
- *
- * When new recommendation is processed, event is fired
+ * <p>
+ * When new recommendation is processed, event with most recommended songs is fired
  *
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
@@ -49,7 +53,7 @@ public class RecommendationMDB implements MessageListener {
 
     @Inject
     @RecommendationMessage
-    private Event<Song> recommendEvent;
+    private Event<Map<Song, List<User>>> recommendEvent;
 
     @Inject
     private SongService songService;
@@ -63,24 +67,31 @@ public class RecommendationMDB implements MessageListener {
     @Override
     public void onMessage(Message msg) {
 
+        Long songId;
+        String userName;
         try {
-            Long songId = msg.getLongProperty(SONG_ID_PROPERTY);
-            Song song = songService.findById(songId);
-            String userName = msg.getStringProperty(USER_NAME_PROPERTY);
-            User user = userService.findByEmail(userName);
-
-            System.out.println("onMessage song " + song.getTitle() + " with username " + userName );
-
-            Recommendation recommendation = new Recommendation();
-            recommendation.setSong(song);
-            recommendation.setUser(user);
-
-            recommendationService.create(recommendation);
-
-            recommendEvent.fire(song);
+            songId = msg.getLongProperty(SONG_ID_PROPERTY);
+            userName = msg.getStringProperty(USER_NAME_PROPERTY);
         } catch (JMSException e) {
             e.printStackTrace();
+            return;
         }
+
+        Song song = songService.findById(songId);
+        User user = userService.findByEmail(userName);
+        System.out.println("onMessage song " + song.getTitle() + " with username " + userName);
+
+        Recommendation recommendation = new Recommendation();
+        recommendation.setSong(song);
+        recommendation.setUser(user);
+        recommendation.setTime(LocalDateTime.now(Clock.systemUTC()));
+
+        recommendationService.create(recommendation);
+
+        Map<Song, List<User>> topTen = recommendationService.getTopTenMostRecommendedLastDay();
+
+        recommendEvent.fire(topTen);
+
 
     }
 }
