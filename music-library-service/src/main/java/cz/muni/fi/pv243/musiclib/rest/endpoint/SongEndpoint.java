@@ -4,7 +4,6 @@ import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.entity.Song;
-import cz.muni.fi.pv243.musiclib.service.RecommendationService;
 import cz.muni.fi.pv243.musiclib.service.SongService;
 
 import javax.inject.Inject;

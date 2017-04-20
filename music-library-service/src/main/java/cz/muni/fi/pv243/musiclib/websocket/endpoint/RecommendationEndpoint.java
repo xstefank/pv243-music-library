@@ -41,9 +41,12 @@ public class RecommendationEndpoint {
     }
 
     @OnMessage
-    public void onRecommendationMessage(long songId) {
+    public void onRecommendationMessage(long songId, Session session) {
         System.out.println("onRecommendationMessage");
-        recommendationService.recommend(songId);
+     //TODO this will work when security is configured, use workaround
+     //   String loggedUserName = session.getUserPrincipal().getName();
+        String loggedUserName = "admin@musiclib.com";
+        recommendationService.recommend(songId, loggedUserName);
     }
 
 
