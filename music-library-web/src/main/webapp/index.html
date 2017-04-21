@@ -17,7 +17,18 @@
     <script src="partials/editArtist.js"></script>
     <script src="partials/homeController.js"></script>
 </head>
-<body>
+<body class="respect-sidebar">
+
+<div class="sidebar">
+    <br/>
+    <input id="songId" type="text" name="songId" placeholder="Message" />
+    <a href="javascript:recommendSong(document.getElementById('songId').value)">Recommend song id</a>
+    <br/>
+    <a href="javascript:open();">Open Session</a>
+    <br>
+    <a href="javascript:close();">Close Session</a>
+    <div id="websocketMessages" style="border: 1px solid"></div>
+</div>
 
 <div class="header">
     <div class="navbar navbar-default" role="navigation">
@@ -49,16 +60,6 @@
 
 <div class="container">
     <div ng-view=""></div>
-</div>
-<br/>
-<input id="songId" type="text" name="songId" placeholder="Message" />
-<a href="javascript:recommendSong(document.getElementById('songId').value)">Recommend song id</a>
-<br/>
-<a href="javascript:open();">Open Session</a>
-<br>
-<a href="javascript:close();">Close Session</a>
-<div id="websocketMessages" style="border: 1px solid">
-
 </div>
 
 <div class="footer">

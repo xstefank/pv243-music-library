@@ -36,6 +36,9 @@ body {
     padding-top: 19px;
     color: #777;
     border-top: 1px solid #e5e5e5;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
 }
 
 .container-narrow > hr {
@@ -219,4 +222,18 @@ table {
 
 .vis-labelset {
     width: 150px;
+}
+
+.respect-sidebar {
+    padding-left: 320px;
+}
+
+.sidebar {
+    position: fixed;
+    width: 320px;
+    left: 320px;
+    margin-left: -320px;
+    height: 100%;
+    overflow-y:auto;
+    padding-right: 10px;
 }
