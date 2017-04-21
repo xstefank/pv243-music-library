@@ -2,10 +2,25 @@
 
 angular.module('app')
     .controller('editAlbumCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
+        commonTools.getArtistsAvailable().then(function (response) {
+            $scope.artists = response;
+            if ($scope.album.artist != undefined) {
+                for (var i = 0; i < $scope.artists.length; i++) {
+                    if ($scope.album.artist.id == $scope.artists[i].id) {
+                        $scope.album.artist = $scope.artists[i];
+                        break;
+                    }
+                }
+            }
+        });
+        $scope.alerts = [];
         $scope.master = {};
         $scope.doing = 'create';
         if (createUpdateTools.getItem() != null) {
             $scope.album = angular.copy(createUpdateTools.getItem());
+            if(createUpdateTools.getItem().dateOfRelease != undefined) {
+                $scope.album.dateOfRelease = new Date(createUpdateTools.getItem().dateOfRelease);
+            }
             createUpdateTools.deleteItem();
             $scope.genuineAlbum = angular.copy($scope.album);
             $scope.doing = 'update';
@@ -15,6 +30,8 @@ angular.module('app')
             $scope.master = angular.copy(album);
             var data = {
                 title: $scope.master.title,
+                artist: $scope.master.artist,
+                dateOfRelease: commonTools.formatDateForRest($scope.master.dateOfRelease),
                 commentary: $scope.master.commentary
             };
             if ($scope.doing == 'create') {
@@ -27,7 +44,7 @@ angular.module('app')
                     createUpdateTools.setAlerts([{type: 'success', title: 'Successful!', msg: $scope.status}]);
                     $location.path("/albumsOverview");
                 }, function (response) {
-                    $scope.status = "Cannot create, "+ response.status;
+                    $scope.alerts.push({type: 'danger', title: 'Error '+ response.status, msg: response.statusText});
                 });
             } else {
                 $scope.messageBuilder = 'You have successfully updated these fields [';
@@ -35,6 +52,14 @@ angular.module('app')
                 if (data.title != $scope.genuineAlbum.title) {
                     $scope.updatingItem.title = data.title;
                     $scope.messageBuilder += 'title, ';
+                }
+                if (data.artist.id != $scope.genuineAlbum.artist.id) {
+                    $scope.updatingItem.artist = data.artist;
+                    $scope.messageBuilder += 'artist, ';
+                }
+                if (data.dateOfRelease != commonTools.formatDateForRest($scope.genuineAlbum.dateOfRelease)) {
+                    $scope.updatingItem.dateOfRelease = data.dateOfRelease;
+                    $scope.messageBuilder += 'release date, ';
                 }
                 if (data.commentary != $scope.genuineAlbum.commentary) {
                     $scope.updatingItem.commentary = data.commentary;
@@ -50,7 +75,7 @@ angular.module('app')
                         createUpdateTools.setAlerts([{type: 'success', title:'Successfull!', msg: $scope.status}]);
                         $location.path("/albumsOverview");
                     }, function (response) {
-                        $scope.status = "Cannot update album. An error "+ response.status +" occured.";
+                        $scope.alerts.push({type: 'danger', title: 'Error '+ response.status, msg: response.statusText});
                     });
                 } else {
                     createUpdateTools.setAlerts([{type: 'info', title: "No change!", msg: 'There have been no changes.'}]);
@@ -87,5 +112,8 @@ angular.module('app')
             }
         };
 
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
 
     }]);

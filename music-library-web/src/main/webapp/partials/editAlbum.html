@@ -4,6 +4,11 @@
     </p>
 </div>
 
+<div ng-repeat="alert in alerts" ng-class="'alert alert-' + (alert.type || 'warning') + ' alert-dismissible'" >
+    <a ng-click="closeAlert($index)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{alert.title}} </strong>{{alert.msg}}
+</div>
+
 <div>
     <form name="form" class="css-form" novalidate>
         <table class="form-table">
@@ -18,9 +23,17 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 80px">Commentary</td>
-                <td style="width: 350px"><input class="form-control" type="text" ng-model="album.commentary" name="aCommentary" /></td>
-                <td style="width: auto" class="form-warning"></td>
+                <td>Artist</td>
+                <td><select class="form-control" ng-model="album.artist" ng-options="item.name for item in artists" name="aArtist" required></select></td>
+            </tr>
+            <tr>
+                <td>Date of release</td>
+                <td><input class="form-control" type="date" ng-model="album.dateOfRelease" name="aDateOfRelease" required /></td>
+            </tr>
+            <tr>
+                <td>Commentary</td>
+                <td><input class="form-control" type="text" ng-model="album.commentary" name="aCommentary" /></td>
+                <td class="form-warning"></td>
             </tr>
             </tbody>
         </table>
@@ -46,4 +59,7 @@
             </table>
         </div>
     </form>
+</div>
+<div>
+    album: {{album}}
 </div>

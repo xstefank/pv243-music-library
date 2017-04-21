@@ -3,6 +3,7 @@
 angular.module('app')
     .controller('editArtistCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
         $scope.master = {};
+        $scope.alerts = [];
         $scope.doing = 'create';
         if (createUpdateTools.getItem() != null) {
             $scope.artist = angular.copy(createUpdateTools.getItem());
@@ -30,7 +31,7 @@ angular.module('app')
                     createUpdateTools.setAlerts([{type: 'success', title: 'Successful!', msg: $scope.status}]);
                     $location.path("/artistsOverview");
                 }, function (response) {
-                    $scope.status = "Cannot create, "+ response.status;
+                    $scope.alerts.push({type: 'danger', title: 'Error '+ response.status, msg: response.statusText});
                 });
             } else {
                 $scope.messageBuilder = 'You have successfully updated these fields [';
@@ -53,7 +54,7 @@ angular.module('app')
                         createUpdateTools.setAlerts([{type: 'success', title:'Successful!', msg: $scope.status}]);
                         $location.path("/artistsOverview");
                     }, function (response) {
-                        $scope.status = "Cannot update artist. An error "+ response.status +" occured.";
+                        $scope.alerts.push({type: 'danger', title: 'Error '+ response.status, msg: response.statusText});
                     });
                 } else {
                     createUpdateTools.setAlerts([{type: 'info', title: "No change!", msg: 'There have been no changes.'}]);
@@ -90,5 +91,8 @@ angular.module('app')
             }
         };
 
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
 
     }]);
