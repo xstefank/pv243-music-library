@@ -33,6 +33,9 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public void remove(Album album) throws IllegalArgumentException {
+        songDao.searchByAlbum(album)
+                .forEach(song -> song.setAlbum(null));
+
         albumDao.remove(album.getId());
     }
 

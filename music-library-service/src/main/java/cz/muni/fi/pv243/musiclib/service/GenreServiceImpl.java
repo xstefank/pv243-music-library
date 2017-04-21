@@ -16,6 +16,9 @@ public class GenreServiceImpl implements GenreService {
     @Inject
     private GenreDao genreDAO;
 
+    @Inject
+    private SongService songService;
+
     @Override
     public Genre create(Genre genre) {
         return genreDAO.create(genre);
@@ -28,6 +31,10 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public void remove(Genre genre) {
+        //song cannot exist without associated genre
+        songService.searchByGenre(genre)
+                .forEach(song -> songService.remove(song));
+
         genreDAO.remove(genre.getId());
     }
 

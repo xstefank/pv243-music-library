@@ -22,6 +22,9 @@ public class ArtistServiceImpl implements ArtistService {
     private AlbumService albumService;
 
     @Inject
+    private SongService songService;
+
+    @Inject
     private LastFmRestClient lastFmClient;
 
     @Override
@@ -36,6 +39,13 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public void remove(Artist artist) {
+        albumService.searchByArtist(artist)
+                .forEach(album -> album.setArtist(null));
+
+        //song cannot be without artist
+        songService.searchByArtist(artist)
+                .forEach(song -> songService.remove(song));
+
         artistDao.remove(artist.getId());
     }
 
