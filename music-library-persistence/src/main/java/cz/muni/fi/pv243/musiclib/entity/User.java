@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.musiclib.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -32,6 +33,7 @@ public class User implements Serializable {
     private String email;
 
     @NotNull
+    @JsonIgnore
     private String passwordHash;
 
     @NotEmpty
