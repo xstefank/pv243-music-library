@@ -17,7 +17,6 @@ import javax.jms.MessageListener;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 import static cz.muni.fi.pv243.musiclib.service.RecommendationMDB.RECOMMENDED_SONGS_QUEUE;
 import static cz.muni.fi.pv243.musiclib.service.RecommendationMDB.RECOMMENDED_SONGS_QUEUE_JNDI;
@@ -53,7 +52,7 @@ public class RecommendationMDB implements MessageListener {
 
     @Inject
     @RecommendationMessage
-    private Event<Map<Song, List<User>>> recommendEvent;
+    private Event<List<Recommendation.Aggregate>> recommendEvent;
 
     @Inject
     private SongService songService;
@@ -88,10 +87,8 @@ public class RecommendationMDB implements MessageListener {
 
         recommendationService.create(recommendation);
 
-        Map<Song, List<User>> topTen = recommendationService.getTopTenMostRecommendedLastDay();
+        List<Recommendation.Aggregate> topTen = recommendationService.getTopTenMostRecommendedLastDay();
 
         recommendEvent.fire(topTen);
-
-
     }
 }

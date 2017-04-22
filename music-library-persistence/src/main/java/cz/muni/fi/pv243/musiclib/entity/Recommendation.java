@@ -10,9 +10,10 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "song_id" }) })
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "song_id"})})
 public class Recommendation implements Serializable {
 
     @Id
@@ -153,6 +154,24 @@ public class Recommendation implements Serializable {
             this.user = null;
             this.time = null;
             this.user = null;
+        }
+    }
+
+    public static class Aggregate {
+        private Song song;
+        private List<User> users;
+
+        public Aggregate(Song song, List<User> users) {
+            this.song = song;
+            this.users = users;
+        }
+
+        public Song getSong() {
+            return song;
+        }
+
+        public List<User> getUsers() {
+            return users;
         }
     }
 

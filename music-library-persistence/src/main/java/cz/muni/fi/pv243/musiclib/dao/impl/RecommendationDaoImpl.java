@@ -14,9 +14,9 @@ import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
@@ -33,8 +33,8 @@ public class RecommendationDaoImpl extends GenericDaoImpl<Recommendation, Long> 
     private SongDao songDao;
 
     @Override
-    public Map<Song, List<User>> getMostRecommended(LocalDateTime from, LocalDateTime to, int count) {
-        HashMap<Song, List<User>> map = new HashMap<>();
+    public List<Recommendation.Aggregate> getMostRecommended(LocalDateTime from, LocalDateTime to, int count) {
+        List<Recommendation.Aggregate> topList = new ArrayList<>();
 
         Query query = em.createNativeQuery(
                 "select r.song_id, count(r.user_id) from Recommendation r where r.time between :start and :end GROUP BY r.song_id ORDER BY count(r.user_id) DESC, r.time DESC");
@@ -47,7 +47,7 @@ public class RecommendationDaoImpl extends GenericDaoImpl<Recommendation, Long> 
 
         for (int i = 0; i < iterations; i++) {
             Object[] result = list.get(i);
-            Song song = songDao.find(((BigInteger)result[0]).longValue());
+            Song song = songDao.find(((BigInteger) result[0]).longValue());
 
             TypedQuery<User> userQuery = em.createQuery("SELECT r.user FROM Recommendation r WHERE r.song = :song and r.time between :start and :end",
                     User.class)
@@ -56,9 +56,9 @@ public class RecommendationDaoImpl extends GenericDaoImpl<Recommendation, Long> 
                     .setParameter("end", to);
             List<User> users = userQuery.getResultList();
 
-            map.put(song, users);
+            topList.add(new Recommendation.Aggregate(song, users));
         }
 
-        return map;
+        return Collections.unmodifiableList(topList);
     }
 }

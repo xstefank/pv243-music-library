@@ -1,13 +1,10 @@
 package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.entity.Recommendation;
-import cz.muni.fi.pv243.musiclib.entity.Song;
-import cz.muni.fi.pv243.musiclib.entity.User;
 import cz.muni.fi.pv243.musiclib.service.generic.GenericCRUDService;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
@@ -26,7 +23,7 @@ public interface RecommendationService extends GenericCRUDService<Recommendation
      * @return top ten most recommended songs with list of users recommending given song in given time frame,
      * ordered from most recommended song to least recommended song
      */
-    Map<Song, List<User>> getTopTenMostRecommendedLastDay();
+    List<Recommendation.Aggregate> getTopTenMostRecommendedLastDay();
 
     /**
      * Return the most recommended song in given time frame
@@ -37,6 +34,6 @@ public interface RecommendationService extends GenericCRUDService<Recommendation
      * @return most recommended songs with list of users recommending given song in given time frame,
      * ordered from most recommended song to least recommended song
      */
-    Map<Song, List<User>> getMostRecommended(LocalDateTime from, LocalDateTime to, int count);
+    List<Recommendation.Aggregate> getMostRecommended(LocalDateTime from, LocalDateTime to, int count);
 
 }

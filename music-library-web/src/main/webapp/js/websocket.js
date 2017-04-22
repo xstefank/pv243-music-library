@@ -5,7 +5,7 @@ var websocketSession;
 
 function f_onmessage(evt) {
     websocketMessages = document.getElementById('websocketMessages');
-    websocketMessages.innerHTML = websocketMessages.innerHTML + evt.data + '<br/>';
+    websocketMessages.innerHTML = evt.data + '<br/>';
 }
 
 function open() {
