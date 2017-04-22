@@ -2,11 +2,14 @@ package cz.muni.fi.pv243.musiclib.rest.client;
 
 import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Access REST API endpoints of Last.fm
@@ -38,6 +41,33 @@ public class LastFmRestClient {
         } else {
             return jsonObject.getJsonObject("artist").getJsonObject("bio").getString("summary");
         }
+    }
+
+    public URL getAlbumPictureDownloadLink(String artistName, String albumName) throws MalformedURLException {
+        Response response = ClientBuilder.newClient().target(REST_TARGET_URL)
+                .queryParam("method", "album.getinfo")
+                .queryParam("artist", artistName)
+                .queryParam("album", albumName)
+                .queryParam("api_key", API_KEY)
+                .queryParam("format", "json")
+                .request().get();
+
+        JsonReader jsonReader = Json.createReader(new StringReader(response.readEntity(String.class)));
+        JsonObject jsonObject = jsonReader.readObject();
+
+        if (response.getStatus() != 200 || jsonObject.containsKey("error")) {
+            return null;
+        }
+
+        JsonArray imageArray = jsonObject.getJsonObject("album").getJsonArray("image");
+        String downloadLink = null;
+        for (int i = 0; i < imageArray.size(); i++) {
+            downloadLink = imageArray.getJsonObject(i).getString("#text");
+            if (imageArray.getJsonObject(i).getString("size").contains("large")) {
+                break;
+            }
+        }
+        return new URL(downloadLink);
     }
 
 }

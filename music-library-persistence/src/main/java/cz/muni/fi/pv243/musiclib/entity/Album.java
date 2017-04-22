@@ -67,8 +67,6 @@ public class Album implements Serializable {
     @Lob
     private byte[] albumArt;
 
-    private String albumArtMimeType;
-
     public Album() {
     }
 
@@ -125,15 +123,6 @@ public class Album implements Serializable {
         this.albumArt = albumArt;
     }
 
-    public String getAlbumArtMimeType() {
-        return albumArtMimeType;
-    }
-
-    public void setAlbumArtMimeType(String albumArtMimeType) {
-        this.albumArtMimeType = albumArtMimeType;
-    }
-
-
     @Override
     public int hashCode() {
         int hash = 5;
@@ -189,8 +178,6 @@ public class Album implements Serializable {
 
         private byte[] albumArt;
 
-        private String albumArtMimeType;
-
         Builder() {
         }
 
@@ -214,11 +201,6 @@ public class Album implements Serializable {
             return this;
         }
 
-        public Builder albumArtMimeType(String albumArtMimeType) {
-            this.albumArtMimeType = albumArtMimeType;
-            return this;
-        }
-
         public Album build() {
             Album album = new Album();
 
@@ -226,7 +208,6 @@ public class Album implements Serializable {
             album.setCommentary(this.commentary);
             album.setDateOfRelease(this.dateOfRelease);
             album.setAlbumArt(this.albumArt);
-            album.setAlbumArtMimeType(this.albumArtMimeType);
 
             return album;
         }

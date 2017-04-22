@@ -36,4 +36,9 @@ public interface AlbumService extends GenericCRUDService<Album, Long> {
      * @return list of sample albums
      */
     List<Album> getAlbumSample(int count);
+
+    /**
+     * Fetch album picture and store it in database async.
+     */
+    void fetchAlbumImage(Album album);
 }

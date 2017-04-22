@@ -5,8 +5,12 @@ import cz.muni.fi.pv243.musiclib.dao.SongDao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jms.JMSContext;
+import javax.jms.Message;
+import javax.jms.Queue;
 import java.util.List;
 
 /**
@@ -14,6 +18,12 @@ import java.util.List;
  */
 @Stateless
 public class AlbumServiceImpl implements AlbumService {
+
+    @Resource(lookup = AlbumImageDownloaderMDB.ALBUM_IMAGE_PROCESSING_QUEUE_JNDI)
+    private Queue queue;
+
+    @Inject
+    private JMSContext jmsContext;
 
     @Inject
     private AlbumDao albumDao;
@@ -23,7 +33,9 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Album create(Album album) {
-        return albumDao.create(album);
+        Album created = albumDao.create(album);
+        fetchAlbumImage(created);
+        return created;
     }
 
     @Override
@@ -66,5 +78,11 @@ public class AlbumServiceImpl implements AlbumService {
         }
 
         return albumDao.getAlbumSample(count);
+    }
+
+    @Override
+    public void fetchAlbumImage(Album album) {
+        Message message = jmsContext.createObjectMessage(album);
+        jmsContext.createProducer().send(queue, message);
     }
 }
