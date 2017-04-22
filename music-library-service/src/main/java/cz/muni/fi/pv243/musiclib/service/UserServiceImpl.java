@@ -18,27 +18,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User entity) {
-        return null;
+        return userDao.create(entity);
     }
 
     @Override
     public User update(User entity) {
-        return null;
+        return userDao.update(entity);
     }
 
     @Override
     public void remove(User entity) {
-
+        userDao.remove(entity.getId());
     }
 
     @Override
     public User findById(Long id) {
-        return null;
+        return userDao.find(id);
     }
 
     @Override
     public List<User> findAll() {
-        return null;
+        return userDao.findAll();
     }
 
     @Override
