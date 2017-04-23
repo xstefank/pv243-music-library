@@ -2,6 +2,7 @@ package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.dao.RecommendationDao;
 import cz.muni.fi.pv243.musiclib.entity.Recommendation;
+import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -40,7 +41,7 @@ public class RecommendationServiceImpl implements RecommendationService {
             return;
         }
         jmsContext.createProducer().send(queue, message);
-        System.out.println("Song with id " + songId + "will be recommended!");
+        MusicLibLogger.LOGGER.info("Song with id " + songId + "will be recommended!");
     }
 
     @Override

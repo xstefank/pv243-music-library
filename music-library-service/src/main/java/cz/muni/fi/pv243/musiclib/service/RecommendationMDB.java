@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.musiclib.service;
 import cz.muni.fi.pv243.musiclib.entity.Recommendation;
 import cz.muni.fi.pv243.musiclib.entity.Song;
 import cz.muni.fi.pv243.musiclib.entity.User;
+import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
 import cz.muni.fi.pv243.musiclib.qualifier.RecommendationMessage;
 
 import javax.ejb.ActivationConfigProperty;
@@ -78,7 +79,7 @@ public class RecommendationMDB implements MessageListener {
 
         Song song = songService.findById(songId);
         User user = userService.findByEmail(userName);
-        System.out.println("onMessage song " + song.getTitle() + " with username " + userName);
+        MusicLibLogger.LOGGER.info("onMessage song " + song.getTitle() + " with username " + userName);
 
         Recommendation recommendation = new Recommendation();
         recommendation.setSong(song);

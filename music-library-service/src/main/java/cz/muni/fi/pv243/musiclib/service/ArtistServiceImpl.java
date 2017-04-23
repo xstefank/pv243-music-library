@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.musiclib.service;
 import cz.muni.fi.pv243.musiclib.dao.ArtistDao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
+import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
 import cz.muni.fi.pv243.musiclib.rest.client.LastFmRestClient;
 
 import javax.ejb.Stateless;
@@ -29,12 +30,18 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public Artist create(Artist artist) {
-        return artistDao.create(artist);
+        Artist created = artistDao.create(artist);
+
+        MusicLibLogger.LOGGER.trace("Created new Artist: " + artist);
+        return created;
     }
 
     @Override
     public Artist update(Artist artist) {
-        return artistDao.update(artist);
+        Artist updated = artistDao.update(artist);
+
+        MusicLibLogger.LOGGER.trace("Artist " + artist + " has been updated");
+        return updated;
     }
 
     @Override
@@ -42,11 +49,12 @@ public class ArtistServiceImpl implements ArtistService {
         albumService.searchByArtist(artist)
                 .forEach(album -> album.setArtist(null));
 
-        //song cannot be without artist
+        //song cannot exist without artist
         songService.searchByArtist(artist)
                 .forEach(song -> songService.remove(song));
 
         artistDao.remove(artist.getId());
+        MusicLibLogger.LOGGER.trace("Artist" + artist + "has been removed");
     }
 
     @Override

@@ -2,6 +2,7 @@ package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.dao.GenreDao;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
+import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -21,12 +22,18 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public Genre create(Genre genre) {
-        return genreDAO.create(genre);
+        Genre created = genreDAO.create(genre);
+
+        MusicLibLogger.LOGGER.trace("Created new Genre: " + genre);
+        return created;
     }
 
     @Override
     public Genre update(Genre genre) {
-        return genreDAO.update(genre);
+        Genre updated = genreDAO.update(genre);
+
+        MusicLibLogger.LOGGER.trace("Genre " + genre + " has been updated");
+        return updated;
     }
 
     @Override
@@ -36,6 +43,7 @@ public class GenreServiceImpl implements GenreService {
                 .forEach(song -> songService.remove(song));
 
         genreDAO.remove(genre.getId());
+        MusicLibLogger.LOGGER.trace("Genre " + genre + " has been removed");
     }
 
     @Override

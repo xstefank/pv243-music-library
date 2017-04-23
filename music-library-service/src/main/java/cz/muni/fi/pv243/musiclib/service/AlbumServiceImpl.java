@@ -4,6 +4,7 @@ import cz.muni.fi.pv243.musiclib.dao.AlbumDao;
 import cz.muni.fi.pv243.musiclib.dao.SongDao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
+import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -35,12 +36,17 @@ public class AlbumServiceImpl implements AlbumService {
     public Album create(Album album) {
         Album created = albumDao.create(album);
         fetchAlbumImage(created);
+
+        MusicLibLogger.LOGGER.trace("Created new Album: " + created);
         return created;
     }
 
     @Override
     public Album update(Album album) {
-        return albumDao.update(album);
+        Album updated = albumDao.update(album);
+
+        MusicLibLogger.LOGGER.trace("Album " + updated + " has been updated");
+        return updated;
     }
 
     @Override
@@ -49,6 +55,7 @@ public class AlbumServiceImpl implements AlbumService {
                 .forEach(song -> song.setAlbum(null));
 
         albumDao.remove(album.getId());
+        MusicLibLogger.LOGGER.trace("Album " + album + " has been removed");
     }
 
     @Override

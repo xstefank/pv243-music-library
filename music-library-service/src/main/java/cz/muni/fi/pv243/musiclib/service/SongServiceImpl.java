@@ -5,6 +5,7 @@ import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.entity.Song;
+import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -21,17 +22,24 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public Song create(Song song) {
-        return songDao.create(song);
+        Song created = songDao.create(song);
+
+        MusicLibLogger.LOGGER.trace("Created new Song: " + song);
+        return created;
     }
 
     @Override
     public Song update(Song song) {
-        return songDao.update(song);
+        Song updated = songDao.update(song);
+
+        MusicLibLogger.LOGGER.trace("Song " + song + " has been updated");
+        return updated;
     }
 
     @Override
     public void remove(Song song) {
         songDao.remove(song.getId());
+        MusicLibLogger.LOGGER.trace("Song " + song + " has been removed");
     }
 
     @Override
