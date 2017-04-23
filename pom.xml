@@ -15,7 +15,26 @@
     </modules>
 
     <properties>
+        <!--keep in alphabetical order please-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <version.common-io>2.5</version.common-io>
+        <version.com.fasterxml.jackson.core>2.7.4</version.com.fasterxml.jackson.core>
+        <version.junit>4.11</version.junit>
+        <version.maven.checkstyle.plugin>2.17</version.maven.checkstyle.plugin>
+        <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
+        <version.maven.surefire.plugin>2.19.1</version.maven.surefire.plugin>
+        <version.maven.war.plugin>2.4</version.maven.war.plugin>
+        <version.org.hibernate.search>5.5.4.Final</version.org.hibernate.search>
+        <version.org.jboss.arquillian>1.1.13.Final</version.org.jboss.arquillian>
+        <version.org.jboss.logging>3.3.1.Final</version.org.jboss.logging>
+        <version.org.jboss.spec.jboss-javaee-7.0>1.1.0.Beta1</version.org.jboss.spec.jboss-javaee-7.0>
+        <version.org.wildfly.arquillian>2.0.2.Final</version.org.wildfly.arquillian>
+        <version.org.wildfly.bom>10.1.0.Final</version.org.wildfly.bom>
+        <version.org.wildfly.server>10.1.0.Final</version.org.wildfly.server>
+        <version.wildfly.checkstyle.config>1.0.5.Final</version.wildfly.checkstyle.config>
+        <version.wildfly.maven.plugin>1.1.0.Final</version.wildfly.maven.plugin>
+
     </properties>
 
     <repositories>
@@ -25,8 +44,6 @@
             <id>jboss-public-repository</id>
             <name>JBoss Repository</name>
             <url>http://repository.jboss.org/nexus/content/groups/public</url>
-            <releases>
-            </releases>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -38,47 +55,44 @@
             <id>jboss-public-repository</id>
             <name>JBoss Repository</name>
             <url>http://repository.jboss.org/nexus/content/groups/public</url>
-            <releases>
-            </releases>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
-
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.wildfly.bom</groupId>
                 <artifactId>wildfly-javaee7-with-tools</artifactId>
-                <version>10.1.0.Final</version>
+                <version>${version.org.wildfly.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.1.13.Final</version>
+                <version>${version.org.jboss.arquillian}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-search-orm</artifactId>
-                <version>5.5.4.Final</version>
+                <version>${version.org.hibernate.search}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>2.7.4</version>
+                <version>${version.com.fasterxml.jackson.core}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.5</version>
+                <version>${version.common-io}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -87,14 +101,14 @@
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-7.0</artifactId>
-            <version>1.1.0.Beta1</version>
+            <version>${version.org.jboss.spec.jboss-javaee-7.0}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -109,18 +123,13 @@
         <dependency>
             <groupId>org.wildfly.arquillian</groupId>
             <artifactId>wildfly-arquillian-container-managed</artifactId>
-            <version>2.0.2.Final</version>
+            <version>${version.org.wildfly.arquillian}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>2.5.5</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
-            <version>3.3.1.Final</version>
+            <version>${version.org.jboss.logging}</version>
         </dependency>
     </dependencies>
 
@@ -131,16 +140,16 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.6.1</version>
+                    <version>${version.maven.compiler.plugin}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>${version.maven.war.plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>
                     <artifactId>wildfly-maven-plugin</artifactId>
-                    <version>1.1.0.Final</version>
+                    <version>${version.wildfly.maven.plugin}</version>
                     <configuration>
                         <serverConfig>standalone-full.xml</serverConfig>
                     </configuration>
@@ -159,7 +168,6 @@
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
-                <version>1.0.2.Final</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
@@ -167,7 +175,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.17</version>
+                <version>${version.maven.checkstyle.plugin}</version>
                 <configuration>
                     <configLocation>wildfly-checkstyle/checkstyle.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
@@ -180,7 +188,7 @@
                     <dependency>
                         <groupId>org.wildfly.checkstyle</groupId>
                         <artifactId>wildfly-checkstyle-config</artifactId>
-                        <version>1.0.5.Final</version>
+                        <version>${version.wildfly.checkstyle.config}</version>
                     </dependency>
                 </dependencies>
                 <executions>
@@ -199,7 +207,7 @@
 
     <profiles>
         <profile>
-            <id>dafault</id>
+            <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -208,7 +216,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.19.1</version>
+                        <version>${version.maven.surefire.plugin}</version>
                         <configuration>
                             <excludes>
                                 <exclude>**/integration/*</exclude>
@@ -236,7 +244,7 @@
                                         <artifactItem>
                                             <groupId>org.wildfly</groupId>
                                             <artifactId>wildfly-dist</artifactId>
-                                            <version>10.1.0.Final</version>
+                                            <version>${version.org.wildfly.server}</version>
                                             <type>zip</type>
                                             <overWrite>false</overWrite>
                                             <outputDirectory>${project.build.directory}/test-server</outputDirectory>
@@ -249,7 +257,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.19.1</version>
+                        <version>${version.maven.surefire.plugin}</version>
                         <configuration>
                             <includes>
                                 <include>**/integration/*</include>
@@ -259,7 +267,7 @@
                 </plugins>
             </build>
             <properties>
-                <jboss.home>${project.build.directory}/test-server/wildfly-10.1.0.Final</jboss.home>
+                <jboss.home>${project.build.directory}/test-server/wildfly-${version.org.wildfly.server}</jboss.home>
             </properties>
         </profile>
     </profiles>
