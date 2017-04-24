@@ -1,26 +1,38 @@
 /**
  * Created by Martin Styk on 18.04.2017.
  */
-var websocketSession;
+'use strict';
 
-function f_onmessage(evt) {
-    websocketMessages = document.getElementById('websocketMessages');
-    websocketMessages.innerHTML = evt.data + '<br/>';
-}
+angular.module('app')
+    .controller('websocketCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
+        $scope.songs = [];
+        $scope.songId = "";
 
-function open() {
-    if (!websocketSession) {
-        websocketSession = new WebSocket('ws://127.0.0.1:8080/music/recommendations');
-        websocketSession.onmessage = f_onmessage;
-    }
-}
+        $scope.recommendSong = function (msg) {
+            $scope.websocketSession.send(msg);
+        };
+        
+        $scope.onMessage = function (evt) {
+            var songData = JSON.parse(evt.data);
+            $scope.songs.length = 0;
+            angular.forEach(songData, function (item) {
+                $scope.songs.push(item);
+            });
+            $scope.songId = "";
+            $scope.$apply();
+        };
 
-function close() {
-    if (websocketSession) {
-        websocketSession.close();
-    }
-}
+        this.$onInit = function () {
+            if (!$scope.websocketSession) {
+                $scope.websocketSession = new WebSocket('ws://127.0.0.1:8080/music/recommendations');
+                $scope.websocketSession.onmessage = $scope.onMessage;
+            }
+        };
+        
+        this.$onDestroy = function () {
+            if ($scope.websocketSession) {
+                $scope.websocketSession.close();
+            }
+        };
 
-function recommendSong(msg) {
-    websocketSession.send(msg);
-}
+    }]);

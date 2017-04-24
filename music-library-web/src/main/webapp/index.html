@@ -20,14 +20,18 @@
 <body class="respect-sidebar">
 
 <div class="sidebar">
-    <br/>
-    <input id="songId" type="text" name="songId" placeholder="Message" />
-    <a href="javascript:recommendSong(document.getElementById('songId').value)">Recommend song id</a>
-    <br/>
-    <a href="javascript:open();">Open Session</a>
-    <br>
-    <a href="javascript:close();">Close Session</a>
-    <div id="websocketMessages" style="border: 1px solid"></div>
+    <div data-ng-controller="websocketCtrl">
+        <div>
+            <input class="recommend-field" type="text" ng-model="songId" name="sId" />
+            <input class="recommend-button do-btn" type="submit" ng-click="recommendSong(songId)" value="Recommend song" />
+        </div>
+        <div>
+            <div ng-repeat="item in songs">
+                <label>{{item.song.title}}</label>
+                <span>{{item.song.artist.name}}</span>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="header">
