@@ -35,7 +35,7 @@ angular.module('app')
                 });
             } else {
                 $scope.messageBuilder = 'You have successfully updated these fields [';
-                $scope.updatingItem = {};
+                $scope.updatingItem = data;
                 if (data.name != $scope.genuineArtist.name) {
                     $scope.updatingItem.name = data.name;
                     $scope.messageBuilder += 'name, ';

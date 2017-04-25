@@ -32,7 +32,8 @@ angular.module('app')
                 title: $scope.master.title,
                 artist: $scope.master.artist,
                 dateOfRelease: commonTools.formatDateForRest($scope.master.dateOfRelease),
-                commentary: $scope.master.commentary
+                commentary: $scope.master.commentary,
+                albumArt: $scope.master.albumArt
             };
             if ($scope.doing == 'create') {
                 $http({
@@ -48,7 +49,7 @@ angular.module('app')
                 });
             } else {
                 $scope.messageBuilder = 'You have successfully updated these fields [';
-                $scope.updatingItem = {};
+                $scope.updatingItem = data;
                 if (data.title != $scope.genuineAlbum.title) {
                     $scope.updatingItem.title = data.title;
                     $scope.messageBuilder += 'title, ';
