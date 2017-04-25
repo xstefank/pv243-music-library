@@ -6,8 +6,10 @@
     padding: 0.2em 0;
 }
 
-body {
+html, body {
     padding: 0;
+    height: 100%;
+
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -33,12 +35,11 @@ body {
 
 /* Custom page footer */
 .footer {
+    text-align: center;
     padding-top: 19px;
     color: #777;
     border-top: 1px solid #e5e5e5;
     width: 100%;
-    bottom: 0;
-    position: absolute;
 }
 
 .container-narrow > hr {
@@ -47,8 +48,10 @@ body {
 
 /* Main marketing message and sign up button */
 .jumbotron {
+    background-color: #286090;
     text-align: center;
     border-bottom: 1px solid #e5e5e5;
+    color: #fff;
 }
 .jumbotron .btn {
     font-size: 21px;
@@ -136,9 +139,10 @@ table {
 }
 
 .input-button {
-    width: 30%;
+    width: 130px;
     margin: 15px 20px;
 }
+
 
 .do-btn {
     background-color: #286090;
@@ -154,6 +158,10 @@ table {
     background-color: #d4514a;
     color: #fff;
     padding: 5px 11px 5px 10px;
+}
+
+.remove{
+    margin: 15px 20px;
 }
 
 .remove-a:hover {
@@ -224,20 +232,20 @@ table {
     width: 150px;
 }
 
-.respect-sidebar {
-    padding-left: 327px;
-}
-
 .sidebar {
-    position: fixed;
+    float: left;
     width: 320px;
-    left: 320px;
-    margin-left: -320px;
     height: 100%;
-    overflow-y:auto;
-    padding-right: 10px;
+    margin-right: 100px;
 }
 
+.album_table .middle_text{
+    padding: 18px 8px 18px 8px;
+}
+
+.music_header{
+    padding-top: 15px;
+}
 .recommend-field {
     margin: 12px;
     padding: 6px 12px;
