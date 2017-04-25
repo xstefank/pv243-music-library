@@ -5,9 +5,9 @@ angular.module('app')
         $scope.master = {};
         $scope.alerts = [];
         $scope.doing = 'create';
-        if (createUpdateTools.getItem() != null) {
+        if (createUpdateTools.getItem()) {
             $scope.artist = angular.copy(createUpdateTools.getItem());
-            if(createUpdateTools.getItem().dateOfBirth != undefined) {
+            if(createUpdateTools.getItem().dateOfBirth) {
                 $scope.artist.dateOfBirth = new Date(createUpdateTools.getItem().dateOfBirth);
             }
             createUpdateTools.deleteItem();
@@ -21,7 +21,7 @@ angular.module('app')
                 name: $scope.master.name,
                 dateOfBirth: commonTools.formatDateForRest($scope.master.dateOfBirth)
             };
-            if ($scope.doing == 'create') {
+            if ($scope.doing === 'create') {
                 $http({
                     url: '/music/api/artist',
                     method: "POST",
@@ -36,11 +36,11 @@ angular.module('app')
             } else {
                 $scope.messageBuilder = 'You have successfully updated these fields [';
                 $scope.updatingItem = data;
-                if (data.name != $scope.genuineArtist.name) {
+                if (data.name !== $scope.genuineArtist.name) {
                     $scope.updatingItem.name = data.name;
                     $scope.messageBuilder += 'name, ';
                 }
-                if (data.dateOfBirth != commonTools.formatDateForRest($scope.genuineArtist.dateOfBirth)) {
+                if (data.dateOfBirth !== commonTools.formatDateForRest($scope.genuineArtist.dateOfBirth)) {
                     $scope.updatingItem.dateOfBirth = data.dateOfBirth;
                     $scope.messageBuilder += 'formed date, ';
                 }
@@ -72,7 +72,7 @@ angular.module('app')
         };
 
         $scope.removeArtist = function () {
-            if($scope.genuineArtist == null || $scope.genuineArtist.id == undefined) {
+            if($scope.genuineArtist) {
                 confirm('Cannot remove Artist immediately.\nFor removing artist we need to know unique identification, which is not available now.');
                 $location.path("/artistsOverview");
             } else {

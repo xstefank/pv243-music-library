@@ -4,9 +4,9 @@ angular.module('app')
     .controller('editAlbumCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
         commonTools.getArtistsAvailable().then(function (response) {
             $scope.artists = response;
-            if ($scope.album.artist != undefined) {
+            if ($scope.album.artist) {
                 for (var i = 0; i < $scope.artists.length; i++) {
-                    if ($scope.album.artist.id == $scope.artists[i].id) {
+                    if ($scope.album.artist.id === $scope.artists[i].id) {
                         $scope.album.artist = $scope.artists[i];
                         break;
                     }
@@ -16,9 +16,9 @@ angular.module('app')
         $scope.alerts = [];
         $scope.master = {};
         $scope.doing = 'create';
-        if (createUpdateTools.getItem() != null) {
+        if (createUpdateTools.getItem()) {
             $scope.album = angular.copy(createUpdateTools.getItem());
-            if(createUpdateTools.getItem().dateOfRelease != undefined) {
+            if(createUpdateTools.getItem().dateOfRelease) {
                 $scope.album.dateOfRelease = new Date(createUpdateTools.getItem().dateOfRelease);
             }
             createUpdateTools.deleteItem();
@@ -35,7 +35,7 @@ angular.module('app')
                 commentary: $scope.master.commentary,
                 albumArt: $scope.master.albumArt
             };
-            if ($scope.doing == 'create') {
+            if ($scope.doing === 'create') {
                 $http({
                     url: '/music/api/album',
                     method: "POST",
@@ -50,19 +50,19 @@ angular.module('app')
             } else {
                 $scope.messageBuilder = 'You have successfully updated these fields [';
                 $scope.updatingItem = data;
-                if (data.title != $scope.genuineAlbum.title) {
+                if (data.title !== $scope.genuineAlbum.title) {
                     $scope.updatingItem.title = data.title;
                     $scope.messageBuilder += 'title, ';
                 }
-                if (data.artist.id != $scope.genuineAlbum.artist.id) {
+                if (data.artist.id !== $scope.genuineAlbum.artist.id) {
                     $scope.updatingItem.artist = data.artist;
                     $scope.messageBuilder += 'artist, ';
                 }
-                if (data.dateOfRelease != commonTools.formatDateForRest($scope.genuineAlbum.dateOfRelease)) {
+                if (data.dateOfRelease !== commonTools.formatDateForRest($scope.genuineAlbum.dateOfRelease)) {
                     $scope.updatingItem.dateOfRelease = data.dateOfRelease;
                     $scope.messageBuilder += 'release date, ';
                 }
-                if (data.commentary != $scope.genuineAlbum.commentary) {
+                if (data.commentary !== $scope.genuineAlbum.commentary) {
                     $scope.updatingItem.commentary = data.commentary;
                     $scope.messageBuilder += 'commentary, ';
                 }
@@ -94,7 +94,7 @@ angular.module('app')
         };
 
         $scope.removeAlbum = function () {
-            if($scope.genuineAlbum == null || $scope.genuineAlbum.id == undefined) {
+            if($scope.genuineAlbum) {
                 confirm('Cannot remove Album immediately.\nFor removing album we need to know unique identification, which is not available now.');
                 $location.path("/albumsOverview");
             } else {
