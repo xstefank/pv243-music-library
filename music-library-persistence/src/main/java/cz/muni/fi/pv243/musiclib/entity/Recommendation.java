@@ -105,6 +105,16 @@ public class Recommendation implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Recommendation{" +
+                "id=" + id +
+                ", user=" + user +
+                ", song=" + song +
+                ", time=" + time +
+                '}';
+    }
+
     public static Builder builder() {
         return new Builder();
     }

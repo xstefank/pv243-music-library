@@ -79,6 +79,14 @@ public class Genre implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                '}';
+    }
+
     public static Builder builder() {
         return new Builder();
     }

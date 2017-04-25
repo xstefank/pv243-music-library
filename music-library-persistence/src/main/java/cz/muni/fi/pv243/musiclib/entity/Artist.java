@@ -99,6 +99,15 @@ public class Artist implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
+    }
+
     public static Builder builder() {
         return new Builder();
     }

@@ -121,6 +121,18 @@ public class Song implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Song{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", youtubeLink='" + youtubeLink + '\'' +
+                ", album=" + album +
+                ", artist=" + artist +
+                ", genre=" + genre +
+                '}';
+    }
+
     public static Builder builder() {
         return new Builder();
     }

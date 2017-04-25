@@ -164,6 +164,18 @@ public class Album implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Album{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", artist=" + artist +
+                ", commentary='" + commentary + '\'' +
+                ", dateOfRelease=" + dateOfRelease +
+                ", albumArt=" + Arrays.toString(albumArt) +
+                '}';
+    }
+
     public static Builder builder() {
         return new Builder();
     }
