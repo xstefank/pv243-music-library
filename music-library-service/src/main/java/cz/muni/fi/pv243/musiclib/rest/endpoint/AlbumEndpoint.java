@@ -46,18 +46,6 @@ public class AlbumEndpoint {
         return Response.ok(album).build();
     }
 
-    @GET
-    @Path("/{id}/image")
-    @Produces("image/png")
-    public Response getAlbumImage(@PathParam("id") Long id) {
-        Response.ResponseBuilder builder;
-        Album album = albumService.findById(id);
-        if(album == null){
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-        return Response.ok(album.getAlbumArt()).build();
-    }
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

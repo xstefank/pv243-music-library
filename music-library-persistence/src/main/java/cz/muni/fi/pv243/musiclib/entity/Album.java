@@ -1,6 +1,5 @@
 package cz.muni.fi.pv243.musiclib.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import cz.muni.fi.pv243.musiclib.util.LocalDateDeserializer;
@@ -66,7 +65,6 @@ public class Album implements Serializable {
     private LocalDate dateOfRelease;
 
     @Lob
-    @JsonIgnore
     private byte[] albumArt;
 
     public Album() {
