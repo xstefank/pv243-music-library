@@ -17,7 +17,6 @@ angular.module('app')
 
 
         $scope.navigateToEdit = function (id) {
-            createUpdateTools.setItem(id);
             $location.path('/editArtist/' + id)
         };
 
@@ -28,4 +27,8 @@ angular.module('app')
         $scope.updateArtist = function (id) {
             $scope.navigateToEdit(id);
         };
+
+        $scope.artistDetail = function (id) {
+            $location.path('/artistDetail/' + id);
+        }
     }]);

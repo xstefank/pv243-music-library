@@ -239,8 +239,20 @@ table {
     margin-right: 100px;
 }
 
+.album_table {
+    cursor: pointer;
+}
+.album_table:hover {
+    background-color: #d4dfe8;
+}
 .album_table .middle_text{
     padding: 18px 8px 18px 8px;
+}
+.album_table .overview-edit-btn:hover {
+    text-shadow: 0 0 2px #286090; /* horizontal-offset vertical-offset 'blur' colour */
+    -moz-text-shadow: 0 0 2px #286090;
+    -webkit-text-shadow: 0 0 2px #286090;
+    color: #ffffff;
 }
 
 .music_header{

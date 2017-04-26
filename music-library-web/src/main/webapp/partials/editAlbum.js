@@ -1,28 +1,30 @@
 'use strict';
 
 angular.module('app')
-    .controller('editAlbumCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
-        commonTools.getArtists().then(function (response) {
-            $scope.artists = response;
-            if ($scope.album && $scope.album.artist) {
-                for (var i = 0; i < $scope.artists.length; i++) {
-                    if ($scope.album.artist.id === $scope.artists[i].id) {
-                        $scope.album.artist = $scope.artists[i];
-                        break;
-                    }
-                }
-            }
-        });
+    .controller('editAlbumCtrl', ['$scope', '$http', '$location', '$routeParams', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, $routeParams, commonTools, createUpdateTools) {
         $scope.alerts = [];
         $scope.master = {};
         $scope.doing = 'Create';
-        if (createUpdateTools.getItem()) {
-            $scope.album = angular.copy(createUpdateTools.getItem());
-            if(createUpdateTools.getItem().dateOfRelease) {
-                $scope.album.dateOfRelease = new Date(createUpdateTools.getItem().dateOfRelease);
-            }
-            createUpdateTools.deleteItem();
-            $scope.genuineAlbum = angular.copy($scope.album);
+        if ($routeParams.id) {
+            commonTools.getAlbum($routeParams.id).then(function (response) {
+                $scope.album = response;
+                $scope.oldAlbum = angular.copy($scope.album);
+            }, function (response) {
+                $scope.alerts.push({type: 'danger', title: 'Error '+ response.status, msg: response.statusText});
+            }).then(function () {
+                commonTools.getArtists().then(function (response) {
+                    $scope.artists = response;
+                    if ($scope.album && $scope.album.artist) {
+                        for (var i = 0; i < $scope.artists.length; i++) {
+                            if ($scope.album.artist.id === $scope.artists[i].id) {
+                                $scope.album.artist = $scope.artists[i];
+                                break;
+                            }
+                        }
+                    }
+                });
+            });
+
             $scope.doing = 'Update';
         }
 

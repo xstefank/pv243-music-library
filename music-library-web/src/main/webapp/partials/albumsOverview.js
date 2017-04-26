@@ -16,16 +16,19 @@ angular.module('app')
         };
 
 
-        $scope.navigateToEdit = function (album) {
-            createUpdateTools.setItem(album);
-            $location.path('/editAlbum')
+        $scope.navigateToEdit = function (id) {
+            $location.path('/editAlbum/' + id);
         };
 
         $scope.createAlbum = function () {
             $scope.navigateToEdit(null);
         };
 
-        $scope.updateAlbum = function (album) {
-            $scope.navigateToEdit(album);
+        $scope.updateAlbum = function (id) {
+            $scope.navigateToEdit(id);
+        };
+
+        $scope.albumDetail = function (id) {
+            $location.path('/albumDetail/' + id);
         };
     }]);

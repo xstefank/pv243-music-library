@@ -4,6 +4,7 @@ import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.entity.Song;
+import cz.muni.fi.pv243.musiclib.service.AlbumService;
 import cz.muni.fi.pv243.musiclib.service.SongService;
 
 import javax.inject.Inject;
@@ -24,13 +25,17 @@ import java.util.List;
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
 @Path("/song")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class SongEndpoint {
 
     @Inject
     private SongService songService;
 
+    @Inject
+    private AlbumService albumService;
+
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getSongs(@QueryParam("title") String title) {
         List<Song> songs;
         if (title == null) {
@@ -43,15 +48,12 @@ public class SongEndpoint {
 
     @GET
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getSongForId(@PathParam("id") Long id) {
         Song song = songService.findById(id);
         return Response.ok(song).build();
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response createSong(Song song) {
         Response.ResponseBuilder builder;
         try {
@@ -79,8 +81,6 @@ public class SongEndpoint {
 
     @PUT
     @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response updateSong(@PathParam("id") Long id, Song song) {
         Response.ResponseBuilder builder;
         Song oldValue = songService.findById(id);
@@ -96,7 +96,6 @@ public class SongEndpoint {
 
     @GET
     @Path("/{id}/album")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getAlbumForSong(@PathParam("id") Long id) {
         Album album = songService.getAlbumForId(id);
         return Response.ok(album).build();
@@ -104,7 +103,6 @@ public class SongEndpoint {
 
     @GET
     @Path("/{id}/artist")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getArtistForSong(@PathParam("id") Long id) {
         Artist artist = songService.getArtistForId(id);
         return Response.ok(artist).build();
@@ -112,9 +110,22 @@ public class SongEndpoint {
 
     @GET
     @Path("/{id}/genre")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getGenreForSong(@PathParam("id") Long id) {
         Genre genre = songService.getGenreForId(id);
         return Response.ok(genre).build();
+    }
+
+    @GET
+    @Path("/album/{id}")
+    public Response getSongsByAlbum(@PathParam("id") Long id) {
+        Response.ResponseBuilder builder;
+        Album album = albumService.findById(id);
+        if (album == null) {
+            builder = Response.status(Response.Status.NOT_FOUND);
+        } else {
+            List<Song> songs = songService.searchByAlbum(album);
+            builder = Response.ok(songs);
+        }
+        return builder.build();
     }
 }

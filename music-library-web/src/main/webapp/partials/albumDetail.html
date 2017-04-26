@@ -1,0 +1,39 @@
+<div class="jumbotron">
+    <p class="music_header">
+        {{album.title}} - {{album.artist.name}}
+    </p>
+</div>
+
+<div>
+    <div class="col-sm-3"><img ng-src="data:image/JPEG;base64,{{album.albumArt}}"/></div>
+    <div class="col-sm-9" style="float:left;">
+        <table class="form-table">
+            <tbody>
+            <tr>
+                <td style="width: 80px">Title</td>
+                <td style="width: 350px">{{album.title}}</td>
+            </tr>
+            <tr>
+                <td>Artist</td>
+                <td>{{album.artist.name}} ({{album.artist.dateOfBirth}})</td>
+            </tr>
+            <tr>
+                <td>Date of release</td>
+                <td>{{album.dateOfRelease}}</td>
+            </tr>
+            <tr>
+                <td>Commentary</td>
+                <td>{{album.commentary}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-repeat="song in songs">
+        {{song.title}}
+    </div>
+    <div class="col-sm-12">
+        <div class="col-sm-3">
+            <input class="form-control input-button" type="submit" ng-click="editAlbum()" value="Edit"/>
+        </div>
+    </div>
+</div>
