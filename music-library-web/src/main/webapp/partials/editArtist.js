@@ -6,7 +6,7 @@ angular.module('app')
         $scope.alerts = [];
         $scope.artist = {};
         $scope.changed = false;
-        $scope.doing = $scope.doing ? $scope.doing : 'create';
+        $scope.doing = 'create';
         if ($routeParams.id) {
             commonTools.getArtist($routeParams.id).then(function (response) {
                 $scope.artist = response;

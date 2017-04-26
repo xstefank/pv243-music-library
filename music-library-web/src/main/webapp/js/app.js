@@ -28,26 +28,6 @@ angular.module('app', [
             return $http.get("/music/api/song/album/" + id).then(function (response) {
                 return response.data;
             });
-        },
-        formatDateForRest: function (dateToFormat) {
-            // return [dateToFormat.getFullYear(), (dateToFormat.getMonth() + 1), dateToFormat.getDate()];
-            if (dateToFormat) {
-                return null;
-            }
-            var m = "";
-            if (dateToFormat.getMonth() + 1 > 9) {
-                m = (dateToFormat.getMonth() + 1);
-            } else {
-                m = "0" + (dateToFormat.getMonth() + 1);
-            }
-            var d = "";
-            if (dateToFormat.getDate() > 9) {
-                d = dateToFormat.getDate();
-            } else {
-                d = "0" + dateToFormat.getDate();
-            }
-
-            return dateToFormat.getFullYear() + "-" + m + "-" + d;
         }
     };
 }]).service('createUpdateTools', function () {

@@ -17,7 +17,7 @@ angular.module('app')
 
 
         $scope.navigateToEdit = function (id) {
-            $location.path('/editAlbum/' + id);
+            $location.path('/editAlbum/' + id)
         };
 
         $scope.createAlbum = function () {
