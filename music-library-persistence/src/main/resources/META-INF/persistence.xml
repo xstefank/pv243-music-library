@@ -34,6 +34,8 @@
         <properties>
             <!-- Properties for Hibernate -->
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.search.default.directory_provider"
@@ -42,6 +44,7 @@
             previously used indexed create new entries in this directory so moving into target folder-->
             <property name="hibernate.search.default.indexBase"
                       value="${build.directory}/lucene/indexes"/>
+
         </properties>
     </persistence-unit>
 </persistence>
