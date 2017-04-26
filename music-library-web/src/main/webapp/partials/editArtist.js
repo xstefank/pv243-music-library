@@ -1,32 +1,30 @@
 'use strict';
 
 angular.module('app')
-    .controller('editArtistCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
-        $scope.master = {};
+    .controller('editArtistCtrl', ['$scope', '$http', '$location', '$routeParams', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, $routeParams,commonTools, createUpdateTools) {
+
         $scope.alerts = [];
-        $scope.doing = 'create';
-        if (createUpdateTools.getItem()) {
-            $scope.artist = angular.copy(createUpdateTools.getItem());
-            if(createUpdateTools.getItem().dateOfBirth) {
-                $scope.artist.dateOfBirth = new Date(createUpdateTools.getItem().dateOfBirth);
-            }
-            createUpdateTools.deleteItem();
-            $scope.genuineArtist = angular.copy($scope.artist);
+        $scope.artist = {};
+        $scope.changed = false;
+        $scope.doing = $scope.doing ? $scope.doing : 'create';
+        if ($routeParams.id) {
+            commonTools.getArtist($routeParams.id).then(function (response) {
+                $scope.artist = response;
+                $scope.oldArtist = angular.copy($scope.artist);
+            }, function (response) {
+                $scope.alerts.push({type: 'danger', title: 'Error '+ response.status, msg: response.statusText});
+            });
+
             $scope.doing = 'update';
         }
 
-        $scope.update = function(artist) {
-            $scope.master = angular.copy(artist);
-            var data = {
-                name: $scope.master.name,
-                dateOfBirth: commonTools.formatDateForRest($scope.master.dateOfBirth)
-            };
+        $scope.update = function() {
             if ($scope.doing === 'create') {
                 $http({
-                    url: '/music/api/artist',
+                    url: '/music/api/artist/',
                     method: "POST",
-                    data: data
-                }).then(function (response) {
+                    data: $scope.artist
+            }).then(function (response) {
                     $scope.status = "New artist successfully created.";
                     createUpdateTools.setAlerts([{type: 'success', title: 'Successful!', msg: $scope.status}]);
                     $location.path("/artistsOverview");
@@ -35,20 +33,19 @@ angular.module('app')
                 });
             } else {
                 $scope.messageBuilder = 'You have successfully updated these fields [';
-                $scope.updatingItem = data;
-                if (data.name !== $scope.genuineArtist.name) {
-                    $scope.updatingItem.name = data.name;
+                if ($scope.artist.name !== $scope.oldArtist.name) {
                     $scope.messageBuilder += 'name, ';
+                    $scope.changed = true;
                 }
-                if (data.dateOfBirth !== commonTools.formatDateForRest($scope.genuineArtist.dateOfBirth)) {
-                    $scope.updatingItem.dateOfBirth = data.dateOfBirth;
+                if ($scope.artist.dateOfBirth !== $scope.oldArtist.dateOfBirth) {
                     $scope.messageBuilder += 'formed date, ';
+                    $scope.changed = true;
                 }
-                if ($scope.messageBuilder.includes(', ')) {
+                if ($scope.changed) {
                     $http({
-                        url: '/music/api/artist/' + $scope.genuineArtist.id,
+                        url: '/music/api/artist/' + $scope.artist.id,
                         method: "PUT",
-                        data: $scope.updatingItem
+                        data: $scope.artist
                     }).then(function (response) {
                         $scope.status = $scope.messageBuilder.substring(0, $scope.messageBuilder.length - 2) + "] of artist.";
                         createUpdateTools.setAlerts([{type: 'success', title:'Successful!', msg: $scope.status}]);
@@ -72,19 +69,19 @@ angular.module('app')
         };
 
         $scope.removeArtist = function () {
-            if($scope.genuineArtist) {
-                confirm('Cannot remove Artist immediately.\nFor removing artist we need to know unique identification, which is not available now.');
+            if(!$scope.artist) {
+                confirm('Cannot remove Artist immediately.\nArtist probably have not been saved yet.');
                 $location.path("/artistsOverview");
             } else {
-                if(confirm('You are above to completely remove Artist:\n'+ $scope.genuineArtist.name +'\n\nAre you sure?')) {
+                if(confirm('You are above to completely remove Artist:\n'+ $scope.artist.name +'\n\nAre you sure?')) {
                     $http({
-                        url: '/music/api/artist/' + $scope.genuineArtist.id,
+                        url: '/music/api/artist/' + $scope.artist.id,
                         method: "DELETE"
                     }).then(function () {
-                        createUpdateTools.setAlerts([{type: 'success', title:'Removed!', msg: 'You have successfully deleted '+ $scope.genuineArtist.name +' from system.'}]);
+                        createUpdateTools.setAlerts([{type: 'success', title:'Removed!', msg: 'You have successfully deleted '+ $scope.artist.name +' from system.'}]);
                         $location.path("/artistsOverview");
                     }, function () {
-                        createUpdateTools.setAlerts([{type: 'danger', title:'Cannot Remove!', msg: $scope.genuineArtist.name +' still has some albums assigned.'}]);
+                        createUpdateTools.setAlerts([{type: 'danger', title:'Cannot Remove!', msg: $scope.artist.name +' still has some albums assigned.'}]);
                         $location.path("/artistsOverview");
                     })
                 }

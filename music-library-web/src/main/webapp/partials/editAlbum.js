@@ -2,7 +2,7 @@
 
 angular.module('app')
     .controller('editAlbumCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
-        commonTools.getArtistsAvailable().then(function (response) {
+        commonTools.getArtists().then(function (response) {
             $scope.artists = response;
             if ($scope.album.artist) {
                 for (var i = 0; i < $scope.artists.length; i++) {

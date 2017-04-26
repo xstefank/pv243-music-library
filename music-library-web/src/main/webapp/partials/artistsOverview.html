@@ -30,7 +30,7 @@
     <tr ng-repeat="artist in artists">
         <td>{{artist.name}}</td>
         <td>{{artist.dateOfBirth}}</td>
-        <td><a title="Edit" class="btn list-item-href" ng-click="updateArtist(artist)"><span class="glyphicon glyphicon-tag"></span></a></td>
+        <td><a title="Edit" class="btn list-item-href" ng-click="updateArtist(artist.id)"><span class="glyphicon glyphicon-tag"></span></a></td>
     </tr>
     </tbody>
 </table>

@@ -2,7 +2,7 @@
 
 angular.module('app')
     .controller('artistsOverviewCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
-        commonTools.getArtistsAvailable().then(function (response) {
+        commonTools.getArtists().then(function (response) {
             $scope.artists = response;
         }, function (response) {
             $scope.alerts.push({type: 'danger', title: 'Error '+ response.status, msg: response.statusText});
@@ -16,16 +16,16 @@ angular.module('app')
         };
 
 
-        $scope.navigateToEdit = function (artist) {
-            createUpdateTools.setItem(artist);
-            $location.path('/editArtist')
+        $scope.navigateToEdit = function (id) {
+            createUpdateTools.setItem(id);
+            $location.path('/editArtist/' + id)
         };
 
         $scope.createArtist = function () {
             $scope.navigateToEdit(null);
         };
 
-        $scope.updateArtist = function (artist) {
-            $scope.navigateToEdit(artist);
+        $scope.updateArtist = function (id) {
+            $scope.navigateToEdit(id);
         };
     }]);

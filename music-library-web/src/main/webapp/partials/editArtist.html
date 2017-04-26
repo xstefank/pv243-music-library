@@ -18,13 +18,13 @@
                 <td style="width: 350px"><input class="form-control" type="text" ng-model="artist.name" name="aName" required /></td>
                 <td style="width: auto" class="form-warning">
                     <div ng-show="form.$submitted || form.aName.$touched">
-                        <div ng-show="form.aTitle.$error.required">Name is required.</div>
+                        <div ng-show="form.aName.$error.required">Name is required.</div>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>Formed</td>
-                <td><input class="form-control" type="date" ng-model="artist.dateOfBirth" name="aDateOfBirth" required /></td>
+                <td><input class="form-control" type="text" ng-model="artist.dateOfBirth" name="aDateOfBirth" required /></td>
             </tr>
             </tbody>
         </table>
@@ -36,12 +36,12 @@
                         <input class="form-control input-button" type="submit" ng-click="reset(form)" value="Reset" />
                     </td>
                     <td align="left">
-                        <input class="form-control input-button do-btn" type="submit" ng-click="form.$invalid ? null : update(artist)" value="Create" />
+                        <input class="form-control input-button do-btn" type="submit" ng-click="form.$invalid ? null : update()" value="Create" />
                     </td>
                 </tr>
                 <tr ng-hide="doing == 'create'">
                     <td align="center">
-                        <input class="form-control input-button do-btn" type="submit" ng-click="form.$invalid ? null : update(artist)" value="Update" />
+                        <input class="form-control input-button do-btn" type="submit" ng-click="form.$invalid ? null : update()" value="Update" />
                     </td>
                     <td>
                         <a title="Remove" class="btn remove-a" ng-click="removeArtist()"><span class="glyphicon glyphicon-trash"></span></a>

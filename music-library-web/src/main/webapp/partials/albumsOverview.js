@@ -2,7 +2,7 @@
 
 angular.module('app')
     .controller('albumsOverviewCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
-        commonTools.getAlbumsAvailable().then(function (response) {
+        commonTools.getAlbums().then(function (response) {
             $scope.albums = response;
         }, function (response) {
             $scope.alerts.push({type: 'danger', title: 'Error '+ response.status, msg: response.statusText});
