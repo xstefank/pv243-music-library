@@ -1,10 +1,13 @@
 package cz.muni.fi.pv243.musiclib.websocket.service;
 
+import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import org.infinispan.Cache;
+
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.websocket.Session;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
@@ -12,17 +15,20 @@ import java.util.Set;
 @ApplicationScoped
 public class SessionServiceImpl implements SessionService {
 
-    private final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
+    @Inject
+    private Cache<String, Session> sessions;
 
-    public Set<Session> getAllSessions() {
-        return Collections.unmodifiableSet(sessions);
+    public Collection<Session> getAllSessions() {
+        return Collections.unmodifiableCollection(sessions.values());
     }
 
     public void addSession(Session session) {
-        sessions.add(session);
+        sessions.put(session.getId(), session);
+        MusicLibLogger.LOGGER.info("Added session " + session.getId() + ". Total number of sessions is " + sessions.size());
     }
 
     public void removeSession(Session session) {
-        sessions.remove(session);
+        sessions.remove(session.getId());
+        MusicLibLogger.LOGGER.info("Removed session " + session.getId() + ". Total number of sessions is " + sessions.size());
     }
 }

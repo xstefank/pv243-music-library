@@ -26,6 +26,7 @@
         <version.maven.surefire.plugin>2.19.1</version.maven.surefire.plugin>
         <version.maven.war.plugin>2.4</version.maven.war.plugin>
         <version.org.hibernate.search>5.5.4.Final</version.org.hibernate.search>
+        <version.org.infinispan>8.2.0.Final</version.org.infinispan>
         <version.org.jboss.arquillian>1.1.13.Final</version.org.jboss.arquillian>
         <version.org.jboss.logging>3.3.1.Final</version.org.jboss.logging>
         <version.org.jboss.spec.jboss-javaee-7.0>1.1.0.Beta1</version.org.jboss.spec.jboss-javaee-7.0>
@@ -93,6 +94,24 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${version.common-io}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-commons</artifactId>
+                <version>${version.org.infinispan}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-core</artifactId>
+                <version>${version.org.infinispan}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-query</artifactId>
+                <version>${version.org.infinispan}</version>
+                <scope>compile</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,7 +1,7 @@
 package cz.muni.fi.pv243.musiclib.websocket.service;
 
 import javax.websocket.Session;
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Websocket session service
@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public interface SessionService {
 
-    Set<Session> getAllSessions();
+    Collection<Session> getAllSessions();
 
     void addSession(Session session);
 
