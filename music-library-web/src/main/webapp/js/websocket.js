@@ -24,7 +24,7 @@ angular.module('app')
 
         this.$onInit = function () {
             if (!$scope.websocketSession) {
-                $scope.websocketSession = new WebSocket('ws://127.0.0.1:8080/music/recommendations');
+                $scope.websocketSession = new WebSocket('ws://' + document.location.host +'/music/recommendations');
                 $scope.websocketSession.onmessage = $scope.onMessage;
             }
         };
