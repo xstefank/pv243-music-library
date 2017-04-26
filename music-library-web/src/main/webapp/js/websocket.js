@@ -35,4 +35,14 @@ angular.module('app')
             }
         };
 
+        $scope.getUserString = function (item) {
+            var result = item.users[0].firstName;
+            if (item.users.length > 1) {
+                result += '+'+ (item.users.length - 1) +' other recommend';
+            } else {
+                result += ' recommends';
+            }
+            return result;
+        };
+
     }]);

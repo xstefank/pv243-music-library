@@ -4,7 +4,7 @@ angular.module('app')
     .controller('editAlbumCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
         commonTools.getArtists().then(function (response) {
             $scope.artists = response;
-            if ($scope.album.artist) {
+            if ($scope.album && $scope.album.artist) {
                 for (var i = 0; i < $scope.artists.length; i++) {
                     if ($scope.album.artist.id === $scope.artists[i].id) {
                         $scope.album.artist = $scope.artists[i];
@@ -15,7 +15,7 @@ angular.module('app')
         });
         $scope.alerts = [];
         $scope.master = {};
-        $scope.doing = 'create';
+        $scope.doing = 'Create';
         if (createUpdateTools.getItem()) {
             $scope.album = angular.copy(createUpdateTools.getItem());
             if(createUpdateTools.getItem().dateOfRelease) {
@@ -23,7 +23,7 @@ angular.module('app')
             }
             createUpdateTools.deleteItem();
             $scope.genuineAlbum = angular.copy($scope.album);
-            $scope.doing = 'update';
+            $scope.doing = 'Update';
         }
 
         $scope.update = function(album) {
@@ -35,7 +35,7 @@ angular.module('app')
                 commentary: $scope.master.commentary,
                 albumArt: $scope.master.albumArt
             };
-            if ($scope.doing === 'create') {
+            if ($scope.doing === 'Create') {
                 $http({
                     url: '/music/api/album',
                     method: "POST",

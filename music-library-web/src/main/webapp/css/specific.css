@@ -258,3 +258,23 @@ table {
     border-radius: 4px;
     padding: 6px;
 }
+
+.recommend-songname {
+    font-weight: bold;
+}
+.recommend-artist {
+    font-variant: all-petite-caps;
+    font-weight: 600;
+    color: #286090
+}
+.recommend-who {
+    font-style: oblique;
+    color: #666666;
+}
+.recommend-line {
+    width:100%;
+    height:1px;
+    background: #aaaaaa;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}

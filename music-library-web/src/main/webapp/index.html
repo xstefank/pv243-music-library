@@ -27,8 +27,10 @@
             </div>
             <div>
                 <div ng-repeat="item in songs">
-                    <label>{{item.song.title}}</label>
-                    <span>{{item.song.artist.name}}</span>
+                    <div class="recommend-songname">{{item.song.title}}</div>
+                    <div class="recommend-artist">{{item.song.artist.name}}</div>
+                    <div class="recommend-who">{{getUserString(item)}}</div>
+                    <div class="recommend-line"></div>
                 </div>
             </div>
         </div>
