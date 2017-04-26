@@ -1,0 +1,17 @@
+
+# creates H2 datasource java:jboss/datasources/pv243DS
+
+connect
+
+/subsystem=datasources/data-source=pv243DS:add( \
+  jndi-name="java:jboss/datasources/pv243DS", \
+  connection-url="jdbc:h2:~/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE", \
+  driver-name=h2, \
+  user-name=sa, \
+  password=sa \
+  )
+
+/subsystem=datasources/data-source=pv243DS:enable
+
+:reload
+
