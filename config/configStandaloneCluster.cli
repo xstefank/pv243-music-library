@@ -1,0 +1,25 @@
+
+# configuration for standalone server in the cluster
+batch
+
+connect
+
+# datasource
+
+/subsystem=datasources/data-source=pv243DS:add( \
+  jndi-name="java:jboss/datasources/pv243DS", \
+  connection-url="jdbc:h2:~/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE", \
+  driver-name=h2, \
+  user-name=sa, \
+  password=sa \
+  )
+ 
+/subsystem=datasources/data-source=pv243DS:enable
+
+:reload
+
+# deployment
+deploy ../music-library-web/target/music-library-web-1.0-SNAPSHOT.war
+
+run-batch
+
