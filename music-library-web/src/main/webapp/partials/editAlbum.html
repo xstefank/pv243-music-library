@@ -1,6 +1,6 @@
 <div class="jumbotron">
     <p class="music_header">
-        {{doing}} Album
+        {{doing}} album
     </p>
 </div>
 
@@ -11,7 +11,7 @@
 
 <div>
     <form name="form" class="css-form" novalidate>
-        <div ng-hide="doing == 'create'" class="col-sm-3"><img ng-src="data:image/JPEG;base64,{{album.albumArt}}"/>
+        <div ng-if="doing !== 'Create'" class="col-sm-3"><img ng-src="data:image/JPEG;base64,{{album.albumArt}}"/>
         </div>
         <div class="col-sm-9" style="float:left;">
             <table class="form-table">
@@ -33,13 +33,19 @@
                         <select class="form-control" ng-model="album.artist"
                                 ng-options="artist.name for artist in artists track by artist.id"
                                 name="aArtist" required>
-                    </select>
+                        </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Date of release</td>
-                    <td><input class="form-control" type="text" ng-model="album.dateOfRelease" name="aDateOfRelease"
-                               required/></td>
+                    <td><input class="form-control" ng-model="album.dateOfRelease" ng-pattern="dateRegex" type="text"
+                               name="aDateOfRelease"
+                               placeholder="yyyy-MM-dd" required/></td>
+                    <td style="width: auto" class="form-warning">
+                        <div ng-show="form.$submitted || form.aDateOfRelease.$touched">
+                            <div ng-show="!form.aDateOfRelease.$valid">Wrong date format.</div>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>Commentary</td>
@@ -50,16 +56,16 @@
             </table>
         </div>
         <div class="col-sm-12">
-            <div ng-show="doing == 'create'">
+            <div ng-show="doing == 'Create'" class="col-sm-12">
                 <div class="col-sm-3">
-                    <input class="form-control input-button" type="submit" ng-click="reset(form)" value="Reset"/>
+                    <input class="form-control input-button" type="button" ng-click="reset(form)" value="Reset"/>
                 </div>
                 <div class="col-sm-9">
                     <input class="form-control input-button do-btn" type="submit"
                            ng-click="form.$invalid ? null : update()" value="Create"/>
                 </div>
             </div>
-            <div ng-hide="doing == 'create'">
+            <div ng-hide="doing == 'Create'" class="col-sm-12">
                 <div class="col-sm-3">
                     <input class="form-control input-button do-btn" type="submit"
                            ng-click="form.$invalid ? null : update()" value="Update"/>

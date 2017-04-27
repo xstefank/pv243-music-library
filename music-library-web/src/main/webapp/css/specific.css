@@ -69,7 +69,7 @@ html, body {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 1050px) {
     .container {
-        max-width: 1030px;
+        max-width: 1230px;
     }
 
     /* Remove the padding we set earlier */
@@ -100,6 +100,10 @@ html, body {
 }
 .form-table td {
     padding: 12px 20px;
+}
+
+.form-table input {
+    width: 450px
 }
 table {
     width: 100%;
