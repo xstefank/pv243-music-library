@@ -1,0 +1,65 @@
+
+# domain cluster configuration script - 2 servers
+
+batch 
+
+connect
+
+# cleanup default configuration
+
+# stop default servers
+/host=master/server-config=server-one:stop(blocking=true)
+/host=master/server-config=server-two:stop(blocking=true)
+/host=master/server-config=server-three:stop(blocking=true)
+
+# remove servers and server groups
+
+/host=master/server-config=server-one:remove()
+/host=master/server-config=server-two:remove()
+/host=master/server-config=server-three:remove()
+
+/server-group=main-server-group:remove()
+/server-group=other-server-group:remove()
+
+# set cluster password
+/profile=full-ha/subsystem=messaging-activemq/server=default:write-attribute( \
+  name=cluster-password,value="pass")
+
+# configure datasource
+/profile=full-ha/subsystem=datasources/data-source=pv243DS:add( \
+  jndi-name="java:jboss/datasources/pv243DS", \
+  connection-url="jdbc:h2:~/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE", \
+  driver-name=h2, \
+  user-name=sa, \
+  password=sa \
+  )
+
+/profile=full-ha/subsystem=datasources/data-source=pv243DS:enable
+
+# add musiclib-server-group, jvm and servers
+
+/server-group=musiclib-server-group:add(profile=full-ha,socket-binding-group=full-ha-sockets)
+
+/server-group=musiclib-server-group/jvm=default:add(heap-size=64m,max-heap-size=512m)
+
+/host=master/server-config=musiclib-server1:add( \
+  group=musiclib-server-group, \
+  socket-binding-group=full-ha-sockets, \
+  auto-start=false)
+
+/host=master/server-config=musiclib-server2:add( \
+  group=musiclib-server-group, \
+  socket-binding-group=full-ha-sockets, \
+  socket-binding-port-offset=100, \
+  auto-start=false)
+
+run-batch
+
+# start servers
+/server-group=musiclib-server-group:start-servers(blocking=true)
+
+# deploy musiclib web application
+deploy ~/GIT/xstefank/pv243-music-library/music-library-web/target/music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
+
+
+
