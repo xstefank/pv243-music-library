@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('editAlbumCtrl', ['$scope', '$http', '$location', '$routeParams', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, $routeParams, commonTools, createUpdateTools) {
+    .controller('editAlbumCtrl', ['$scope', '$location', '$routeParams', 'commonTools', 'createUpdateTools', function ($scope, $location, $routeParams, commonTools, createUpdateTools) {
         $scope.alerts = [];
         $scope.album = {};
 
@@ -27,11 +27,7 @@ angular.module('app')
 
         $scope.update = function () {
             if ($scope.doing === 'Create') {
-                $http({
-                    url: '/music/api/album',
-                    method: "POST",
-                    data: $scope.album
-                }).then(function (response) {
+               commonTools.createAlbum($scope.album).then(function (response) {
                     $scope.status = "New album successfully created.";
                     createUpdateTools.setAlerts([{type: 'success', title: 'Successful!', msg: $scope.status}]);
                     $location.path("/albumsOverview");
@@ -61,11 +57,7 @@ angular.module('app')
                     $scope.changed = true;
                 }
                 if ($scope.changed) {
-                    $http({
-                        url: '/music/api/album/' + $scope.album.id,
-                        method: "PUT",
-                        data: $scope.album
-                    }).then(function (response) {
+                    commonTools.updateAlbum($scope.album, $scope.album.id).then(function (response) {
                         $scope.status = $scope.messageBuilder.substring(0, $scope.messageBuilder.length - 2) + "] of album.";
                         createUpdateTools.setAlerts([{type: 'success', title: 'Successfull!', msg: $scope.status}]);
                         $location.path("/albumsOverview");
@@ -101,10 +93,7 @@ angular.module('app')
                 $location.path("/albumsOverview");
             } else {
                 if (confirm('You are above to completely remove Album:\n' + $scope.album.title + '\n\nAre you sure?')) {
-                    $http({
-                        url: '/music/api/album/' + $scope.album.id,
-                        method: "DELETE"
-                    }).then(function () {
+                    commonTools.deleteAlbum($scope.album.id).then(function () {
                         createUpdateTools.setAlerts([{
                             type: 'success',
                             title: 'Removed!',

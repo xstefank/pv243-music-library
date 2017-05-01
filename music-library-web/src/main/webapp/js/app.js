@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app', [
-    'ngRoute'
+    'ngRoute', 'ngFileUpload'
 ]).factory('commonTools', ['$http', function ($http) {
     return {
         getAlbums: function () {
@@ -28,21 +28,42 @@ angular.module('app', [
             return $http.get("/music/api/song/album/" + id).then(function (response) {
                 return response.data;
             });
+        },
+        createAlbum: function (data){
+            return $http.post("music/api/album", data).then(function (response){
+                return response.data;
+            });
+        },
+        updateAlbum: function (data, id){
+            return $http.put("music/api/album/" + id, data).then(function (response){
+                    return response.data;
+            });
+        },
+        deleteAlbum: function (id){
+             return $http.delete("music/api/album/" + id).then(function (response){
+                    return response.data;
+              });
+         },
+        createArtist: function (data){
+            return $http.post("music/api/artist", data).then(function (response){
+                return response.data;
+            });
+        },
+        updateArtist: function (data, id){
+            return $http.put("music/api/artist/" + id, data).then(function (response){
+                return response.data;
+            });
+        },
+        deleteArtist: function (id){
+            return $http.delete("music/api/album/" + id).then(function (response){
+                return response.data;
+            });
         }
     };
 }]).service('createUpdateTools', function () {
     var item = null;
     var alerts = [];
     return {
-        getItem: function () {
-            return item;
-        },
-        setItem: function (newItem) {
-            item = newItem;
-        },
-        deleteItem: function () {
-            item = null;
-        },
         getAlerts: function () {
             return alerts;
         },

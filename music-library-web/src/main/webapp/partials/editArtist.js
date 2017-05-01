@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('editArtistCtrl', ['$scope', '$http', '$location', '$routeParams', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, $routeParams, commonTools, createUpdateTools) {
+    .controller('editArtistCtrl', ['$scope', '$location', '$routeParams', 'commonTools', 'createUpdateTools', function ($scope, $location, $routeParams, commonTools, createUpdateTools) {
 
         $scope.alerts = [];
         $scope.artist = {};
@@ -21,11 +21,7 @@ angular.module('app')
 
         $scope.update = function () {
             if ($scope.doing === 'Create') {
-                $http({
-                    url: '/music/api/artist/',
-                    method: "POST",
-                    data: $scope.artist
-                }).then(function (response) {
+                commonTools.createArtist($scope.artist).then(function (response) {
                     $scope.status = "New artist successfully created.";
                     createUpdateTools.setAlerts([{type: 'success', title: 'Successful!', msg: $scope.status}]);
                     $location.path("/artistsOverview");
@@ -43,11 +39,7 @@ angular.module('app')
                     $scope.changed = true;
                 }
                 if ($scope.changed) {
-                    $http({
-                        url: '/music/api/artist/' + $scope.artist.id,
-                        method: "PUT",
-                        data: $scope.artist
-                    }).then(function (response) {
+                    commonTools.updateArtist($scope.artist, $scope.artist.id).then(function (response) {
                         $scope.status = $scope.messageBuilder.substring(0, $scope.messageBuilder.length - 2) + "] of artist.";
                         createUpdateTools.setAlerts([{type: 'success', title: 'Successful!', msg: $scope.status}]);
                         $location.path("/artistsOverview");
@@ -83,10 +75,7 @@ angular.module('app')
                 $location.path("/artistsOverview");
             } else {
                 if (confirm('You are above to completely remove Artist:\n' + $scope.artist.name + '\n\nAre you sure?')) {
-                    $http({
-                        url: '/music/api/artist/' + $scope.artist.id,
-                        method: "DELETE"
-                    }).then(function () {
+                    commonTools.deleteArtist($scope.artist.id).then(function () {
                         createUpdateTools.setAlerts([{
                             type: 'success',
                             title: 'Removed!',

@@ -20,7 +20,8 @@
                     <td style="width: 80px">Title</td>
                     <td style="width: 350px"><input class="form-control" type="text" ng-model="album.title"
                                                     name="aTitle"
-                                                    required/></td>
+                                                    required
+                                                    placeholder="Title"/></td>
                     <td style="width: auto" class="form-warning">
                         <div ng-show="form.$submitted || form.aTitle.$touched">
                             <div ng-show="form.aTitle.$error.required">Title is required.</div>
@@ -33,6 +34,8 @@
                         <select class="form-control" ng-model="album.artist"
                                 ng-options="artist.name for artist in artists track by artist.id"
                                 name="aArtist" required>
+                            <option value="" disabled selected="selected">Select artist
+                            </option>
                         </select>
                     </td>
                 </tr>
@@ -40,7 +43,7 @@
                     <td>Date of release</td>
                     <td><input class="form-control" ng-model="album.dateOfRelease" ng-pattern="dateRegex" type="text"
                                name="aDateOfRelease"
-                               placeholder="yyyy-MM-dd" required/></td>
+                               placeholder="Date of release (yyyy-MM-dd)" required/></td>
                     <td style="width: auto" class="form-warning">
                         <div ng-show="form.$submitted || form.aDateOfRelease.$touched">
                             <div ng-show="!form.aDateOfRelease.$valid">Wrong date format.</div>
@@ -49,7 +52,8 @@
                 </tr>
                 <tr>
                     <td>Commentary</td>
-                    <td><input class="form-control" type="text" ng-model="album.commentary" name="aCommentary"/></td>
+                    <td><input class="form-control" type="text" ng-model="album.commentary" name="aCommentary"
+                               placeholder="Comentary"/></td>
                     <td class="form-warning"></td>
                 </tr>
                 </tbody>

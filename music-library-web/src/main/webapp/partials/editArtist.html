@@ -15,7 +15,7 @@
             <tbody>
             <tr>
                 <td style="width: 80px">Name</td>
-                <td style="width: 350px"><input class="form-control" type="text" ng-model="artist.name" name="aName"
+                <td style="width: 350px"><input class="form-control" type="text" ng-model="artist.name" name="aName" placeholder="Name"
                                                 required/></td>
                 <td style="width: auto" class="form-warning">
                     <div ng-show="form.$submitted || form.aName.$touched">
@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <td>Formed</td>
-                <td><input class="form-control" type="text" placeholder="yyyy-MM-dd" name="aDateOfBirth"
+                <td><input class="form-control" type="text"  name="aDateOfBirth" placeholder="Formed (yyyy-MM-dd)"
                            ng-model="artist.dateOfBirth" ng-pattern="dateRegex" required/></td>
                 <td style="width: auto" class="form-warning">
                     <div ng-show="form.$submitted || form.aDateOfBirth.$touched">
