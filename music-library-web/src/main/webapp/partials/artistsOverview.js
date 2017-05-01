@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('artistsOverviewCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
+    .controller('artistsOverviewCtrl', ['$scope', '$location', 'commonTools', 'createUpdateTools', function ($scope, $location, commonTools, createUpdateTools) {
         commonTools.getArtists().then(function (response) {
             $scope.artists = response;
         }, function (response) {

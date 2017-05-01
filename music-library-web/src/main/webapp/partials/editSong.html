@@ -1,0 +1,97 @@
+<div class="jumbotron">
+    <p class="music_header">
+        {{doing}} song
+    </p>
+</div>
+
+<div ng-repeat="alert in alerts" ng-class="'alert alert-' + (alert.type || 'warning') + ' alert-dismissible'">
+    <a ng-click="closeAlert($index)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{alert.title}} </strong>{{alert.msg}}
+</div>
+
+<div>
+    <form name="form" class="css-form" novalidate>
+        <div class="col-sm-9" style="float:left;">
+            <table class="form-table">
+                <tbody>
+                <tr>
+                    <td style="width: 80px">Title</td>
+                    <td style="width: 350px"><input class="form-control" type="text" ng-model="song.title"
+                                                    name="aTitle"
+                                                    required
+                                                    placeholder="Title"/></td>
+                    <td style="width: auto" class="form-warning">
+                        <div ng-show="form.$submitted || form.aTitle.$touched">
+                            <div ng-show="form.aTitle.$error.required">Title is required.</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Link</td>
+                    <td><input class="form-control" type="text" ng-model="song.youtubeLink" name="aLink"
+                               placeholder="Youtube link" required/></td>
+                    <td style="width: auto" class="form-warning">
+                        <div ng-show="form.$submitted || form.aLink.$touched">
+                            <div ng-show="form.aLink.$error.required">Title is required.</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Artist</td>
+                    <td>
+                        <select class="form-control" ng-model="song.artist"
+                                ng-options="artist.name for artist in artists track by artist.id"
+                                name="aArtist" required ng-change="updateAlbums()">
+                            <option value="" disabled selected="selected">Select artist
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Album</td>
+                    <td>
+                        <select class="form-control" ng-model="song.album"
+                                ng-options="album.title for album in albums track by album.id"
+                                name="aAlbum" required>
+                            <option value="" disabled selected="selected">Select album
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Genre</td>
+                    <td>
+                        <select class="form-control" ng-model="song.genre"
+                                ng-options="genre.title for genre in genres track by genre.id"
+                                name="aGenre" required>
+                            <option value="" disabled selected="selected">Select genre
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12">
+            <div ng-show="doing == 'Create'" class="col-sm-12">
+                <div class="col-sm-3">
+                    <input class="form-control input-button" type="button" ng-click="reset(form)" value="Reset"/>
+                </div>
+                <div class="col-sm-9">
+                    <input class="form-control input-button do-btn" type="submit"
+                           ng-click="form.$invalid ? null : update()" value="Create"/>
+                </div>
+            </div>
+            <div ng-hide="doing == 'Create'" class="col-sm-12">
+                <div class="col-sm-3">
+                    <input class="form-control input-button do-btn" type="submit"
+                           ng-click="form.$invalid ? null : update()" value="Update"/>
+                </div>
+                <div class="col-sm-9">
+                    <button class="btn remove-a remove" type="button" ng-click="removeSong()"><span
+                            class="glyphicon glyphicon-trash"></span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

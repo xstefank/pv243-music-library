@@ -4,6 +4,7 @@ angular.module('app', [
     'ngRoute', 'ngFileUpload'
 ]).factory('commonTools', ['$http', function ($http) {
     return {
+        //Album
         getAlbums: function () {
             return $http.get("/music/api/album").then(function (response) {
                 return response.data;
@@ -11,16 +12,6 @@ angular.module('app', [
         },
         getAlbum: function (id) {
             return $http.get("/music/api/album/" + id).then(function (response) {
-                return response.data;
-            });
-        },
-        getArtists: function () {
-            return $http.get("/music/api/artist").then(function (response) {
-                return response.data;
-            });
-        },
-        getArtist: function (id) {
-            return $http.get("/music/api/artist/" + id).then(function (response) {
                 return response.data;
             });
         },
@@ -44,6 +35,18 @@ angular.module('app', [
                     return response.data;
               });
          },
+
+        //Artist
+        getArtists: function () {
+            return $http.get("/music/api/artist").then(function (response) {
+                return response.data;
+            });
+        },
+        getArtist: function (id) {
+            return $http.get("/music/api/artist/" + id).then(function (response) {
+                return response.data;
+            });
+        },
         createArtist: function (data){
             return $http.post("music/api/artist", data).then(function (response){
                 return response.data;
@@ -56,6 +59,43 @@ angular.module('app', [
         },
         deleteArtist: function (id){
             return $http.delete("music/api/album/" + id).then(function (response){
+                return response.data;
+            });
+        },
+
+        //Song
+        getSongs: function () {
+            return $http.get("/music/api/song").then(function (response) {
+                return response.data;
+            });
+        },
+        getSong: function (id) {
+            return $http.get("/music/api/song/" + id).then(function (response) {
+                return response.data;
+            });
+        },
+        createSong: function (data){
+            return $http.post("music/api/song", data).then(function (response){
+                return response.data;
+            });
+        },
+        updateSong: function (data, id){
+            return $http.put("music/api/song/" + id, data).then(function (response){
+                return response.data;
+            });
+        },
+        deleteSong: function (id){
+            return $http.delete("music/api/song/" + id).then(function (response){
+                return response.data;
+            });
+        },
+        getAlbumsByArtist: function (id){
+            return $http.get("music/api/artist/" + id + "/albums").then(function (response){
+                return response.data;
+            });
+        },
+        getGenres: function (){
+            return $http.get("music/api/genre").then(function (response){
                 return response.data;
             });
         }
@@ -87,5 +127,7 @@ angular.module('app', [
             .when('/artistsOverview', {templateUrl: 'partials/artistsOverview.html', controller: 'artistsOverviewCtrl'})
             .when('/editAlbum/:id?', {templateUrl: 'partials/editAlbum.html', controller: 'editAlbumCtrl'})
             .when('/editArtist/:id?', {templateUrl: 'partials/editArtist.html', controller: 'editArtistCtrl'})
+            .when('/songsOverview', {templateUrl: 'partials/songsOverview.html', controller: 'songsOverviewCtrl'})
+            .when('/editSong/:id?', {templateUrl: 'partials/editSong.html', controller: 'editSongCtrl'})
             .otherwise({redirectTo: '/'});
     }]);
