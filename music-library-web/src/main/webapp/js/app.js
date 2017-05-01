@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app', [
-    'ngRoute', 'ngFileUpload'
+    'ngRoute'
 ]).factory('commonTools', ['$http', function ($http) {
     return {
         //Album
