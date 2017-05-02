@@ -90,7 +90,7 @@ angular.module('app', [
             });
         },
         getAlbumsByArtist: function (id){
-            return $http.get("music/api/artist/" + id + "/albums").then(function (response){
+            return $http.get("api/artist/" + id + "/albums").then(function (response){
                 return response.data;
             });
         },
@@ -124,10 +124,12 @@ angular.module('app', [
             .when('/about', {templateUrl: 'partials/about.html'})
             .when('/albumDetail/:id?', {templateUrl: 'partials/albumDetail.html', controller: 'albumDetailCtrl'})
             .when('/albumsOverview', {templateUrl: 'partials/albumsOverview.html', controller: 'albumsOverviewCtrl'})
+            .when('/artistDetail/:id?', {templateUrl: 'partials/artistDetail.html', controller: 'artistDetailCtrl'})
             .when('/artistsOverview', {templateUrl: 'partials/artistsOverview.html', controller: 'artistsOverviewCtrl'})
             .when('/editAlbum/:id?', {templateUrl: 'partials/editAlbum.html', controller: 'editAlbumCtrl'})
             .when('/editArtist/:id?', {templateUrl: 'partials/editArtist.html', controller: 'editArtistCtrl'})
-            .when('/songsOverview', {templateUrl: 'partials/songsOverview.html', controller: 'songsOverviewCtrl'})
             .when('/editSong/:id?', {templateUrl: 'partials/editSong.html', controller: 'editSongCtrl'})
+            .when('/songsOverview', {templateUrl: 'partials/songsOverview.html', controller: 'songsOverviewCtrl'})
+            .when('/songDetail/:id?', {templateUrl: 'partials/songDetail.html', controller: 'songDetailCtrl'})
             .otherwise({redirectTo: '/'});
     }]);

@@ -9,9 +9,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="song in $ctrl.songs">
+    <tr ng-repeat="song in $ctrl.songs" class="album_table" ng-click="songDetail(song.id)">
         <td>{{song.title}}</td>
-        <td><p ng-bind-html="song.youtubeLink | linky">Hop</p></td>
+        <td><p ng-bind-html="song.youtubeLink | linky"></p></td>
         <td>{{song.album.title}}</td>
         <td>{{song.artist.name}}</td>
         <td>{{song.genre.title}}</td>

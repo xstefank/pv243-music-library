@@ -1,0 +1,19 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Album art</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Commentary</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="album in $ctrl.albums" class="album_table" ng-click="albumDetail(album.id)">
+        <td><img ng-src="data:image/JPEG;base64,{{album.albumArt}}" height="40"/></td>
+        <td class="middle_text">{{album.title}}</td>
+        <td class="middle_text">{{album.artist.name}} ({{album.dateOfRelease | getYear}})</td>
+        <td class="middle_text">{{album.commentary | limitTo: 60}}{{album.commentary.length > 60 ? '...' : ''}}</td>
+        <td class="middle_text overview-edit-btn" ng-click="updateAlbum(album.id)"><span class="glyphicon glyphicon-tag"></span></td>
+    </tr>
+    </tbody>
+</table>

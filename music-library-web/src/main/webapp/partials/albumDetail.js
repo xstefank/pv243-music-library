@@ -15,5 +15,8 @@ angular.module('app')
         $scope.editAlbum = function() {
             $location.path('/editAlbum/' + $scope.album.id);
         };
+        $scope.artistDetail = function () {
+            $location.path('/artistDetail/' + $scope.album.artist.id);
+        }
 
     }]);

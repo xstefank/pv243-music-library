@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <td>Artist</td>
-                <td>{{album.artist.name}} ({{album.artist.dateOfBirth}})</td>
+                <td><a ng-click="artistDetail()" class="link">{{album.artist.name}} ({{album.artist.dateOfBirth}})</a></td>
             </tr>
             <tr>
                 <td>Date of release</td>
@@ -29,7 +29,10 @@
         </table>
     </div>
 
-    <songs-list songs="songs"></songs-list>
+    <div class="col-sm-12 detail-subtitle">Songs</div>
+    <div class="col-sm-12">
+        <songs-list songs="songs"></songs-list>
+    </div>
 
     <div class="col-sm-12">
         <div class="col-sm-3">

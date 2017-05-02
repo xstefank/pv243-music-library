@@ -15,22 +15,6 @@ angular.module('app')
             $scope.alerts.splice(index, 1);
         };
 
-
-        $scope.navigateToEdit = function (id) {
-            $location.path('/editAlbum/' + id)
-        };
-
-        $scope.createAlbum = function () {
-            $scope.navigateToEdit(null);
-        };
-
-        $scope.updateAlbum = function (id) {
-            $scope.navigateToEdit(id);
-        };
-
-        $scope.albumDetail = function (id) {
-            $location.path('/albumDetail/' + id);
-        };
     }]).filter('getYear', function() {
     return function(input) {
         return input.split('-')[0];
