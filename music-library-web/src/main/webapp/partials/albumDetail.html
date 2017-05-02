@@ -28,9 +28,9 @@
             </tbody>
         </table>
     </div>
-    <div ng-repeat="song in songs">
-        {{song.title}}
-    </div>
+
+    <songs-list songs="songs"></songs-list>
+
     <div class="col-sm-12">
         <div class="col-sm-3">
             <input class="form-control input-button" type="submit" ng-click="editAlbum()" value="Edit"/>

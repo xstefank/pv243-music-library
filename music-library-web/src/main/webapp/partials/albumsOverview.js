@@ -31,4 +31,8 @@ angular.module('app')
         $scope.albumDetail = function (id) {
             $location.path('/albumDetail/' + id);
         };
-    }]);
+    }]).filter('getYear', function() {
+    return function(input) {
+        return input.split('-')[0];
+    }
+});

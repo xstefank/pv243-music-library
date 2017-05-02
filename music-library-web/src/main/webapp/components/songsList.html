@@ -1,0 +1,21 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Link</th>
+        <th>Album</th>
+        <th>Artist</th>
+        <th>Genre</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="song in $ctrl.songs">
+        <td>{{song.title}}</td>
+        <td><p ng-bind-html="song.youtubeLink | linky">Hop</p></td>
+        <td>{{song.album.title}}</td>
+        <td>{{song.artist.name}}</td>
+        <td>{{song.genre.title}}</td>
+        <td><a title="Edit" class="btn list-item-href" ng-click="updateSong(song.id)"><span class="glyphicon glyphicon-tag"></span></a></td>
+    </tr>
+    </tbody>
+</table>
