@@ -56,6 +56,20 @@
                                placeholder="Comentary"/></td>
                     <td class="form-warning"></td>
                 </tr>
+                <tr>
+                    <td>Album art</td>
+                    <td>
+                        <input type="file" ngf-select ng-model="albumArt" name="file"
+                               accept="image/*" required
+                               ngf-model-invalid="errorFile">
+                        <img ng-show="form.file.$valid" ngf-thumbnail="albumArt" class="thumb">
+                    </td>
+                    <td style="width: auto" class="form-warning">
+                        <div ng-show="form.$submitted || form.file.$touched">
+                            <div ng-show="!form.file.$valid">Album art is required.</div>
+                        </div>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -66,13 +80,13 @@
                 </div>
                 <div class="col-sm-9">
                     <input class="form-control input-button do-btn" type="submit"
-                           ng-click="form.$invalid ? null : update()" value="Create"/>
+                           ng-click="form.$invalid ? null : update(albumArt)" value="Create"/>
                 </div>
             </div>
             <div ng-hide="doing == 'Create'" class="col-sm-12">
                 <div class="col-sm-3">
                     <input class="form-control input-button do-btn" type="submit"
-                           ng-click="form.$invalid ? null : update()" value="Update"/>
+                           ng-click="form.$invalid ? null : update(albumArt)" value="Update"/>
                 </div>
                 <div class="col-sm-9">
                     <button class="btn remove-a remove" type="button" ng-click="removeAlbum()"><span

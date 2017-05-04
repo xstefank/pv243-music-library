@@ -2,6 +2,9 @@ package cz.muni.fi.pv243.musiclib.rest.endpoint;
 
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.service.AlbumService;
+import org.apache.commons.io.IOUtils;
+import org.jboss.resteasy.plugins.providers.multipart.InputPart;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -15,7 +18,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
@@ -89,6 +96,50 @@ public class AlbumEndpoint {
             builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
         }
         return builder.build();
+    }
+
+    @POST
+    @Path("/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadFile(MultipartFormDataInput input) {
+
+        byte[] albumArt = new byte[0];
+
+        Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+        Iterator<Map.Entry<String, List<InputPart>>> iterator = uploadForm.entrySet().iterator();
+        Map.Entry<String, List<InputPart>> first = iterator.next();
+        List<InputPart> inputParts = first.getValue();
+
+        for (InputPart inputPart : inputParts) {
+            try {
+
+                //convert the uploaded file to inputstream
+                InputStream inputStream = inputPart.getBody(InputStream.class, null);
+
+                albumArt = IOUtils.toByteArray(inputStream);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Map.Entry<String, List<InputPart>> id = iterator.next();
+        List<InputPart> idInputParts = id.getValue();
+        try {
+            final StringBuilder builder = new StringBuilder();
+            for (InputPart inputPart : idInputParts) {
+                builder.append(inputPart.getBody(String.class, null));
+            }
+
+            Album album = albumService.findById(Long.valueOf(builder.toString()));
+            album.setAlbumArt(albumArt);
+            albumService.update(album);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return Response.status(200)
+                .entity("Album art was uploaded.").build();
     }
 
 }

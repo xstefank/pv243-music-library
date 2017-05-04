@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app', [
-    'ngRoute', 'ngSanitize'
+    'ngRoute', 'ngFileUpload', 'ngSanitize'
 ]).factory('commonTools', ['$http', function ($http) {
     return {
         //Album

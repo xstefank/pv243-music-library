@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('editAlbumCtrl', ['$scope', '$location', '$routeParams', 'commonTools', 'createUpdateTools', function ($scope, $location, $routeParams, commonTools, createUpdateTools) {
+    .controller('editAlbumCtrl', ['$scope', '$location', '$routeParams', '$timeout', 'Upload', 'commonTools', 'createUpdateTools', function ($scope, $location, $routeParams, $timeout, Upload, commonTools, createUpdateTools) {
         $scope.alerts = [];
         $scope.album = {};
 
@@ -25,16 +25,32 @@ angular.module('app')
 
         });
 
-        $scope.update = function () {
+        $scope.update = function (file) {
             if ($scope.doing === 'Create') {
-               commonTools.createAlbum($scope.album).then(function (response) {
-                    $scope.status = "New album successfully created.";
-                    createUpdateTools.setAlerts([{type: 'success', title: 'Successful!', msg: $scope.status}]);
-                    $location.path("/albumsOverview");
+                commonTools.createAlbum($scope.album).then(function (response) {
+                    file.upload = Upload.upload({
+                        url: '/music/api/album/upload',
+                        data: {file: file, id: response.id}
+                    });
+                    file.upload.then(function (response) {
+                        $timeout(function () {
+                            $scope.albumArt = response.data;
+                        });
+                    }, function () {
+                        $scope.status = "New album successfully created.";
+                        createUpdateTools.setAlerts([{type: 'success', title: 'Successful!', msg: $scope.status}]);
+                        $location.path("/albumsOverview");
+                    },function (response) {
+                        $scope.alerts.push({
+                            type: 'danger',
+                            title: 'Cannot create album! Error ' + response.status,
+                            msg: response.statusText
+                        });
+                    });
                 }, function (response) {
                     $scope.alerts.push({
                         type: 'danger',
-                        title: 'Cannot update album! Error ' + response.status,
+                        title: 'Cannot create album! Error ' + response.status,
                         msg: response.statusText
                     });
                 });
@@ -56,11 +72,35 @@ angular.module('app')
                     $scope.messageBuilder += 'commentary, ';
                     $scope.changed = true;
                 }
+                if ($scope.albumArt){
+                    $scope.messageBuilder += 'album art, ';
+                    $scope.changed = true;
+                }
                 if ($scope.changed) {
                     commonTools.updateAlbum($scope.album, $scope.album.id).then(function (response) {
                         $scope.status = $scope.messageBuilder.substring(0, $scope.messageBuilder.length - 2) + "] of album.";
                         createUpdateTools.setAlerts([{type: 'success', title: 'Successfull!', msg: $scope.status}]);
-                        $location.path("/albumsOverview");
+                        if ($scope.albumArt) {
+                            file.upload = Upload.upload({
+                                url: '/music/api/album/upload',
+                                data: {file: file, id: $scope.album.id}
+                            });
+                            file.upload.then(function (response) {
+                                $timeout(function () {
+                                    $scope.albumArt = response.data;
+                                });
+                            }, function () {
+                                $location.path("/albumsOverview");
+                            },function (response) {
+                                $scope.alerts.push({
+                                    type: 'danger',
+                                    title: 'Cannot create album! Error ' + response.status,
+                                    msg: response.statusText
+                                });
+                            });
+                        } else {
+                            $location.path("/albumsOverview");
+                        }
                     }, function (response) {
                         $scope.alerts.push({
                             type: 'danger',
