@@ -5,7 +5,8 @@ angular.module('app').component('songsList', {
     bindings: {
         songs: '<'
     },
-    controller: function ($scope, $location) {
+    controller: function ($scope, $location, $sce) {
+
         $scope.navigateToEdit = function (id) {
             $location.path('/editSong/' + id)
         };
@@ -21,5 +22,11 @@ angular.module('app').component('songsList', {
         $scope.songDetail = function (id) {
             //TODO $location.path('/songDetail/' + id);
         };
+
+        $scope.videoClick = function(song) {
+            song.video = true;
+            var video_id = song.youtubeLink.split('v=')[1].split('&')[0];
+            song.videoUrl = $sce.trustAsResourceUrl('//www.youtube.com/embed/' + video_id);
+        }
     }
 });

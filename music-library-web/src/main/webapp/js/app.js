@@ -90,7 +90,7 @@ angular.module('app', [
             });
         },
         getAlbumsByArtist: function (id){
-            return $http.get("api/artist/" + id + "/albums").then(function (response){
+            return $http.get("music/api/artist/" + id + "/albums").then(function (response){
                 return response.data;
             });
         },
