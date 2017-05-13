@@ -48,6 +48,23 @@ gulp.task('html', function() {
         }));
 });
 
+gulp.task('components-html', function() {
+    return gulp.src('./src/main/webapp/components/*.html')
+        .pipe(gulp.dest('./target/music-library-web-1.0-SNAPSHOT/components'))
+        .pipe(browserSync.reload({
+            stream: true
+        }));
+});
+
+gulp.task('components-js', function() {
+    return gulp.src('./src/main/webapp/components/*.js')
+        .pipe(gulp.dest('./target/music-library-web-1.0-SNAPSHOT/components'))
+        .pipe(browserSync.reload({
+            stream: true
+        }));
+});
+
+
 gulp.task('browser-sync', function () {
     var proxyOptions = url.parse('http://localhost:8080/music');
     proxyOptions.route = '/music';
@@ -73,6 +90,8 @@ gulp.task('start', function () {
     gulp.watch(['./src/main/webapp/partials/*.html'], ['partials-html']).on("change", reload);
     gulp.watch(['./src/main/webapp/partials/*.js'], ['partials-js']).on("change", reload);
     gulp.watch(['./src/main/webapp/index.html'], ['html']).on("change", reload);
+    gulp.watch(['./src/main/webapp/components/*.js'], ['components-js']).on("change", reload);
+    gulp.watch(['./src/main/webapp/components/*.html'], ['components-html']).on("change", reload);
 });
 
 gulp.task('default', ['browser-sync', 'css', 'js', 'html', 'start']);
