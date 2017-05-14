@@ -294,6 +294,10 @@ table {
     margin-bottom: 5px;
     margin-top: 5px;
 }
+.filter {
+    width:300px;
+    margin: 10px 10px;
+}
 
 .detail-subtitle {
     margin-top: 20px;

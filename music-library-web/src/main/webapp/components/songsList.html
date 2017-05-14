@@ -9,14 +9,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="song in $ctrl.songs" class="album_table" ng-click="songDetail(song.id)">
+    <tr ng-repeat="song in songList.songs" class="album_table" ng-click="songDetail(song.id)" ng-show="!song.invisible">
         <td>{{song.title}}</td>
         <td ng-show="!song.video"><a ng-click="videoClick(song)">{{song.youtubeLink}}</a></td>
         <td ng-show="song.video"><iframe width="560" height="315" ng-src="{{song.videoUrl}}" type="application/x-shockwave-flash " frameborder="1" allowfullscreen></iframe></td>
         <td>{{song.album.title}}</td>
         <td>{{song.artist.name}}</td>
         <td>{{song.genre.title}}</td>
-        <td><a title="Edit" class="btn list-item-href" ng-click="updateSong(song.id)"><span class="glyphicon glyphicon-tag"></span></a></td>
+        <td ng-show="!songList.addSong"><a title="Edit" class="btn list-item-href" ng-click="updateSong(song.id)"><span class="glyphicon glyphicon-tag"></span></a></td>
+        <td ng-show="songList.addSong"><a title="Add" class="btn list-item-href" ng-click="songList.add({id: song.id})"><span class="glyphicon glyphicon-plus"></span></a></td>
     </tr>
     </tbody>
 </table>

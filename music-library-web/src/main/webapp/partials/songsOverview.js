@@ -15,7 +15,6 @@ angular.module('app')
             $scope.alerts.splice(index, 1);
         };
 
-
         $scope.navigateToEdit = function (id) {
             $location.path('/editSong/' + id)
         };

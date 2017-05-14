@@ -1,0 +1,20 @@
+<div class="jumbotron">
+    <table class="title-table">
+        <tbody>
+        <tr>
+            <td class="button-width"></td>
+            <td class="middle-icon-title">
+                <span class="glyphicon glyphicon-book"></span> My Library
+            </td>
+            <td class="button-width">
+                <a title="Create new" class="btn-success" ng-href="#!/addSong"><span class="glyphicon glyphicon-plus"></span></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-repeat="alert in alerts" ng-class="'alert alert-' + (alert.type || 'warning') + ' alert-dismissible'" >
+    <a ng-click="closeAlert($index)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{alert.title}} </strong>{{alert.msg}}
+</div>
+<songs-list songs="songs"></songs-list>

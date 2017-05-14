@@ -2,8 +2,11 @@
 
 angular.module('app').component('songsList', {
     templateUrl: 'components/songsList.html',
+    controllerAs: 'songList',
     bindings: {
-        songs: '<'
+        songs: '<',
+        addSong: '<',
+        add: '&'
     },
     controller: function ($scope, $location, $sce) {
 

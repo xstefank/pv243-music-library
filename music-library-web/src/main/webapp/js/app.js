@@ -21,20 +21,25 @@ angular.module('app', [
             });
         },
         createAlbum: function (data){
-            return $http.post("music/api/album", data).then(function (response){
+            return $http.post("/music/api/album", data).then(function (response){
                 return response.data;
             });
         },
         updateAlbum: function (data, id){
-            return $http.put("music/api/album/" + id, data).then(function (response){
+            return $http.put("/music/api/album/" + id, data).then(function (response){
                     return response.data;
             });
         },
         deleteAlbum: function (id){
-             return $http.delete("music/api/album/" + id).then(function (response){
+             return $http.delete("/music/api/album/" + id).then(function (response){
                     return response.data;
               });
          },
+        getAlbumsByArtist: function (id){
+            return $http.get("/music/api/artist/" + id + "/albums").then(function (response){
+                return response.data;
+            });
+        },
 
         //Artist
         getArtists: function () {
@@ -48,17 +53,17 @@ angular.module('app', [
             });
         },
         createArtist: function (data){
-            return $http.post("music/api/artist", data).then(function (response){
+            return $http.post("/music/api/artist", data).then(function (response){
                 return response.data;
             });
         },
         updateArtist: function (data, id){
-            return $http.put("music/api/artist/" + id, data).then(function (response){
+            return $http.put("/music/api/artist/" + id, data).then(function (response){
                 return response.data;
             });
         },
         deleteArtist: function (id){
-            return $http.delete("music/api/album/" + id).then(function (response){
+            return $http.delete("/music/api/album/" + id).then(function (response){
                 return response.data;
             });
         },
@@ -75,33 +80,39 @@ angular.module('app', [
             });
         },
         createSong: function (data){
-            return $http.post("music/api/song", data).then(function (response){
+            return $http.post("/music/api/song", data).then(function (response){
                 return response.data;
             });
         },
         updateSong: function (data, id){
-            return $http.put("music/api/song/" + id, data).then(function (response){
+            return $http.put("/music/api/song/" + id, data).then(function (response){
                 return response.data;
             });
         },
         deleteSong: function (id){
-            return $http.delete("music/api/song/" + id).then(function (response){
+            return $http.delete("/music/api/song/" + id).then(function (response){
                 return response.data;
             });
         },
-        getAlbumsByArtist: function (id){
-            return $http.get("music/api/artist/" + id + "/albums").then(function (response){
+        getSongsForUser: function (id){
+            return $http.get("/music/api/song/" + id + "/user").then(function (response){
                 return response.data;
             });
         },
+        addSongToUser: function (id, userId) {
+            return $http.put("/music/api/song/" + id + "/user/" + userId).then(function (response){
+                return response.data;
+            });
+        },
+
+        //Genre
         getGenres: function (){
-            return $http.get("music/api/genre").then(function (response){
+            return $http.get("/music/api/genre").then(function (response){
                 return response.data;
             });
         }
     };
 }]).service('createUpdateTools', function () {
-    var item = null;
     var alerts = [];
     return {
         getAlerts: function () {
@@ -131,5 +142,7 @@ angular.module('app', [
             .when('/editSong/:id?', {templateUrl: 'partials/editSong.html', controller: 'editSongCtrl'})
             .when('/songsOverview', {templateUrl: 'partials/songsOverview.html', controller: 'songsOverviewCtrl'})
             .when('/songDetail/:id?', {templateUrl: 'partials/songDetail.html', controller: 'songDetailCtrl'})
+            .when('/myLibraryOverview', {templateUrl: 'partials/myLibrary.html', controller: 'myLibraryCtrl'})
+            .when('/addSong', {templateUrl: 'partials/addSong.html', controller: 'addSongCtrl'})
             .otherwise({redirectTo: '/'});
     }]);

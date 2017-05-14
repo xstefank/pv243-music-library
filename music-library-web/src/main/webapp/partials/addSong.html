@@ -1,0 +1,49 @@
+<div class="jumbotron">
+    <p class="music_header">
+        Add song to my library
+    </p>
+</div>
+
+<div ng-repeat="alert in alerts" ng-class="'alert alert-' + (alert.type || 'warning') + ' alert-dismissible'">
+    <a ng-click="closeAlert($index)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{alert.title}} </strong>{{alert.msg}}
+</div>
+<div>
+    <div class="col-lg-12">
+        <button class="col-lg-2 filter form-control do-btn" ng-click="byArtist = !byArtist; artist = null; filterSongs()">Select by artist
+        </button>
+        <div class="col-lg-6" ng-show="byArtist">
+            <select class="form-control filter" ng-model="artist" ng-change="filterSongs(); getAlbumsByArtist(artist.id)"
+                    ng-options="artist.name for artist in artists"
+                    name="aArtist">
+                <option value="" disabled selected="selected">Select artist
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-12" ng-show="byArtist">
+        <button class="col-lg-2 filter form-control do-btn" ng-click="byAlbum = !byAlbum; album = null; filterSongs()">Select by album
+        </button>
+        <div class="col-lg-6" ng-show="byAlbum">
+            <select class="form-control filter" ng-model="album" ng-change="filterSongs()"
+                    ng-options="album.title for album in albums"
+                    name="aAlbum">
+                <option value="" disabled selected="selected">Select album
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <button class="col-lg-2 filter form-control do-btn" ng-click="byGenre = !byGenre; genre = null; filterSongs()">Select by genre
+        </button>
+        <div class="col-lg-6" ng-show="byGenre">
+            <select class="form-control filter" ng-model="genre" ng-change="filterSongs()"
+                    ng-options="genre.title for genre in genres"
+                    name="aGenre">
+                <option value="" disabled selected="selected">Select genre
+                </option>
+            </select>
+        </div>
+    </div>
+    <songs-list songs="songs" add-song="true" add="addSong(id)"></songs-list>
+</div>

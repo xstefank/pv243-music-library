@@ -95,6 +95,20 @@ public class SongEndpoint {
     }
 
     @GET
+    @Path("/{id}/user")
+    public Response getSongForUser(@PathParam("id") Long userId) {
+        Song song = songService.findByUserID(userId);
+        return Response.ok(song).build();
+    }
+
+    @PUT
+    @Path("/{id}/user/{userId}")
+    public Response addSongToUser(@PathParam("id") Long songId, @PathParam("id") Long userId) {
+        Boolean added = songService.addSongToUser(songId, userId);
+        return Response.ok(added).build();
+    }
+
+    @GET
     @Path("/{id}/album")
     public Response getAlbumForSong(@PathParam("id") Long id) {
         Album album = songService.getAlbumForId(id);

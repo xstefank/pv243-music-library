@@ -86,4 +86,16 @@ public class SongServiceImpl implements SongService {
     public Genre getGenreForId(Long id) {
         return songDao.find(id).getGenre();
     }
+
+    @Override
+    public Song findByUserID(Long userId) {
+        //TODO finds songs for given user
+        return null;
+    }
+
+    @Override
+    public Boolean addSongToUser(Long songId, Long userId) {
+        //TODO add song to user library
+        return null;
+    }
 }
