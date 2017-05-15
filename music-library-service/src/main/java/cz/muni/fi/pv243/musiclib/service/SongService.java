@@ -53,7 +53,7 @@ public interface SongService extends GenericCRUDService<Song, Long> {
     /**
      * Retrieves {@link Song} for the given {@link User}
      */
-    Song findByUserID(Long userId);
+    List<Song> findByUserID(Long userId);
 
     /**
      * Adds {@link Song} to user's library

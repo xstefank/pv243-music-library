@@ -172,7 +172,6 @@ public class Album implements Serializable {
                 ", artist=" + artist +
                 ", commentary='" + commentary + '\'' +
                 ", dateOfRelease=" + dateOfRelease +
-                ", albumArt=" + Arrays.toString(albumArt) +
                 '}';
     }
 

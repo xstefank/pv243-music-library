@@ -8,6 +8,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,6 +46,9 @@ public class User implements Serializable {
     private String lastName;
 
     private boolean admin;
+
+    @Embedded
+    private MusicLibrary musicLibrary = new MusicLibrary();
 
     public User() {
     }
@@ -101,6 +105,14 @@ public class User implements Serializable {
         this.admin = admin;
     }
 
+    public MusicLibrary getMusicLibrary() {
+        return musicLibrary;
+    }
+
+    public void setMusicLibrary(MusicLibrary musicLibrary) {
+        this.musicLibrary = musicLibrary;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -150,6 +162,7 @@ public class User implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", admin=" + admin +
+                ", musicLibrary=" + musicLibrary +
                 '}';
     }
 }

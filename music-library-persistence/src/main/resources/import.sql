@@ -105,3 +105,5 @@ INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('D
 
 
 
+INSERT INTO MusicLib (user_id, song_id) VALUES (1, 1)
+INSERT INTO MusicLib (user_id, song_id) VALUES (1, 2)

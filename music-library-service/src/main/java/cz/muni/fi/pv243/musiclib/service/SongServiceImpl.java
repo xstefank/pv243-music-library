@@ -1,14 +1,17 @@
 package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.dao.SongDao;
+import cz.muni.fi.pv243.musiclib.dao.UserDao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.entity.Song;
+import cz.muni.fi.pv243.musiclib.entity.User;
 import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +22,9 @@ public class SongServiceImpl implements SongService {
 
     @Inject
     private SongDao songDao;
+
+    @Inject
+    private UserDao userDao;
 
     @Override
     public Song create(Song song) {
@@ -88,14 +94,19 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Song findByUserID(Long userId) {
-        //TODO finds songs for given user
-        return null;
+    public List<Song> findByUserID(Long userId) {
+        User user = userDao.find(userId);
+        return new ArrayList<>(user.getMusicLibrary().getSongs());
     }
 
     @Override
     public Boolean addSongToUser(Long songId, Long userId) {
-        //TODO add song to user library
-        return null;
+        User user = userDao.find(userId);
+        Song song = songDao.find(songId);
+        boolean newlyAdded = user.getMusicLibrary().addSong(song);
+
+        userDao.update(user);
+
+        return newlyAdded;
     }
 }
