@@ -10,6 +10,7 @@ INSERT INTO Genre (title) VALUES ('Country')
 INSERT INTO Artist (name, dateOfBirth) VALUES('Linkin Park', '1996-06-20')
 INSERT INTO Artist (name, dateOfBirth) VALUES('Adele', '1988-05-05')
 INSERT INTO Artist (name, dateOfBirth) VALUES('Red Hot Chili Peppers', '1983-01-05')
+INSERT INTO Artist (name, dateOfBirth) VALUES('KISS', '1973-01-01')
 
 
 INSERT INTO Album (title, artist_id, commentary, dateOfRelease) VALUES ('Living Things', '1','Living Things is the fifth studio album by Linkin Park', '2012-06-20')
@@ -21,6 +22,8 @@ INSERT INTO Album (title, artist_id, commentary, dateOfRelease) VALUES ('25', '2
 
 INSERT INTO Album (title, artist_id, commentary, dateOfRelease) VALUES ('Californication', '3','Californication is the Chili Peppers'' most commercially successful studio release internationally, with over 15 million copies sold worldwide, and more than 6 million in the United States alone.', '1999-07-08')
 INSERT INTO Album (title, artist_id, commentary, dateOfRelease) VALUES ('The Getaway', '3','The album was preceded by the first single "Dark Necessities" on May 5, 2016. "Dark Necessities" became the band''s 13th number-one single on the Billboard Alternative Songs chart.', '2016-05-05')
+
+INSERT INTO Album (title, artist_id, commentary, dateOfRelease) VALUES ('Kiss', '4','Kiss is the debut studio album by American rock band Kiss. Much of the material on the album was written by Gene Simmons and Paul Stanley, as members of their pre-Kiss band Wicked Lester', '1974-02-08')
 
 
 
@@ -103,7 +106,16 @@ INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('S
 INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Feasting on the Flowers', 'https://www.youtube.com/watch?v=dK64johvmSA', '7', '3', '2')
 INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Dreams of a Samurai', 'https://www.youtube.com/watch?v=_Qj9j94fdZY', '7', '3', '2')
 
-
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Strutter', 'https://www.youtube.com/watch?v=IbiFkS4XwG8', '8', '4', '1')
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Nothin to Lose', 'https://www.youtube.com/watch?v=WKAPcNz1gh0', '8', '4', '1')
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Firehouse', 'https://www.youtube.com/watch?v=jvNgdyzXrUg', '8', '4', '1')
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Cold Gin', 'https://www.youtube.com/watch?v=lxoddODRO9Q', '8', '4', '1')
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Let me know', 'https://www.youtube.com/watch?v=-SbfGGesm6M', '8', '4', '1')
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Kissin Time', 'https://www.youtube.com/watch?v=Py34MxuoBrE', '8', '4', '1')
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Deuce', 'https://www.youtube.com/watch?v=KX4xH2lljHs', '8', '4', '1')
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Love Theme from Kiss', 'https://www.youtube.com/watch?v=sNO9IQfh8GI', '8', '4', '1')
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('100,000 Years', 'https://www.youtube.com/watch?v=gmGVrBZuoHY', '8', '4', '1')
+INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Black Diamond', 'https://www.youtube.com/watch?v=DFAOEYSxDg4', '8', '4', '1')
 
 INSERT INTO MusicLib (user_id, song_id) VALUES (1, 1)
 INSERT INTO MusicLib (user_id, song_id) VALUES (1, 2)
