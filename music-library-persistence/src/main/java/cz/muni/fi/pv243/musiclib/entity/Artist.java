@@ -19,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Indexed
@@ -38,6 +39,9 @@ public class Artist implements Serializable {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateOfBirth;
+
+    @Field(analyze = Analyze.NO, index = Index.YES)
+    private String commentary;
 
     public Artist() {
     }
@@ -71,13 +75,17 @@ public class Artist implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public String getCommentary() {
+        return commentary;
+    }
+
+    public void setCommentary(final String commentary) {
+        this.commentary = commentary;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + ((name == null) ? 0 : name.hashCode());
-        hash = 23 * hash + ((dateOfBirth == null) ? 0 : dateOfBirth.hashCode());
-        return hash;
+        return Objects.hash(name, dateOfBirth, commentary);
     }
 
     @Override
@@ -95,6 +103,9 @@ public class Artist implements Serializable {
         if ((dateOfBirth != null) ? !dateOfBirth.equals(other.getDateOfBirth()) : other.getDateOfBirth() != null) {
             return false;
         }
+        if ((commentary != null) ? !commentary.equals(other.getCommentary()) : other.getCommentary() != null) {
+            return false;
+        }
 
         return true;
     }
@@ -105,6 +116,7 @@ public class Artist implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
+                ", commentary=" + commentary +
                 '}';
     }
 
@@ -115,8 +127,8 @@ public class Artist implements Serializable {
     public static class Builder {
 
         private String name;
-
         private LocalDate dateOfBirth;
+        private String commentary;
 
         public Builder() {
         }
@@ -131,11 +143,17 @@ public class Artist implements Serializable {
             return this;
         }
 
+        public Builder commentary(String commentary) {
+            this.commentary = commentary;
+            return this;
+        }
+
         public Artist build() {
             Artist artist = new Artist();
 
             artist.setName(name);
             artist.setDateOfBirth(dateOfBirth);
+            artist.setCommentary(commentary);
 
             return artist;
         }

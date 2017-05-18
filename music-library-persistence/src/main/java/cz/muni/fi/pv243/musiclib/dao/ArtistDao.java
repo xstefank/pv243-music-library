@@ -18,4 +18,9 @@ public interface ArtistDao extends GenericDao<Artist, Long> {
      */
     List<Artist> searchByName(@NotEmpty String artistNameFragment);
 
+    /**
+     * @return all artists without commentary
+     */
+    List<Artist> getArtistsWithEmptyCommentary();
+
 }

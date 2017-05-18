@@ -7,8 +7,10 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,5 +33,10 @@ public class ArtistDaoImpl extends GenericDaoImpl<Artist, Long> implements Artis
                 .createFuzzyFieldQuery(fullTextEntityManager, Artist.class, "name", nameFragment));
 
         return jpaQuery.getResultList();
+    }
+
+    public List<Artist> getArtistsWithEmptyCommentary() {
+        Query query = em.createNativeQuery("FROM Artist a WHERE a.commentary IS NULL OR a.commentary IS EMPTY");
+        return Collections.unmodifiableList(query.getResultList());
     }
 }

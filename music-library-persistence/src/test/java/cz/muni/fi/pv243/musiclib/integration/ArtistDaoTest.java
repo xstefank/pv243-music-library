@@ -52,11 +52,13 @@ public class ArtistDaoTest {
         metalica = Artist.builder()
                 .name("Metalica")
                 .dateOfBirth(LocalDate.now().minusDays(20).minusYears(20))
+                .commentary("best metal band")
                 .build();
 
         queen = Artist.builder()
                 .name("Qeen")
                 .dateOfBirth(LocalDate.now().minusDays(2).minusWeeks(100))
+                .commentary("King Of UK music")
                 .build();
     }
 

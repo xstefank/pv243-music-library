@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.musiclib.rest.endpoint;
 
+import cz.muni.fi.pv243.musiclib.batching.controller.CommentaryBatchController;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.service.ArtistService;
@@ -22,13 +23,17 @@ import java.util.List;
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
 @Path("/artist")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ArtistEndpoint {
 
     @Inject
     private ArtistService artistService;
 
+    @Inject
+    private CommentaryBatchController commentaryBatchController;
+
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getArtists(@QueryParam("name") String name) {
         List<Artist> artists;
         if (name == null) {
@@ -41,7 +46,6 @@ public class ArtistEndpoint {
 
     @GET
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("id") Long id) {
         Artist artist = artistService.findById(id);
         return Response.ok(artist).build();
@@ -49,7 +53,6 @@ public class ArtistEndpoint {
 
     @GET
     @Path("{id}/albums")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getAlbums(@PathParam("id") Long id) {
         Response.ResponseBuilder builder;
         try {
@@ -62,8 +65,6 @@ public class ArtistEndpoint {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response createArtist(Artist artist) {
         Response.ResponseBuilder builder;
         try {
@@ -91,8 +92,6 @@ public class ArtistEndpoint {
 
     @PUT
     @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Long id, Artist artist) {
         Response.ResponseBuilder builder;
         Artist oldArtist = artistService.findById(id);
@@ -120,5 +119,10 @@ public class ArtistEndpoint {
         return builder.build();
     }
 
-
+    @POST
+    @Path("runbatch")
+    public Response runCommentaryBatchlet() {
+        commentaryBatchController.startCommentaryFillingJob();
+        return Response.ok("batch started").build();
+    }
 }
