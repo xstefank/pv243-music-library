@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.musiclib.rest.client;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -16,7 +16,7 @@ import java.net.URL;
  *
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
-@RequestScoped
+@ApplicationScoped
 public class LastFmRestClient {
     private static final String REST_TARGET_URL = "http://ws.audioscrobbler.com/2.0/";
     private static final String API_KEY = "0af72b19227c2a416d268f2fb768218b";
@@ -32,15 +32,10 @@ public class LastFmRestClient {
         JsonReader jsonReader = Json.createReader(new StringReader(response.readEntity(String.class)));
         JsonObject jsonObject = jsonReader.readObject();
 
-        if (response.getStatus() != 200) {
+        if (response.getStatus() != 200 || jsonObject.containsKey("error")) {
             return null;
         }
-
-        if (jsonObject.containsKey("error")) {
-            return jsonObject.getString("message");
-        } else {
-            return jsonObject.getJsonObject("artist").getJsonObject("bio").getString("summary");
-        }
+        return jsonObject.getJsonObject("artist").getJsonObject("bio").getString("summary");
     }
 
     public URL getAlbumPictureDownloadLink(String artistName, String albumName) throws MalformedURLException {

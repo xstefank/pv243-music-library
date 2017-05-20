@@ -36,7 +36,7 @@ public class ArtistDaoImpl extends GenericDaoImpl<Artist, Long> implements Artis
     }
 
     public List<Artist> getArtistsWithEmptyCommentary() {
-        Query query = em.createNativeQuery("FROM Artist a WHERE a.commentary IS NULL OR a.commentary IS EMPTY");
+        Query query = em.createQuery("SELECT a FROM Artist a WHERE a.commentary IS NULL OR a.commentary IS EMPTY");
         return Collections.unmodifiableList(query.getResultList());
     }
 }

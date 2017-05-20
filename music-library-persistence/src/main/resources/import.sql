@@ -7,10 +7,10 @@ INSERT INTO Genre (title) VALUES ('Funk')
 INSERT INTO Genre (title) VALUES ('Metal')
 INSERT INTO Genre (title) VALUES ('Country')
 
-INSERT INTO Artist (name, dateOfBirth, commentary) VALUES('Linkin Park', '1996-06-20','')
-INSERT INTO Artist (name, dateOfBirth, commentary) VALUES('Adele', '1988-05-05','')
-INSERT INTO Artist (name, dateOfBirth, commentary) VALUES('Red Hot Chili Peppers', '1983-01-05','')
-INSERT INTO Artist (name, dateOfBirth, commentary) VALUES('KISS', '1973-01-01','')
+INSERT INTO Artist (name, dateOfBirth) VALUES('Linkin Park', '1996-06-20')
+INSERT INTO Artist (name, dateOfBirth) VALUES('Adele', '1988-05-05')
+INSERT INTO Artist (name, dateOfBirth) VALUES('Red Hot Chili Peppers', '1983-01-05')
+INSERT INTO Artist (name, dateOfBirth) VALUES('KISS', '1973-01-01')
 
 
 INSERT INTO Album (title, artist_id, commentary, dateOfRelease) VALUES ('Living Things', '1','Living Things is the fifth studio album by Linkin Park', '2012-06-20')

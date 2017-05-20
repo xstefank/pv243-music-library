@@ -119,7 +119,7 @@ public class ArtistEndpoint {
         return builder.build();
     }
 
-    @POST
+    @GET
     @Path("runbatch")
     public Response runCommentaryBatchlet() {
         commentaryBatchController.startCommentaryFillingJob();

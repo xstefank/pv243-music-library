@@ -17,6 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -40,6 +41,8 @@ public class Artist implements Serializable {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateOfBirth;
 
+    @Lob
+    @Column
     @Field(analyze = Analyze.NO, index = Index.YES)
     private String commentary;
 

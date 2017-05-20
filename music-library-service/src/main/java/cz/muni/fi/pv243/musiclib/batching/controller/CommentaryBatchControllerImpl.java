@@ -4,18 +4,19 @@ import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
 
 import javax.batch.operations.JobOperator;
 import javax.batch.runtime.BatchRuntime;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import java.util.Properties;
 
 /**
  * @author Ondrej Oravcok
  * @version 18.5.2017
  */
-@RequestScoped
+@ApplicationScoped
 public class CommentaryBatchControllerImpl implements CommentaryBatchController {
 
     private String commentaryJobName = "commentary-job";
 
+    @Override
     public void startCommentaryFillingJob() {
         Properties jobParams = new Properties();
 
