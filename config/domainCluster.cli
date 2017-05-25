@@ -1,7 +1,7 @@
 
 # domain cluster configuration script - 2 servers
 
-batch 
+batch
 
 connect
 
@@ -45,12 +45,13 @@ connect
 /host=master/server-config=musiclib-server1:add( \
   group=musiclib-server-group, \
   socket-binding-group=full-ha-sockets, \
+  socket-binding-port-offset=100, \
   auto-start=false)
 
 /host=master/server-config=musiclib-server2:add( \
   group=musiclib-server-group, \
   socket-binding-group=full-ha-sockets, \
-  socket-binding-port-offset=100, \
+  socket-binding-port-offset=200, \
   auto-start=false)
 
 run-batch
@@ -59,7 +60,16 @@ run-batch
 /server-group=musiclib-server-group:start-servers(blocking=true)
 
 # deploy musiclib web application
-deploy ~/GIT/xstefank/pv243-music-library/music-library-web/target/music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
+deploy D:\Projects\pv243-music-library\music-library-web\target\music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
 
+# balancer server
 
+/profile=default/subsystem=undertow/configuration=filter/mod-cluster=modcluster:add(management-socket-binding=http, advertise-socket-binding=modcluster)
+/profile=default/subsystem=undertow/server=default-server/host=default-host/filter-ref=modcluster:add
+/socket-binding-group=standard-sockets/socket-binding=modcluster:add(port=23364, multicast-address=224.0.1.105)
+/server-group=load-balancer:add(profile=default, socket-binding-group=standard-sockets)
 
+/host=master/server-config=load-balancer:add(group=load-balancer)
+
+# start group load-balancer
+/server-group=load-balancer:start-servers
