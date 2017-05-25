@@ -1,0 +1,6 @@
+
+connect
+
+deploy ../music-library-web/target/music-library-web-1.0-SNAPSHOT.war
+
+

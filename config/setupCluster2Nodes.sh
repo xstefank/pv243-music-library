@@ -23,7 +23,15 @@ gnome-terminal -e "$WF_HOME2/bin/standalone.sh -c standalone-full-ha.xml -Djboss
 echo "Waiting for servers to start..."
 sleep 20
 
-echo "Configuring servers..."
-$WF_HOME1/bin/jboss-cli.sh --file=./configStandaloneCluster.cli
-$WF_HOME2/bin/jboss-cli.sh --file=./configStandaloneCluster.cli --controller=localhost:10090
+echo "Configuring datasource..."
+$WF_HOME1/bin/jboss-cli.sh --file=./setupDataSource.cli
+sleep 3
+$WF_HOME2/bin/jboss-cli.sh --file=./setupDataSource.cli --controller=localhost:10090
+
+echo "Deploying application..."
+$WF_HOME1/bin/jboss-cli.sh --file=./deployApp.cli
+$WF_HOME2/bin/jboss-cli.sh --file=./deployApp.cli --controller=localhost:10090
+
+
+
 
