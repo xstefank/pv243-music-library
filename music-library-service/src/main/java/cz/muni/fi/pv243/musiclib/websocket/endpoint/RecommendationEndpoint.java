@@ -23,14 +23,11 @@ import java.util.List;
 @ServerEndpoint(value = "/recommendations", encoders = RecommendationSerializer.class)
 public class RecommendationEndpoint {
 
-    private static final long OPEN_MESSAGE_ID = Long.MIN_VALUE;
-
     @Inject
     private SessionService sessionService;
 
     @Inject
     private RecommendationService recommendationService;
-
 
     @OnOpen
     public void onOpen(Session session) {
@@ -53,7 +50,6 @@ public class RecommendationEndpoint {
         String loggedUserName = "admin@musiclib.com";
         recommendationService.recommend(songId, loggedUserName);
     }
-
 
     public void onRecommend(@Observes @RecommendationMessage List<Recommendation.Aggregate> mostRecommended) {
         sendPushUpdate(mostRecommended);

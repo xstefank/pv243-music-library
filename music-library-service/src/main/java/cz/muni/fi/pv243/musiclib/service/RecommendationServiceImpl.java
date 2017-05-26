@@ -2,15 +2,15 @@ package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.dao.RecommendationDao;
 import cz.muni.fi.pv243.musiclib.entity.Recommendation;
+import cz.muni.fi.pv243.musiclib.entity.Song;
+import cz.muni.fi.pv243.musiclib.entity.User;
 import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.JMSContext;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Queue;
+import javax.jms.Topic;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,8 +21,8 @@ import java.util.List;
 @Stateless
 public class RecommendationServiceImpl implements RecommendationService {
 
-    @Resource(lookup = RecommendationMDB.RECOMMENDED_SONGS_QUEUE_JNDI)
-    private Queue queue;
+    @Resource(lookup = RecommendationNotifierMDB.NOTIFICATION_TOPIC_JNDI)
+    private Topic topic;
 
     @Inject
     private JMSContext jmsContext;
@@ -30,18 +30,27 @@ public class RecommendationServiceImpl implements RecommendationService {
     @Inject
     private RecommendationDao recommendationDao;
 
+    @Inject
+    private SongService songService;
+
+    @Inject
+    private UserService userService;
+
     @Override
     public void recommend(Long songId, String userName) {
-        Message message = jmsContext.createMessage();
-        try {
-            message.setLongProperty(RecommendationMDB.SONG_ID_PROPERTY, songId);
-            message.setStringProperty(RecommendationMDB.USER_NAME_PROPERTY, userName);
-        } catch (JMSException e) {
-            e.printStackTrace();
-            return;
-        }
-        jmsContext.createProducer().send(queue, message);
-        MusicLibLogger.LOGGER.info("Song with id " + songId + "will be recommended!");
+
+        Song song = songService.findById(songId);
+        User user = userService.findByEmail(userName);
+        MusicLibLogger.LOGGER.info("Recommending song " + song.getTitle() + " with username " + userName);
+
+        Recommendation recommendation = new Recommendation();
+        recommendation.setSong(song);
+        recommendation.setUser(user);
+        recommendation.setTime(LocalDateTime.now(Clock.systemUTC()));
+
+        create(recommendation);
+
+        jmsContext.createProducer().send(topic, jmsContext.createMessage());
     }
 
     @Override

@@ -13,6 +13,7 @@ public interface RecommendationService extends GenericCRUDService<Recommendation
 
     /**
      * Recommend song with songId as a user userName
+     * Sends message to Recommendation Notification topic for further processing
      */
     void recommend(Long songId, String userName);
 

@@ -45,10 +45,6 @@ connect
 # set sticky session
 /profile=full-ha/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=sticky-session-force, value=true)
 
-# disable artemis cluster TODO fix websockets
-/profile=full-ha/subsystem=messaging-activemq/server=default/cluster-connection=my-cluster:remove
-
-
 # add musiclib-server-group, jvm and servers
 
 /server-group=musiclib-server-group:add(profile=full-ha,socket-binding-group=full-ha-sockets)
