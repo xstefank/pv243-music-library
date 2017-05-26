@@ -39,6 +39,9 @@ connect
 
 /profile=full-ha/subsystem=datasources/data-source=pv243DS:enable
 
+# set modcluster communication on HTTP port
+/profile=full-ha/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=connector, value=default)
+
 # add musiclib-server-group, jvm and servers
 
 /server-group=musiclib-server-group:add(profile=full-ha,socket-binding-group=full-ha-sockets)
@@ -65,7 +68,8 @@ run-batch
 /server-group=musiclib-server-group:start-servers(blocking=true)
 
 # deploy musiclib web application
-deploy ../../music-library-web/target/music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
+ deploy ../../music-library-web/target/music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
+#deploy D:\Projects\pv243-music-library\music-library-web\target\music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
 
 # balancer server
 
@@ -76,4 +80,3 @@ batch
 /server-group=balancer-server-group:start-servers
 
 run-batch
-
