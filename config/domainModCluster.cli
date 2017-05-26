@@ -42,6 +42,10 @@ connect
 # set modcluster communication on HTTP port
 /profile=full-ha/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=connector, value=default)
 
+#set sticky session
+/profile=full-ha/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=sticky-session-force, value=true)
+
+
 # add musiclib-server-group, jvm and servers
 
 /server-group=musiclib-server-group:add(profile=full-ha,socket-binding-group=full-ha-sockets)
