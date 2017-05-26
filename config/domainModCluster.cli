@@ -1,6 +1,7 @@
+
 # domain cluster configuration script - 2 servers
 
-batch 
+batch
 
 connect
 
@@ -19,6 +20,9 @@ connect
 
 /server-group=main-server-group:remove()
 /server-group=other-server-group:remove()
+
+# add the IP address to the host aliases
+/profile=full-ha/subsystem=undertow/server=default-server/host=default-host:write-attribute(name=alias, value=[192.168.0.103])
 
 # set cluster password
 /profile=full-ha/subsystem=messaging-activemq/server=default:write-attribute( \
@@ -44,15 +48,18 @@ connect
 /host=master/server-config=musiclib-server1:add( \
   group=musiclib-server-group, \
   socket-binding-group=full-ha-sockets, \
+  socket-binding-port-offset=100, \
   auto-start=true)
 
 /host=master/server-config=musiclib-server2:add( \
   group=musiclib-server-group, \
   socket-binding-group=full-ha-sockets, \
-  socket-binding-port-offset=100, \
+  socket-binding-port-offset=200, \
   auto-start=true)
 
 run-batch
+
+
 
 # start servers
 /server-group=musiclib-server-group:start-servers(blocking=true)
@@ -60,5 +67,13 @@ run-batch
 # deploy musiclib web application
 deploy ../../music-library-web/target/music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
 
+# balancer server
 
+batch
+
+/server-group=balancer-server-group:add(profile=load-balancer, socket-binding-group=load-balancer-sockets)
+/host=master/server-config=balancer:add(group=balancer-server-group)
+/server-group=balancer-server-group:start-servers
+
+run-batch
 

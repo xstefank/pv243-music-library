@@ -1,0 +1,22 @@
+batch
+
+connect
+
+# cleanup default configuration
+
+# stop default servers
+/host=master/server-config=server-one:stop(blocking=true)
+/host=master/server-config=server-two:stop(blocking=true)
+/host=master/server-config=server-three:stop(blocking=true)
+
+# remove servers and server groups
+
+/host=master/server-config=server-one:remove()
+/host=master/server-config=server-two:remove()
+/host=master/server-config=server-three:remove()
+
+/server-group=main-server-group:remove()
+/server-group=other-server-group:remove()
+
+run-batch
+
