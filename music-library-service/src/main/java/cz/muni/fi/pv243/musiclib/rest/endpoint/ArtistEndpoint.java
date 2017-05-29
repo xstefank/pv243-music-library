@@ -5,6 +5,7 @@ import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.service.ArtistService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -34,6 +35,7 @@ public class ArtistEndpoint {
     private CommentaryBatchController commentaryBatchController;
 
     @GET
+    @RolesAllowed({"ADMIN"})
     public Response getArtists(@QueryParam("name") String name) {
         List<Artist> artists;
         if (name == null) {
