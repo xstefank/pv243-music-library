@@ -1,7 +1,7 @@
 package cz.muni.fi.pv243.musiclib.websocket.endpoint;
 
 import cz.muni.fi.pv243.musiclib.entity.Recommendation;
-import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 import cz.muni.fi.pv243.musiclib.qualifier.RecommendationMessage;
 import cz.muni.fi.pv243.musiclib.service.RecommendationService;
 import cz.muni.fi.pv243.musiclib.websocket.service.SessionService;
@@ -31,20 +31,20 @@ public class RecommendationEndpoint {
 
     @OnOpen
     public void onOpen(Session session) {
-        MusicLibLogger.LOGGER.info(RecommendationEndpoint.class.getSimpleName() + ": Connection established");
+        LogMessages.LOGGER.logWebsocketConnect(getClass().getSimpleName());
         sessionService.addSession(session);
         sendPushUpdate(recommendationService.getTopTenMostRecommendedLastDay(), session);
     }
 
     @OnClose
     public void onClose(Session session) {
-        MusicLibLogger.LOGGER.info(RecommendationEndpoint.class.getSimpleName() + ": Disconnected");
+        LogMessages.LOGGER.logWebsocketDisconnect(getClass().getSimpleName());
         sessionService.removeSession(session);
     }
 
     @OnMessage
     public void onRecommendationMessage(long songId, Session session) {
-        MusicLibLogger.LOGGER.info(RecommendationEndpoint.class.getSimpleName() + "::onRecommendationMessage");
+        LogMessages.LOGGER.logMethodEntered(getClass().getSimpleName(), "onRecommendationMessage");
         //TODO this will work when security is configured, use workaround
         //   String loggedUserName = session.getUserPrincipal().getName();
         String loggedUserName = "admin@musiclib.com";

@@ -1,7 +1,7 @@
 package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.entity.Album;
-import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 import cz.muni.fi.pv243.musiclib.rest.client.LastFmRestClient;
 import org.apache.commons.io.IOUtils;
 
@@ -51,11 +51,12 @@ public class AlbumImageDownloaderMDB implements MessageListener {
 
     @Override
     public void onMessage(Message msg) {
-        MusicLibLogger.LOGGER.info("AlbumImageDownloaderMDB onMessage");
+        LogMessages.LOGGER.logMethodEntered(getClass().getSimpleName(), "onMessage");
         Album album = null;
         try {
             album = msg.getBody(Album.class);
         } catch (JMSException e) {
+            //TODO error logging
             System.out.println("Can not read Album body of message");
             e.printStackTrace();
             return;
@@ -71,7 +72,7 @@ public class AlbumImageDownloaderMDB implements MessageListener {
             }
             bytes = IOUtils.toByteArray(downloadURL);
         } catch (IOException e) {
-            MusicLibLogger.LOGGER.info("Can not download image from URL " + downloadURL);
+            LogMessages.LOGGER.info("Can not download image from URL " + downloadURL);
             e.printStackTrace();
         }
         album.setAlbumArt(bytes);

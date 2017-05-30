@@ -3,7 +3,7 @@ package cz.muni.fi.pv243.musiclib.service;
 import cz.muni.fi.pv243.musiclib.dao.ArtistDao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
-import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 import cz.muni.fi.pv243.musiclib.rest.client.LastFmRestClient;
 
 import javax.ejb.Stateless;
@@ -32,7 +32,7 @@ public class ArtistServiceImpl implements ArtistService {
     public Artist create(Artist artist) {
         Artist created = artistDao.create(artist);
 
-        MusicLibLogger.LOGGER.trace("Created new Artist: " + artist);
+        LogMessages.LOGGER.logArtistCreated(created);
         return created;
     }
 
@@ -40,7 +40,7 @@ public class ArtistServiceImpl implements ArtistService {
     public Artist update(Artist artist) {
         Artist updated = artistDao.update(artist);
 
-        MusicLibLogger.LOGGER.trace("Artist " + artist + " has been updated");
+        LogMessages.LOGGER.logArtistUpdated(artist);
         return updated;
     }
 
@@ -54,7 +54,7 @@ public class ArtistServiceImpl implements ArtistService {
                 .forEach(song -> songService.remove(song));
 
         artistDao.remove(artist.getId());
-        MusicLibLogger.LOGGER.trace("Artist" + artist + "has been removed");
+        LogMessages.LOGGER.logArtistRemoved(artist);
     }
 
     @Override
@@ -77,6 +77,8 @@ public class ArtistServiceImpl implements ArtistService {
         if (artist == null || artist.getName() == null) {
             throw new IllegalArgumentException("No artist name is specified in entity " + artist);
         }
+
+        LogMessages.LOGGER.logFetchArtistBio(artist);
         return lastFmClient.getArtistBio(artist.getName());
     }
 

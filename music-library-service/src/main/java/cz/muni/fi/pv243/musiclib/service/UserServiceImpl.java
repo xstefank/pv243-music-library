@@ -2,7 +2,7 @@ package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.dao.UserDao;
 import cz.muni.fi.pv243.musiclib.entity.User;
-import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     public User create(User user) {
         User created = userDao.create(user);
 
-        MusicLibLogger.LOGGER.trace("Created new User: " + created);
+        LogMessages.LOGGER.logUserCreated(created);
         return created;
     }
 
@@ -29,14 +29,14 @@ public class UserServiceImpl implements UserService {
     public User update(User user) {
         User updated = userDao.update(user);
 
-        MusicLibLogger.LOGGER.trace("User " + updated + " has been updated");
+        LogMessages.LOGGER.logUserUpdated(user);
         return updated;
     }
 
     @Override
     public void remove(User user) {
         userDao.remove(user.getId());
-        MusicLibLogger.LOGGER.trace("User " + user + " has been removed");
+        LogMessages.LOGGER.logUserRemoved(user);
     }
 
     @Override

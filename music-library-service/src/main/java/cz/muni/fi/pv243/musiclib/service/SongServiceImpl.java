@@ -7,7 +7,7 @@ import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.entity.Song;
 import cz.muni.fi.pv243.musiclib.entity.User;
-import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ public class SongServiceImpl implements SongService {
     public Song create(Song song) {
         Song created = songDao.create(song);
 
-        MusicLibLogger.LOGGER.trace("Created new Song: " + song);
+        LogMessages.LOGGER.logSongCreated(created);
         return created;
     }
 
@@ -38,14 +38,14 @@ public class SongServiceImpl implements SongService {
     public Song update(Song song) {
         Song updated = songDao.update(song);
 
-        MusicLibLogger.LOGGER.trace("Song " + song + " has been updated");
+        LogMessages.LOGGER.logSongUpdated(song);
         return updated;
     }
 
     @Override
     public void remove(Song song) {
         songDao.remove(song.getId());
-        MusicLibLogger.LOGGER.trace("Song " + song + " has been removed");
+        LogMessages.LOGGER.logSongRemoved(song);
     }
 
     @Override
@@ -94,15 +94,19 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public List<Song> findByUserID(Long userId) {
+    public List<Song> findSongsByUserID(Long userId) {
         User user = userDao.find(userId);
+
+        LogMessages.LOGGER.logFetchSongsForUser(user);
         return new ArrayList<>(user.getMusicLibrary().getSongs());
     }
 
     @Override
-    public Boolean addSongToUser(Long songId, Long userId) {
+    public Boolean addSongToUserLib(Long songId, Long userId) {
         User user = userDao.find(userId);
         Song song = songDao.find(songId);
+
+        LogMessages.LOGGER.logAddSongToUserLib(song, user);
         boolean newlyAdded = user.getMusicLibrary().addSong(song);
 
         userDao.update(user);

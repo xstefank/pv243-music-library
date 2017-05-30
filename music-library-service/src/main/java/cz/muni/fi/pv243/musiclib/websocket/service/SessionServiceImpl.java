@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.musiclib.websocket.service;
 
-import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 import org.infinispan.Cache;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -24,11 +24,11 @@ public class SessionServiceImpl implements SessionService {
 
     public void addSession(Session session) {
         sessions.put(session.getId(), session);
-        MusicLibLogger.LOGGER.info("Added session " + session.getId() + ". Total number of sessions is " + sessions.size());
+        LogMessages.LOGGER.logAddSession(session.getId(), sessions.size());
     }
 
     public void removeSession(Session session) {
         sessions.remove(session.getId());
-        MusicLibLogger.LOGGER.info("Removed session " + session.getId() + ". Total number of sessions is " + sessions.size());
+        LogMessages.LOGGER.logRemoveSession(session.getId(), sessions.size());
     }
 }

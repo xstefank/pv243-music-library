@@ -4,7 +4,7 @@ import cz.muni.fi.pv243.musiclib.dao.RecommendationDao;
 import cz.muni.fi.pv243.musiclib.entity.Recommendation;
 import cz.muni.fi.pv243.musiclib.entity.Song;
 import cz.muni.fi.pv243.musiclib.entity.User;
-import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -37,11 +37,11 @@ public class RecommendationServiceImpl implements RecommendationService {
     private UserService userService;
 
     @Override
-    public void recommend(Long songId, String userName) {
+    public void recommend(Long songId, String userEmail) {
 
         Song song = songService.findById(songId);
-        User user = userService.findByEmail(userName);
-        MusicLibLogger.LOGGER.info("Recommending song " + song.getTitle() + " with username " + userName);
+        User user = userService.findByEmail(userEmail);
+        LogMessages.LOGGER.logReccomendSong(song.getTitle(), userEmail);
 
         Recommendation recommendation = new Recommendation();
         recommendation.setSong(song);

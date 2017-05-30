@@ -1,6 +1,6 @@
 package cz.muni.fi.pv243.musiclib.batching.controller;
 
-import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 
 import javax.batch.operations.JobOperator;
 import javax.batch.runtime.BatchRuntime;
@@ -22,7 +22,7 @@ public class CommentaryBatchControllerImpl implements CommentaryBatchController 
 
         JobOperator jobOperator = BatchRuntime.getJobOperator();
         long jobId = jobOperator.start(commentaryJobName, jobParams);
-        MusicLibLogger.LOGGER.error("Job running, with id=" + jobId);
+        LogMessages.LOGGER.logBatchJobRunning(jobId);
     }
 
 }

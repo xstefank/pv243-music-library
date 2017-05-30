@@ -2,7 +2,7 @@ package cz.muni.fi.pv243.musiclib.batching.job;
 
 import cz.muni.fi.pv243.musiclib.dao.ArtistDao;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
-import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 import cz.muni.fi.pv243.musiclib.rest.client.LastFmRestClient;
 
 import javax.batch.api.Batchlet;
@@ -27,17 +27,17 @@ public class CommentaryBatchlet implements Batchlet {
 
     @Override
     public String process() throws Exception {
-        MusicLibLogger.LOGGER.info("Commentary batch STARTED.");
+        LogMessages.LOGGER.logMethodEntered(getClass().getSimpleName(), "process");
 
         List<Artist> artists = artistDao.getArtistsWithEmptyCommentary();
 
-        MusicLibLogger.LOGGER.info("Number of items to process " + artists.size());
+        LogMessages.LOGGER.logBatchNumberOfItems(artists.size());
         for (Artist artist : artists) {
-            MusicLibLogger.LOGGER.info("Processing " + artist.getName());
+            LogMessages.LOGGER.logProcessingBatchItem(artist.getName());
             String biography = lastFmRestClient.getArtistBio(artist.getName());
             artist.setCommentary(biography);
             artistDao.update(artist);
-            MusicLibLogger.LOGGER.info("Processed " + artist.getName());
+            LogMessages.LOGGER.logBatchItemProcessed(artist.getName());
         }
 
         return "END";
@@ -45,7 +45,7 @@ public class CommentaryBatchlet implements Batchlet {
 
     @Override
     public void stop() throws Exception {
-        MusicLibLogger.LOGGER.info("Commentary batch STOPPED.");
+        LogMessages.LOGGER.logMethodEntered(getClass().getSimpleName(), "stop");
     }
 
 }

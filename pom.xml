@@ -29,6 +29,7 @@
         <version.org.infinispan>8.2.0.Final</version.org.infinispan>
         <version.org.jboss.arquillian>1.1.13.Final</version.org.jboss.arquillian>
         <version.org.jboss.logging>3.3.1.Final</version.org.jboss.logging>
+        <version.org.jboss.logging.annotations>2.0.1.Final</version.org.jboss.logging.annotations>
         <version.org.jboss.spec.jboss-javaee-7.0>1.1.0.Beta1</version.org.jboss.spec.jboss-javaee-7.0>
         <version.org.wildfly.arquillian>2.0.2.Final</version.org.wildfly.arquillian>
         <version.org.wildfly.bom>10.1.0.Final</version.org.wildfly.bom>
@@ -148,7 +149,17 @@
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
-            <version>${version.org.jboss.logging}</version>
+            <version>3.3.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging-annotations</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging-processor</artifactId>
+            <version>2.0.1.Final</version>
         </dependency>
     </dependencies>
 

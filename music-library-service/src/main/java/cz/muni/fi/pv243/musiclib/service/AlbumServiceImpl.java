@@ -4,7 +4,7 @@ import cz.muni.fi.pv243.musiclib.dao.AlbumDao;
 import cz.muni.fi.pv243.musiclib.dao.SongDao;
 import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
-import cz.muni.fi.pv243.musiclib.logging.MusicLibLogger;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -37,7 +37,7 @@ public class AlbumServiceImpl implements AlbumService {
         Album created = albumDao.create(album);
         fetchAlbumImage(created);
 
-        MusicLibLogger.LOGGER.trace("Created new Album: " + created);
+        LogMessages.LOGGER.logAlbumCreated(created);
         return created;
     }
 
@@ -45,7 +45,7 @@ public class AlbumServiceImpl implements AlbumService {
     public Album update(Album album) {
         Album updated = albumDao.update(album);
 
-        MusicLibLogger.LOGGER.trace("Album " + updated + " has been updated");
+        LogMessages.LOGGER.logAlbumUpdated(album);
         return updated;
     }
 
@@ -55,7 +55,7 @@ public class AlbumServiceImpl implements AlbumService {
                 .forEach(song -> song.setAlbum(null));
 
         albumDao.remove(album.getId());
-        MusicLibLogger.LOGGER.trace("Album " + album + " has been removed");
+        LogMessages.LOGGER.logAlbumRemoved(album);
     }
 
     @Override
@@ -84,6 +84,7 @@ public class AlbumServiceImpl implements AlbumService {
             throw new IllegalArgumentException("count must be a possitive number");
         }
 
+        LogMessages.LOGGER.logGetAlbumSample();
         return albumDao.getAlbumSample(count);
     }
 

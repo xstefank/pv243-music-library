@@ -1,6 +1,7 @@
 package cz.muni.fi.pv243.musiclib.service;
 
 import cz.muni.fi.pv243.musiclib.entity.Recommendation;
+import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 import cz.muni.fi.pv243.musiclib.qualifier.RecommendationMessage;
 
 import javax.ejb.ActivationConfigProperty;
@@ -57,9 +58,9 @@ public class RecommendationNotifierMDB implements MessageListener {
 
     @Override
     public void onMessage(Message msg) {
-
         List<Recommendation.Aggregate> topTen = recommendationService.getTopTenMostRecommendedLastDay();
 
+        LogMessages.LOGGER.logFireReccomendEvent();
         recommendEvent.fire(topTen);
     }
 
