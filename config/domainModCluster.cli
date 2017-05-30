@@ -29,15 +29,15 @@ connect
   name=cluster-password,value="pass")
 
 # configure datasource
-/profile=full-ha/subsystem=datasources/data-source=pv243DS:add( \
-  jndi-name="java:jboss/datasources/pv243DS", \
+/profile=full-ha/subsystem=datasources/data-source=ExampleDS:remove
+/profile=full-ha/subsystem=datasources/data-source=ExampleDS:add( \
+  jndi-name="java:jboss/datasources/ExampleDS", \
   connection-url="jdbc:h2:~/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE", \
   driver-name=h2, \
   user-name=sa, \
   password=sa \
   )
-
-/profile=full-ha/subsystem=datasources/data-source=pv243DS:enable
+/profile=full-ha/subsystem=datasources/data-source=ExampleDS:enable
 
 # set modcluster communication on HTTP port
 /profile=full-ha/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=connector, value=default)
@@ -71,7 +71,7 @@ run-batch
 /server-group=musiclib-server-group:start-servers(blocking=true)
 
 # deploy musiclib web application
- deploy ../../music-library-web/target/music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
+# deploy ../../music-library-web/target/music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
 #deploy D:\Projects\pv243-music-library\music-library-web\target\music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
 
 # balancer server
