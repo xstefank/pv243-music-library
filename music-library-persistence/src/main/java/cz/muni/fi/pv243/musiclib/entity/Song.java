@@ -183,7 +183,7 @@ public class Song implements Serializable {
         private void clear() {
             this.title = null;
             this.album = null;
-            this.artist= null;
+            this.artist = null;
             this.genre = null;
         }
 

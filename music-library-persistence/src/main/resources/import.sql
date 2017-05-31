@@ -27,9 +27,9 @@ INSERT INTO Album (title, artist_id, commentary, dateOfRelease) VALUES ('Kiss', 
 
 
 
-INSERT INTO Users (admin, email, firstName, lastName, passwordHash) VALUES ('true', 'admin@musiclib.com', 'Admin', 'MusicLibovy', 'hashThat')
-INSERT INTO Users (admin, email, firstName, lastName, passwordHash) VALUES ('false', 'user1@musiclib.com', 'Basic', 'User', 'hashThat')
-INSERT INTO Users (admin, email, firstName, lastName, passwordHash) VALUES ('false', 'piskula@gmail.com', 'Piskula', 'Oravcok', 'hashThat')
+INSERT INTO User (admin, email, firstName, lastName, passwordHash) VALUES ('true', 'admin@musiclib.com', 'Admin', 'MusicLibovy', 'hashThat')
+INSERT INTO User (admin, email, firstName, lastName, passwordHash) VALUES ('false', 'user1@musiclib.com', 'Basic', 'User', 'hashThat')
+INSERT INTO User (admin, email, firstName, lastName, passwordHash) VALUES ('false', 'piskula@gmail.com', 'Piskula', 'Oravcok', 'hashThat')
 
 INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('Lost in the echo', 'https://www.youtube.com/watch?v=co4YpHTqmfQ', '1', '1', '2')
 INSERT INTO Song (title , youtubeLink, album_id, artist_id, genre_id) VALUES ('In My Remains', 'https://www.youtube.com/watch?v=QLFiuNdQrzI', '1', '1', '2')
