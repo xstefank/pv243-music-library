@@ -4,7 +4,6 @@ import cz.muni.fi.pv243.musiclib.entity.Album;
 import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.entity.Song;
-import cz.muni.fi.pv243.musiclib.entity.User;
 import cz.muni.fi.pv243.musiclib.service.generic.GenericCRUDService;
 
 import java.util.List;
@@ -48,20 +47,4 @@ public interface SongService extends GenericCRUDService<Song, Long> {
      * Returns the {@link Genre} for the given {@link Song}
      */
     Genre getGenreForId(Long id);
-
-
-    /**
-     * Retrieves {@link Song} for the given {@link User}
-     */
-    List<Song> findSongsByUserID(Long userId);
-
-    /**
-     * Adds {@link Song} to user's library
-     */
-    Boolean addSongToUserLib(Long songId, Long userId);
-
-    /**
-     * Removes {@link Song} from user's library
-     */
-    Boolean removeSongFromUserLib(Long songId, Long userId);
 }

@@ -5,6 +5,7 @@ import cz.muni.fi.pv243.musiclib.entity.Artist;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.entity.Song;
 import cz.muni.fi.pv243.musiclib.service.AlbumService;
+import cz.muni.fi.pv243.musiclib.service.LibraryService;
 import cz.muni.fi.pv243.musiclib.service.SongService;
 
 import javax.inject.Inject;
@@ -34,6 +35,9 @@ public class SongEndpoint {
 
     @Inject
     private AlbumService albumService;
+
+    @Inject
+    private LibraryService libraryService;
 
     @GET
     public Response getSongs(@QueryParam("title") String title) {
@@ -97,21 +101,21 @@ public class SongEndpoint {
     @GET
     @Path("/{id}/user")
     public Response getSongForUser(@PathParam("id") Long userId) {
-        List<Song> songs = songService.findSongsByUserID(userId);
+        List<Song> songs = libraryService.findSongsInUserLib(userId);
         return Response.ok(songs).build();
     }
 
     @PUT
     @Path("/{id}/user/{userId}")
     public Response addSongToUser(@PathParam("id") Long songId, @PathParam("userId") Long userId) {
-        Boolean added = songService.addSongToUserLib(songId, userId);
+        Boolean added = libraryService.addSongToUserLib(songId, userId);
         return Response.ok(added).build();
     }
 
     @DELETE
     @Path("/{id}/user/{userId}")
     public Response removeSongFromUser(@PathParam("id") Long songId, @PathParam("userId") Long userId) {
-        Boolean added = songService.removeSongFromUserLib(songId, userId);
+        Boolean added = libraryService.removeSongFromUserLib(songId, userId);
         return Response.ok(added).build();
     }
 
