@@ -140,4 +140,8 @@ public interface LogMessages extends BasicLogger {
     @Message(id = BASE + 145, value =  "Processed {0}", format = Message.Format.MESSAGE_FORMAT)
     void logBatchItemProcessed(String itemName);
 
+    @LogMessage(level = Logger.Level.WARN)
+    @Message(id = BASE + 150, value =  "LastFM webservice is unavailable {0}", format = Message.Format.MESSAGE_FORMAT)
+    void logLastFmUnavailable(Exception ex);
+
 }
