@@ -30,6 +30,10 @@ public class MusicLibrary {
         return songs.add(song);
     }
 
+    public boolean removeSong(Song song) {
+        return songs.remove(song);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

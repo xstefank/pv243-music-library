@@ -85,6 +85,10 @@ public interface LogMessages extends BasicLogger {
     void logAddSongToUserLib(Song song, User user);
 
     @LogMessage(level = Logger.Level.INFO)
+    @Message(id = BASE + 76, value = "Removing song {0} from user library {1}", format = Message.Format.MESSAGE_FORMAT)
+    void logRemoveSongFromUserLib(Song song, User user);
+
+    @LogMessage(level = Logger.Level.INFO)
     @Message(id = BASE + 80, value = "Created new user: {0}", format = Message.Format.MESSAGE_FORMAT)
     void logUserCreated(User user);
 

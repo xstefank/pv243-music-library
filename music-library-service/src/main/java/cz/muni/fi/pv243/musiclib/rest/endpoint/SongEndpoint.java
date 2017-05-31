@@ -108,6 +108,13 @@ public class SongEndpoint {
         return Response.ok(added).build();
     }
 
+    @DELETE
+    @Path("/{id}/user/{userId}")
+    public Response removeSongFromUser(@PathParam("id") Long songId, @PathParam("userId") Long userId) {
+        Boolean added = songService.removeSongFromUserLib(songId, userId);
+        return Response.ok(added).build();
+    }
+
     @GET
     @Path("/{id}/album")
     public Response getAlbumForSong(@PathParam("id") Long id) {

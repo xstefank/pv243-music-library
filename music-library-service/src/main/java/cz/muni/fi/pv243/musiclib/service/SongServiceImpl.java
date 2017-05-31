@@ -113,4 +113,17 @@ public class SongServiceImpl implements SongService {
 
         return newlyAdded;
     }
+
+    @Override
+    public Boolean removeSongFromUserLib(Long songId, Long userId) {
+        User user = userDao.find(userId);
+        Song song = songDao.find(songId);
+
+        LogMessages.LOGGER.logRemoveSongFromUserLib(song, user);
+        boolean removed = user.getMusicLibrary().removeSong(song);
+
+        userDao.update(user);
+
+        return removed;
+    }
 }

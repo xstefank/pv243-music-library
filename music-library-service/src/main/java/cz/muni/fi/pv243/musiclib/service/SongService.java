@@ -59,4 +59,9 @@ public interface SongService extends GenericCRUDService<Song, Long> {
      * Adds {@link Song} to user's library
      */
     Boolean addSongToUserLib(Long songId, Long userId);
+
+    /**
+     * Removes {@link Song} from user's library
+     */
+    Boolean removeSongFromUserLib(Long songId, Long userId);
 }
