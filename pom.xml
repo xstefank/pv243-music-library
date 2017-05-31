@@ -197,7 +197,7 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
-                    <serverConfig>standalone-full-ha.xml</serverConfig>
+                    <serverConfig>standalone-full.xml</serverConfig>
                 </configuration>
             </plugin>
             <plugin>
@@ -257,7 +257,9 @@
                         <groupId>org.wildfly.plugins</groupId>
                         <artifactId>wildfly-maven-plugin</artifactId>
                         <version>${version.wildfly.maven.plugin}</version>
-                        <configuration>
+                        <configuration combine.self="override">
+                            <skip>true</skip>
+                            <serverConfig>standalone-full-ha.xml</serverConfig>
                             <server-type>DOMAIN</server-type>
                             <server-groups>
                                 <server-group>musiclib-server-group</server-group>
