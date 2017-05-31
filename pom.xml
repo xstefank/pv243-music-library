@@ -246,8 +246,6 @@
 
     <profiles>
         <profile>
-<<<<<<< HEAD
-=======
             <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -272,7 +270,6 @@
         </profile>
 
         <profile>
->>>>>>> Persistence property substitution
             <id>cluster</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
