@@ -37,7 +37,7 @@ public class RecommendationDaoImpl extends GenericDaoImpl<Recommendation, Long> 
         List<Recommendation.Aggregate> topList = new ArrayList<>();
 
         Query query = em.createNativeQuery(
-                "select r.song_id, count(r.user_id) from Recommendation r where r.time between :start and :end GROUP BY r.song_id ORDER BY count(r.user_id) DESC, r.time DESC");
+                "select r.song_id, count(r.user_id) from Recommendation r where r.time between :start and :end GROUP BY r.song_id ORDER BY count(r.user_id) DESC, MAX (r.time) DESC LIMIT 10");
         query.setParameter("start", from);
         query.setParameter("end", to);
 

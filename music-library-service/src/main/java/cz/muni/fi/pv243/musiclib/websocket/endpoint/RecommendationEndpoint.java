@@ -45,9 +45,7 @@ public class RecommendationEndpoint {
     @OnMessage
     public void onRecommendationMessage(long songId, Session session) {
         LogMessages.LOGGER.logMethodEntered(getClass().getSimpleName(), "onRecommendationMessage");
-        //TODO this will work when security is configured, use workaround
-        //   String loggedUserName = session.getUserPrincipal().getName();
-        String loggedUserName = "admin@musiclib.com";
+        String loggedUserName = session.getUserPrincipal().getName();
         recommendationService.recommend(songId, loggedUserName);
     }
 
