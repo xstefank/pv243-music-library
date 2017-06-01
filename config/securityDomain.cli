@@ -1,0 +1,21 @@
+
+# setup MusicLibDomain security domain in standalone configuration
+
+batch
+
+connect
+
+/subsystem=security/security-domain=MusicLibDomain:add(cache-type=default)
+
+/subsystem=security/security-domain=MusicLibDomain/authentication=classic:add( \
+login-modules=[{code=Database, flag=required, module-options=[ multi-threaded=true, \
+unauthenticatedIdentity=guest, password-stacking=useFirstPass, \
+dsJndiName=java:jboss/datasources/ExampleDS, \
+principalsQuery="SELECT passwordHash FROM USER WHERE email=?", \
+rolesQuery="SELECT role, 'Roles' FROM USER WHERE email=?"]}])
+
+reload
+
+run-batch
+
+

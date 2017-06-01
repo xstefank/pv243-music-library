@@ -24,11 +24,7 @@
 
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
 
-        <class>cz.muni.fi.pv243.musiclib.entity.Album</class>
-        <class>cz.muni.fi.pv243.musiclib.entity.Song</class>
-        <class>cz.muni.fi.pv243.musiclib.entity.Artist</class>
-        <class>cz.muni.fi.pv243.musiclib.entity.Genre</class>
-        <class>cz.muni.fi.pv243.musiclib.entity.User</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
 
         <properties>
             <!-- Properties for Hibernate -->
@@ -38,6 +34,7 @@
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.search.default.directory_provider" value="filesystem"/>
+            <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
             <!--Lucene is not deleting entries on the DB drop, so on the app restart
             previously used indexed create new entries in this directory so moving into target folder-->
             <property name="hibernate.search.default.indexBase" value="${build.directory}/lucene/indexes"/>

@@ -10,6 +10,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +45,8 @@ public class User implements Serializable {
     @Field(analyze = Analyze.NO, index = Index.YES)
     private String lastName;
 
-    private boolean admin;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Embedded
     private MusicLibrary musicLibrary = new MusicLibrary();
@@ -95,12 +98,12 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public boolean isAdmin() {
-        return admin;
+    public Role getRole() {
+        return role;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public MusicLibrary getMusicLibrary() {
@@ -159,7 +162,7 @@ public class User implements Serializable {
                 ", passwordHash='" + passwordHash + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", admin=" + admin +
+                ", role=" + role +
                 ", musicLibrary=" + musicLibrary +
                 '}';
     }

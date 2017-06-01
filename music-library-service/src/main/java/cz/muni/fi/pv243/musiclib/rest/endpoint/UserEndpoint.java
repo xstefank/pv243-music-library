@@ -5,6 +5,7 @@ import cz.muni.fi.pv243.musiclib.service.UserService;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -34,6 +35,11 @@ public class UserEndpoint {
             builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
         }
         return builder.build();
+    }
+
+    @GET
+    public Response get() {
+        return Response.ok(userService.findAll()).build();
     }
 
 }
