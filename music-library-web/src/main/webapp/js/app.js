@@ -94,13 +94,13 @@ angular.module('app', [
                 return response.data;
             });
         },
-        getSongsForUser: function (id){
-            return $http.get("/music/api/song/" + id + "/user").then(function (response){
+        getSongsForUser: function (){
+            return $http.get("/music/api/song/user").then(function (response){
                 return response.data;
             });
         },
-        addSongToUser: function (id, userId) {
-            return $http.put("/music/api/song/" + id + "/user/" + userId).then(function (response){
+        addSongToUser: function (id) {
+            return $http.put("/music/api/song/" + id + "/user").then(function (response){
                 return response.data;
             });
         },
@@ -110,7 +110,20 @@ angular.module('app', [
             return $http.get("/music/api/genre").then(function (response){
                 return response.data;
             });
+        },
+
+        //User
+        logout: function () {
+            return $http.get("/music/api/user/logout").then(function (response){
+                return response.data;
+            });
+        },
+        getPrincipal: function () {
+            return $http.get("/music/api/user/role").then(function (response){
+                return response.data;
+            });
         }
+
     };
 }]).service('createUpdateTools', function () {
     var alerts = [];

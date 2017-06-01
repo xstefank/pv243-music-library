@@ -35,7 +35,7 @@ public class ArtistEndpoint {
     private CommentaryBatchController commentaryBatchController;
 
     @GET
-    @RolesAllowed({"ADMIN"})
+    @RolesAllowed({"USER"})
     public Response getArtists(@QueryParam("name") String name) {
         List<Artist> artists;
         if (name == null) {

@@ -31,9 +31,7 @@ angular.module('app')
         };
 
         $scope.addSong = function (id) {
-            //TODO get userId (back-end???)
-            var userId = 4;
-            commonTools.addSongToUser(id, userId).then(function () {
+            commonTools.addSongToUser(id).then(function () {
                 $scope.status = "Song was add to your library.";
                 $scope.alerts.push({type: 'success', title: 'Successful!', msg: $scope.status});
             }, function (response) {

@@ -24,16 +24,16 @@ public class LibraryServiceImpl implements LibraryService {
     private SongDao songDao;
 
     @Override
-    public List<Song> findSongsInUserLib(Long userId) {
-        User user = userDao.find(userId);
+    public List<Song> findSongsInUserLib(String userEmail) {
+        User user = userDao.findByEmail(userEmail);
 
         LogMessages.LOGGER.logFetchSongsForUser(user);
         return new ArrayList<>(user.getMusicLibrary().getSongs());
     }
 
     @Override
-    public Boolean addSongToUserLib(Long songId, Long userId) {
-        User user = userDao.find(userId);
+    public Boolean addSongToUserLib(Long songId, String userEmail) {
+        User user = userDao.findByEmail(userEmail);
         Song song = songDao.find(songId);
 
         LogMessages.LOGGER.logAddSongToUserLib(song, user);
@@ -45,8 +45,8 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public Boolean removeSongFromUserLib(Long songId, Long userId) {
-        User user = userDao.find(userId);
+    public Boolean removeSongFromUserLib(Long songId, String userEmail) {
+        User user = userDao.findByEmail(userEmail);
         Song song = songDao.find(songId);
 
         LogMessages.LOGGER.logRemoveSongFromUserLib(song, user);

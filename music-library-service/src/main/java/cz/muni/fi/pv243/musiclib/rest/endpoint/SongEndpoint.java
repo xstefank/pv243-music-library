@@ -9,6 +9,7 @@ import cz.muni.fi.pv243.musiclib.service.LibraryService;
 import cz.muni.fi.pv243.musiclib.service.SongService;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -99,23 +101,23 @@ public class SongEndpoint {
     }
 
     @GET
-    @Path("/{id}/user")
-    public Response getSongForUser(@PathParam("id") Long userId) {
-        List<Song> songs = libraryService.findSongsInUserLib(userId);
+    @Path("/user")
+    public Response getSongForUser(@Context HttpServletRequest req) {
+        List<Song> songs = libraryService.findSongsInUserLib(req.getRemoteUser());
         return Response.ok(songs).build();
     }
 
     @PUT
-    @Path("/{id}/user/{userId}")
-    public Response addSongToUser(@PathParam("id") Long songId, @PathParam("userId") Long userId) {
-        Boolean added = libraryService.addSongToUserLib(songId, userId);
+    @Path("/{id}/user")
+    public Response addSongToUser(@PathParam("id") Long songId, @Context HttpServletRequest req) {
+        Boolean added = libraryService.addSongToUserLib(songId, req.getRemoteUser());
         return Response.ok(added).build();
     }
 
     @DELETE
-    @Path("/{id}/user/{userId}")
-    public Response removeSongFromUser(@PathParam("id") Long songId, @PathParam("userId") Long userId) {
-        Boolean added = libraryService.removeSongFromUserLib(songId, userId);
+    @Path("/{id}/user")
+    public Response removeSongFromUser(@PathParam("id") Long songId, @Context HttpServletRequest req) {
+        Boolean added = libraryService.removeSongFromUserLib(songId, req.getRemoteUser());
         return Response.ok(added).build();
     }
 

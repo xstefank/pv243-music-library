@@ -12,15 +12,15 @@ public interface LibraryService {
     /**
      * Retrieves {@link Song} for the given {@link User}
      */
-    List<Song> findSongsInUserLib(Long userId);
+    List<Song> findSongsInUserLib(String user);
 
     /**
      * Adds {@link Song} to user's library
      */
-    Boolean addSongToUserLib(Long songId, Long userId);
+    Boolean addSongToUserLib(Long songId, String user);
 
     /**
      * Removes {@link Song} from user's library
      */
-    Boolean removeSongFromUserLib(Long songId, Long userId);
+    Boolean removeSongFromUserLib(Long songId, String user);
 }

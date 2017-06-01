@@ -27,6 +27,7 @@
     <script src="partials/editSong.js"></script>
     <script src="partials/myLibrary.js"></script>
     <script src="partials/addSong.js"></script>
+    <script src="js/logout.js"></script>
 </head>
 <body>
 <div class="col-lg-12">
@@ -47,7 +48,7 @@
         </div>
     </div>
 
-    <div class="col-lg-8">
+    <div class="col-lg-8" data-ng-controller="logoutCtrl">
     <div class="header col-sm-12">
         <div class="navbar navbar-default" role="navigation">
             <div class="container">
@@ -72,6 +73,7 @@
                         <li><a ng-href="#!/songsOverview"><span class="glyphicon glyphicon-music"></span> Songs</a></li>
                         <li><a ng-href="#!/myLibraryOverview"><span class="glyphicon glyphicon-book"></span> My Library</a></li>
                         <li><a ng-href="#!/about"><span class="glyphicon glyphicon-flag"></span> About</a></li>
+                        <li><a ng-href="#/" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     </ul>
                 </div>
             </div>
