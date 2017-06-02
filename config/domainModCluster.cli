@@ -45,6 +45,17 @@ connect
 # set sticky session
 /profile=full-ha/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=sticky-session-force, value=true)
 
+# configure security domain
+
+/profile=full-ha/subsystem=security/security-domain=MusicLibDomain:add(cache-type=default)
+
+/profile=full-ha/subsystem=security/security-domain=MusicLibDomain/authentication=classic:add( \
+  login-modules=[{code=Database, flag=required, module-options=[ multi-threaded=true, \
+  unauthenticatedIdentity=guest, password-stacking=useFirstPass, \
+  dsJndiName=java:jboss/datasources/ExampleDS, \
+  principalsQuery="SELECT passwordHash FROM USER WHERE email=?", \
+  rolesQuery="SELECT role, 'Roles' FROM USER WHERE email=?"]}])
+
 # add musiclib-server-group, jvm and servers
 
 /server-group=musiclib-server-group:add(profile=full-ha,socket-binding-group=full-ha-sockets)
