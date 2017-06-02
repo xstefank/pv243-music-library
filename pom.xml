@@ -164,7 +164,7 @@
     </dependencies>
 
     <build>
-        <defaultGoal>clean install wildfly:run</defaultGoal>
+        <defaultGoal>clean install wildfly:start wildfly:execute-commands wildfly:deploy</defaultGoal>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -198,6 +198,9 @@
                 <configuration>
                     <skip>true</skip>
                     <serverConfig>standalone-full.xml</serverConfig>
+                    <scripts>
+                        <script>../config/securityDomain.cli</script>
+                    </scripts>
                 </configuration>
             </plugin>
             <plugin>

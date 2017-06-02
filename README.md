@@ -10,15 +10,17 @@ We use WildFly maven project to simplify application deployment
 ``mvn`` in project main directory - following build steps are executed
 * Clean and rebuild all modules
 * Download and start WildFly
+* Configure security domain
 * Deploy application on WildFly server
-You can stop server using CTRL+C
 
-#### Development 
-* Start server ``mvn wildfly:start``. 
-* Rebuild application and deploy it using ``mvn clean install wildfly:deploy``
-* Server is running and you can use previous command to redebuild and redeploy application after modifications.
+#### Manual
+* Start WildFly - in Wildfly bin directory ``sh standalone.sh -c standalone-full.xml``
+* Configure Wildfly - in Wildfly bin directory ``sh jboss-cli.sh -c --file=$MUSIC_LIB_HOME/config/securityDomain.cli``
+* Build application - in MusicLib root directory ``mvn clean install``
+* Deploy application - in Wildfly bin directory ``sh jboss-cli.sh -c --command="deploy $MUSIC_LIB_HOME/music-library-web/target/music-library-web-1.0-SNAPSHOT.war"``
 
 ### Cluster configuration
+#### Easiest way to run
 First, you have to start H2 database, run in project root directory``java -jar h2-1.4.195.jar -tcpAllowOthers -webAllowOthers``
 Second, run ``mvn -Pcluster`` in project main directory - following build steps are executed
 * Clean and rebuild all modules
@@ -26,8 +28,15 @@ Second, run ``mvn -Pcluster`` in project main directory - following build steps 
 * Execute configuration script and create topology with one loadbalancer and two worker nodes
 * Deploy application on WildFly domain
 
-It leaves managed domain running and you can simply redeploy your app using ``mvn clean install wildfly:deploy -Pcluster``
+It leaves managed domain running and you can simply redeploy your app using ``mvn wildfly:undeploy install wildfly:deploy -Pcluster``
 Finally, you have to stop servers using ``mvn wildfly:shutdown``
+
+#### Manual
+* Start database in project root directory``java -jar h2-1.4.195.jar -tcpAllowOthers -webAllowOthers``
+* Start WildFly - in Wildfly bin directory ``sh domain.sh``
+* Configure Wildfly - in Wildfly bin directory ``sh jboss-cli.sh -c --file=$MUSIC_LIB_HOME/config/domainModCluster.cli``
+* Build application - in MusicLib root directory ``mvn clean install -Pcluster``
+* Deploy application - in Wildfly bin directory ``sh jboss-cli.sh -c --command="deploy $MUSIC_LIB_HOME/music-library-web/target/music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group"``
 
 #### Cluster topology
 There are three Wildfly servers runnning
