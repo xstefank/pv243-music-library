@@ -5,19 +5,13 @@ package cz.muni.fi.pv243.musiclib.entity;
  */
 public enum Role {
 
-    ADMIN("ADMIN"),
-    USER("USER"),
-    GUEST("GUEST")
-    ;
+    ADMIN,
+    USER,
+    GUEST;
 
-    private final String name;
+    // We can use constants in @RolesAllowed annotations
+    public static final String ALLOW_ADMIN = "ADMIN";
+    public static final String ALLOW_USER =  "USER";
+    public static final String ALLOW_GUEST = "GUEST";
 
-    Role(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

@@ -20,6 +20,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+import static cz.muni.fi.pv243.musiclib.entity.Role.ALLOW_USER;
+
 /**
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
@@ -35,7 +37,7 @@ public class ArtistEndpoint {
     private CommentaryBatchController commentaryBatchController;
 
     @GET
-    @RolesAllowed({"USER"})
+    @RolesAllowed(ALLOW_USER)
     public Response getArtists(@QueryParam("name") String name) {
         List<Artist> artists;
         if (name == null) {
