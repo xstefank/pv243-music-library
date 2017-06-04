@@ -2,8 +2,10 @@
 
 angular.module('app').component('albumsList', {
     templateUrl: 'components/albumsList.html',
+    controllerAs: 'albumList',
     bindings: {
-        albums: '<'
+        albums: '<',
+        userRole:'<'
     },
     controller: function ($scope, $location) {
         $scope.navigateToEdit = function (id) {

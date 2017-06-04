@@ -9,7 +9,7 @@
     <strong>{{alert.title}} </strong>{{alert.msg}}
 </div>
 
-<div>
+<div ng-show="userRole === 'ADMIN'">
     <form name="form" class="css-form" novalidate>
         <div ng-if="doing !== 'Create'" class="col-sm-3"><img ng-src="data:image/JPEG;base64,{{album.albumArt}}"/>
         </div>

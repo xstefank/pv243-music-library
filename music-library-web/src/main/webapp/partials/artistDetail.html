@@ -23,11 +23,11 @@
 
     <div class="col-sm-12 detail-subtitle">Albums</div>
     <div class="col-sm-12">
-        <albums-list albums="albums"></albums-list>
+        <albums-list albums="albums" user-role="userRole"></albums-list>
     </div>
 
     <div class="col-sm-12">
-        <div class="col-sm-3">
+        <div class="col-sm-3" ng-show="userRole === 'ADMIN'">
             <input class="form-control input-button" type="submit" ng-click="editArtist()" value="Edit"/>
         </div>
     </div>

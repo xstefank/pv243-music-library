@@ -6,7 +6,7 @@
             <td class="middle-icon-title">
                 <span class="glyphicon glyphicon-user"></span> Artists
             </td>
-            <td class="button-width">
+            <td class="button-width" ng-show="userRole === 'ADMIN'">
                 <a title="Create new" class="btn-success" ng-href="#!/editArtist"><span class="glyphicon glyphicon-plus"></span></a>
             </td>
         </tr>
@@ -30,7 +30,7 @@
     <tr ng-repeat="artist in artists" class="album_table" ng-click="artistDetail(artist.id)">
         <td>{{artist.name}}</td>
         <td>{{artist.dateOfBirth}}</td>
-        <td><a title="Edit" class="btn list-item-href" ng-click="updateArtist(artist.id)"><span class="glyphicon glyphicon-tag"></span></a></td>
+        <td ng-show="userRole === 'ADMIN'"><a title="Edit" class="btn list-item-href" ng-click="updateArtist(artist.id)"><span class="glyphicon glyphicon-tag"></span></a></td>
     </tr>
     </tbody>
 </table>

@@ -8,6 +8,7 @@ import cz.muni.fi.pv243.musiclib.service.AlbumService;
 import cz.muni.fi.pv243.musiclib.service.LibraryService;
 import cz.muni.fi.pv243.musiclib.service.SongService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -23,6 +24,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+
+import static cz.muni.fi.pv243.musiclib.entity.Role.ALLOW_ADMIN;
 
 /**
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
@@ -60,6 +63,7 @@ public class SongEndpoint {
     }
 
     @POST
+    @RolesAllowed(ALLOW_ADMIN)
     public Response createSong(Song song) {
         Response.ResponseBuilder builder;
         try {
@@ -73,6 +77,7 @@ public class SongEndpoint {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed(ALLOW_ADMIN)
     public Response removeSong(@PathParam("id") Long id) throws Exception {
         Response.ResponseBuilder builder;
         Song song = songService.findById(id);
@@ -87,6 +92,7 @@ public class SongEndpoint {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed(ALLOW_ADMIN)
     public Response updateSong(@PathParam("id") Long id, Song song) {
         Response.ResponseBuilder builder;
         Song oldValue = songService.findById(id);

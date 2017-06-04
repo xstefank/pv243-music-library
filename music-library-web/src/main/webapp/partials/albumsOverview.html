@@ -6,7 +6,7 @@
             <td class="middle-icon-title">
                 <span class="glyphicon glyphicon-cd"></span> Albums
             </td>
-            <td class="button-width">
+            <td class="button-width" ng-show="userRole === 'ADMIN'">
                 <a title="Create new" class="btn-success" ng-href="#!/editAlbum"><span class="glyphicon glyphicon-plus"></span></a>
             </td>
         </tr>
@@ -19,4 +19,4 @@
     <strong>{{alert.title}} </strong>{{alert.msg}}
 </div>
 
-<albums-list albums="albums"></albums-list>
+<albums-list albums="albums" user-role="userRole"></albums-list>

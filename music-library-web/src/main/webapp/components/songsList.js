@@ -8,6 +8,7 @@ angular.module('app').component('songsList', {
         addSong: '<',
         myLibrary: '<',
         remove:'&',
+        userRole:'<',
         add: '&'
     },
     controller: function ($scope, $location, $sce) {

@@ -9,7 +9,7 @@
     <strong>{{alert.title}} </strong>{{alert.msg}}
 </div>
 
-<div>
+<div ng-show="userRole === 'ADMIN'">
     <form name="form" class="css-form" novalidate>
         <table class="form-table">
             <tbody>

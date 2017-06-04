@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-import static cz.muni.fi.pv243.musiclib.entity.Role.ALLOW_USER;
+import static cz.muni.fi.pv243.musiclib.entity.Role.ALLOW_ADMIN;
 
 /**
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
@@ -37,7 +37,6 @@ public class ArtistEndpoint {
     private CommentaryBatchController commentaryBatchController;
 
     @GET
-    @RolesAllowed(ALLOW_USER)
     public Response getArtists(@QueryParam("name") String name) {
         List<Artist> artists;
         if (name == null) {
@@ -69,6 +68,7 @@ public class ArtistEndpoint {
     }
 
     @POST
+    @RolesAllowed(ALLOW_ADMIN)
     public Response createArtist(Artist artist) {
         Response.ResponseBuilder builder;
         try {
@@ -82,6 +82,7 @@ public class ArtistEndpoint {
 
     @DELETE
     @Path("{id}")
+    @RolesAllowed(ALLOW_ADMIN)
     public Response removeArtist(@PathParam("id") Long id) throws Exception {
         Response.ResponseBuilder builder;
         Artist artist = artistService.findById(id);
@@ -96,6 +97,7 @@ public class ArtistEndpoint {
 
     @PUT
     @Path("{id}")
+    @RolesAllowed(ALLOW_ADMIN)
     public Response update(@PathParam("id") Long id, Artist artist) {
         Response.ResponseBuilder builder;
         Artist oldArtist = artistService.findById(id);
@@ -125,6 +127,7 @@ public class ArtistEndpoint {
 
     @GET
     @Path("runbatch")
+    @RolesAllowed(ALLOW_ADMIN)
     public Response runCommentaryBatchlet() {
         commentaryBatchController.startCommentaryFillingJob();
         return Response.ok("batch started").build();

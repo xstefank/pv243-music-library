@@ -8,12 +8,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="album in $ctrl.albums" class="album_table" ng-click="albumDetail(album.id)">
+    <tr ng-repeat="album in albumList.albums" class="album_table" ng-click="albumDetail(album.id)">
         <td><img ng-src="data:image/JPEG;base64,{{album.albumArt}}" height="40"/></td>
         <td class="middle_text">{{album.title}}</td>
         <td class="middle_text">{{album.artist.name}} ({{album.dateOfRelease | getYear}})</td>
         <td class="middle_text">{{album.commentary | limitTo: 60}}{{album.commentary.length > 60 ? '...' : ''}}</td>
-        <td class="middle_text overview-edit-btn" ng-click="updateAlbum(album.id)"><span class="glyphicon glyphicon-tag"></span></td>
+        <td class="middle_text overview-edit-btn" ng-click="updateAlbum(album.id)" ng-show="albumList.userRole === 'ADMIN'"><span class="glyphicon glyphicon-tag"></span></td>
     </tr>
     </tbody>
 </table>

@@ -16,7 +16,7 @@
         <td>{{song.album.title}}</td>
         <td>{{song.artist.name}}</td>
         <td>{{song.genre.title}}</td>
-        <td ng-show="!songList.addSong"><a title="Edit" class="btn list-item-href" ng-click="updateSong(song.id)"><span class="glyphicon glyphicon-tag"></span></a></td>
+        <td ng-show="!songList.addSong && songList.userRole === 'ADMIN'"><a title="Edit" class="btn list-item-href" ng-click="updateSong(song.id)"><span class="glyphicon glyphicon-tag"></span></a></td>
         <td ng-show="songList.addSong"><a title="Add" class="btn list-item-href" ng-click="songList.add({id: song.id})"><span class="glyphicon glyphicon-plus"></span></a></td>
         <td ng-show="songList.myLibrary"><a title="Remove" class="btn list-item-href" ng-click="songList.remove({id: song.id})"><span class="glyphicon glyphicon-minus"></span></a></td>
     </tr>

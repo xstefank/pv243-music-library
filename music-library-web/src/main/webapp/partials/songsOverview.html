@@ -6,7 +6,7 @@
             <td class="middle-icon-title">
                 <span class="glyphicon glyphicon-music"></span> Songs
             </td>
-            <td class="button-width">
+            <td class="button-width" ng-show="userRole === 'ADMIN'">
                 <a title="Create new" class="btn-success" ng-href="#!/editSong"><span class="glyphicon glyphicon-plus"></span></a>
             </td>
         </tr>
@@ -19,4 +19,4 @@
     <strong>{{alert.title}} </strong>{{alert.msg}}
 </div>
 
-<songs-list songs="songs"></songs-list>
+<songs-list songs="songs" user-role="userRole"></songs-list>

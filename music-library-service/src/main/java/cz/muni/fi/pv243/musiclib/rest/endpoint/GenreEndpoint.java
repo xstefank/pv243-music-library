@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.musiclib.rest.endpoint;
 import cz.muni.fi.pv243.musiclib.entity.Genre;
 import cz.muni.fi.pv243.musiclib.service.GenreService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,6 +18,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+import static cz.muni.fi.pv243.musiclib.entity.Role.ALLOW_ADMIN;
+
 /**
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
  */
@@ -29,6 +32,7 @@ public class GenreEndpoint {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(ALLOW_ADMIN)
     public Response createGenre(Genre genre) {
         Response.ResponseBuilder builder;
         try {
@@ -44,6 +48,7 @@ public class GenreEndpoint {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(ALLOW_ADMIN)
     public Response updateGenre(@PathParam("id") Long id, Genre genre) {
         Response.ResponseBuilder builder;
         Genre oldValue = genreService.findById(id);
@@ -59,6 +64,7 @@ public class GenreEndpoint {
 
     @DELETE
     @Path("{id}")
+    @RolesAllowed(ALLOW_ADMIN)
     public Response removeGenre(@PathParam("id") Long id) {
         Response.ResponseBuilder builder;
         try {

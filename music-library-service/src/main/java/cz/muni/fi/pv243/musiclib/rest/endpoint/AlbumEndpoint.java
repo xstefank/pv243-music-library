@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -23,6 +24,9 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import static cz.muni.fi.pv243.musiclib.entity.Role.ALLOW_ADMIN;
+import static cz.muni.fi.pv243.musiclib.entity.Role.ALLOW_SUPER_USER;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
@@ -56,6 +60,7 @@ public class AlbumEndpoint {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(ALLOW_ADMIN)
     public Response createAlbum(Album album) {
         Response.ResponseBuilder builder;
         try {
@@ -69,6 +74,7 @@ public class AlbumEndpoint {
 
     @DELETE
     @Path("{id}")
+    @RolesAllowed(ALLOW_ADMIN)
     public Response removeAlbum(@PathParam("id") Long id) throws Exception {
         Response.ResponseBuilder builder;
         Album album = albumService.findById(id);
@@ -85,6 +91,7 @@ public class AlbumEndpoint {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(ALLOW_ADMIN)
     public Response updateAlbum(@PathParam("id") Long id, Album album) {
         Response.ResponseBuilder builder;
         Album oldAlbum = albumService.findById(id);
@@ -101,6 +108,7 @@ public class AlbumEndpoint {
     @POST
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @RolesAllowed(ALLOW_ADMIN)
     public Response uploadFile(MultipartFormDataInput input) {
 
         byte[] albumArt = new byte[0];

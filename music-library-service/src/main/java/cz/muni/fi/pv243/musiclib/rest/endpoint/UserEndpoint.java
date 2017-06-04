@@ -20,7 +20,6 @@ import javax.ws.rs.core.Response;
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
 @Path("user")
-@RolesAllowed({"ADMIN"})
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserEndpoint {
