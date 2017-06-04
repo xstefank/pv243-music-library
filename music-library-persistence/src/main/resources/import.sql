@@ -29,6 +29,7 @@ INSERT INTO Album (title, artist_id, commentary, dateOfRelease) VALUES ('Kiss', 
 
 INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('ADMIN', 'admin@musiclib.com', 'Admin', 'MusicLibovy', 'pass')
 INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('USER', 'user1@musiclib.com', 'Basic', 'User', 'pass')
+INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('SUPER_USER', 'superUser1@musiclib.com', 'Super', 'User', 'pass')
 INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('USER', 'piskula@gmail.com', 'Piskula', 'Oravcok', 'pass')
 
 

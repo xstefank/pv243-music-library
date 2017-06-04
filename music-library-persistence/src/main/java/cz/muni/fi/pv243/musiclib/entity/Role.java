@@ -7,11 +7,13 @@ public enum Role {
 
     ADMIN,
     USER,
+    SUPER_USER,
     GUEST;
 
     // We can use constants in @RolesAllowed annotations
     public static final String ALLOW_ADMIN = "ADMIN";
     public static final String ALLOW_USER =  "USER";
     public static final String ALLOW_GUEST = "GUEST";
+    public static final String ALLOW_SUPER_USER = "SUPER_USER";
 
 }

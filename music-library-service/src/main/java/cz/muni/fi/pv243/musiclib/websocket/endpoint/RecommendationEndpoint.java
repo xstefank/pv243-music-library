@@ -1,9 +1,11 @@
 package cz.muni.fi.pv243.musiclib.websocket.endpoint;
 
 import cz.muni.fi.pv243.musiclib.entity.Recommendation;
+import cz.muni.fi.pv243.musiclib.entity.Role;
 import cz.muni.fi.pv243.musiclib.logging.LogMessages;
 import cz.muni.fi.pv243.musiclib.qualifier.RecommendationMessage;
 import cz.muni.fi.pv243.musiclib.service.RecommendationService;
+import cz.muni.fi.pv243.musiclib.service.UserService;
 import cz.muni.fi.pv243.musiclib.websocket.service.SessionService;
 
 import javax.ejb.Singleton;
@@ -29,6 +31,9 @@ public class RecommendationEndpoint {
     @Inject
     private RecommendationService recommendationService;
 
+    @Inject
+    private UserService userService;
+
     @OnOpen
     public void onOpen(Session session) {
         LogMessages.LOGGER.logWebsocketConnect(getClass().getSimpleName());
@@ -46,7 +51,9 @@ public class RecommendationEndpoint {
     public void onRecommendationMessage(long songId, Session session) {
         LogMessages.LOGGER.logMethodEntered(getClass().getSimpleName(), "onRecommendationMessage");
         String loggedUserName = session.getUserPrincipal().getName();
-        recommendationService.recommend(songId, loggedUserName);
+        if(userService.findByEmail(loggedUserName).getRole().equals(Role.ADMIN) || userService.findByEmail(loggedUserName).getRole().equals(Role.SUPER_USER)) {
+            recommendationService.recommend(songId, loggedUserName);
+        }
     }
 
     public void onRecommend(@Observes @RecommendationMessage List<Recommendation.Aggregate> mostRecommended) {

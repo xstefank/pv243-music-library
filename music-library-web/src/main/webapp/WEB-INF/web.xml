@@ -16,6 +16,7 @@
         <auth-constraint>
             <role-name>ADMIN</role-name>
             <role-name>USER</role-name>
+            <role-name>SUPER_USER</role-name>
         </auth-constraint>
     </security-constraint>
 
