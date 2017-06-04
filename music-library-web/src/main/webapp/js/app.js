@@ -104,6 +104,11 @@ angular.module('app', [
                 return response.data;
             });
         },
+        removeSongFromUser: function (id) {
+            return $http.delete("/music/api/song/" + id + "/user").then(function (response){
+                return response.data;
+            });
+        },
 
         //Genre
         getGenres: function (){
@@ -154,8 +159,7 @@ angular.module('app', [
             .when('/editArtist/:id?', {templateUrl: 'partials/editArtist.html', controller: 'editArtistCtrl'})
             .when('/editSong/:id?', {templateUrl: 'partials/editSong.html', controller: 'editSongCtrl'})
             .when('/songsOverview', {templateUrl: 'partials/songsOverview.html', controller: 'songsOverviewCtrl'})
-            .when('/songDetail/:id?', {templateUrl: 'partials/songDetail.html', controller: 'songDetailCtrl'})
-            .when('/myLibraryOverview', {templateUrl: 'partials/myLibrary.html', controller: 'myLibraryCtrl'})
+            .when('/myLibrary', {templateUrl: 'partials/myLibrary.html', controller: 'myLibraryCtrl'})
             .when('/addSong', {templateUrl: 'partials/addSong.html', controller: 'addSongCtrl'})
             .otherwise({redirectTo: '/'});
     }]);

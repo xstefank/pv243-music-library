@@ -32,7 +32,7 @@ angular.module('app')
 
         $scope.addSong = function (id) {
             commonTools.addSongToUser(id).then(function () {
-                $scope.status = "Song was add to your library.";
+                $scope.status = "Song was added to your library.";
                 $scope.alerts.push({type: 'success', title: 'Successful!', msg: $scope.status});
             }, function (response) {
                 $scope.alerts.push({type: 'danger', title: 'Error ' + response.status, msg: response.statusText});

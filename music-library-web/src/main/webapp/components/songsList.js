@@ -6,6 +6,8 @@ angular.module('app').component('songsList', {
     bindings: {
         songs: '<',
         addSong: '<',
+        myLibrary: '<',
+        remove:'&',
         add: '&'
     },
     controller: function ($scope, $location, $sce) {
@@ -20,10 +22,6 @@ angular.module('app').component('songsList', {
 
         $scope.updateSong = function (id) {
             $scope.navigateToEdit(id);
-        };
-
-        $scope.songDetail = function (id) {
-            //TODO $location.path('/songDetail/' + id);
         };
 
         $scope.videoClick = function(song) {

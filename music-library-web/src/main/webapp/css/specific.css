@@ -243,11 +243,11 @@ table {
     margin-right: 100px;
 }
 
-.album_table {
-    cursor: pointer;
-}
 .album_table:hover {
     background-color: #d4dfe8;
+}
+.album_table .pointer {
+    cursor: pointer;
 }
 .album_table .middle_text{
     padding: 18px 8px 18px 8px;

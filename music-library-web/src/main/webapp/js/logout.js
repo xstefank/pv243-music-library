@@ -14,7 +14,6 @@ angular.module('app')
         $scope.getPrincipal = function(){
             commonTools.getPrincipal().then(function (response) {
                 $rootScope.userRole = response;
-                console.log($rootScope.userRole);
             }, function (response) {
                 $scope.alerts.push({type: 'danger', title: 'Error '+ response.status, msg: response.statusText});
             });

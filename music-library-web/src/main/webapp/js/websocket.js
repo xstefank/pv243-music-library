@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('websocketCtrl', ['$scope', '$http', '$location', 'commonTools', 'createUpdateTools', function ($scope, $http, $location, commonTools, createUpdateTools) {
+    .controller('websocketCtrl', ['$scope', function ($scope) {
         $scope.songs = [];
         $scope.songId = "";
 
