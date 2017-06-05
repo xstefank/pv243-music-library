@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.musiclib.rest.endpoint;
 
+import cz.muni.fi.pv243.musiclib.entity.Role;
 import cz.muni.fi.pv243.musiclib.entity.User;
 import cz.muni.fi.pv243.musiclib.service.UserService;
 
@@ -28,9 +29,12 @@ public class UserEndpoint {
 
     @POST
     @Path("/register")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response register(User user) {
         Response.ResponseBuilder builder;
         try {
+            user.setRole(Role.USER);
             User created = userService.create(user);
             builder = Response.ok(created);
         } catch (Exception e) {

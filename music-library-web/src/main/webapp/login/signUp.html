@@ -1,7 +1,8 @@
 <html >
 <head>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <meta charset="UTF-8">
-  <title>Login Form</title>
+  <title>Sign Up Form</title>
 
   <style>
     * {
@@ -83,27 +84,57 @@
 <div class="login">
   <div class="login-screen">
     <div class="app-title">
-      <h1>Login</h1>
+      <h1>Sign Up</h1>
     </div>
 
     <div class="login-form">
-      <form action="j_security_check" method=post>
+      <form id="formoid" action="/music/api/user/register" method=post>
         <p><strong>Please enter your email: </strong>
-          <input type="text" name="j_username" size="25" required pattern=".+@.+\....?" title="email">
+          <input type="text" id="email" name="email" size="25" required pattern=".+@.+\....?" title="email">
+        <p><p><strong>Please enter your first name: </strong>
+        <input type="text" size="25" name="firstName" id="firstName" required>
+        <p><p><strong>Please enter your last name: </strong>
+        <input type="text" size="25" name="lastName" id="lastName" required>
         <p><p><strong>Please enter your password: </strong>
-        <input type="password" size="15" name="j_password" required>
-        <p><p>
+        <input type="password" size="25" name="password" id="password" required>
+        <p></p>
         <input class="btn btn-primary btn-large btn-block control-group" type="submit" value="Submit">
-        <input class="btn btn-primary btn-large btn-block" type="button" value="Sign up" onclick="signUp()">
+        <p></p>
+        <input class="btn btn-primary btn-large btn-block control-group" type="button" value="Login" onclick="login()">
       </form>
   </div>
 </div>
 </div>
+<script type='text/javascript'>
+  function login() {
+      window.location = "../index.html";
+  }
 
-<script>
-    function signUp() {
-        window.location = "/music/login/signUp.html";
-    }
+  $("#formoid").submit(function(event) {
+
+      event.preventDefault();
+
+      var $form = $( this ),
+          url = $form.attr( 'action' );
+
+      $.ajax({
+          url:url,
+          type:"POST",
+          data: JSON.stringify({
+              email: $('#email').val(),
+              passwordHash: $('#password').val(),
+              firstName: $('#firstName').val(),
+              lastName: $('#lastName').val()
+          }),
+          contentType:"application/json; charset=utf-8",
+          dataType:'json',
+          success: function(){
+              alert("You have been successfully sign up! Please log in.");
+              window.location = "../index.html";
+          }
+      });
+  });
+
 </script>
 
 </body>

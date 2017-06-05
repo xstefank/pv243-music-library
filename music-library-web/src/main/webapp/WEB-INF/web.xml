@@ -10,6 +10,22 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>restricted</web-resource-name>
+            <url-pattern>/login/signUp.html</url-pattern>
+        </web-resource-collection>
+        <!-- OMIT auth-constraint -->
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>restricted</web-resource-name>
+            <url-pattern>/api/user/*</url-pattern>
+        </web-resource-collection>
+        <!-- OMIT auth-constraint -->
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>restricted</web-resource-name>
             <url-pattern>/*</url-pattern>
         </web-resource-collection>
 
