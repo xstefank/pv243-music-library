@@ -1,1 +1,34 @@
-<p>{{title}}</p>
+<h1>{{title}}</h1>
+
+<div class="col-lg-5 col-md-5 col-sm-5 panel panel-default">
+    <div class="panel-heading">
+        Artist and number of their songs in our library
+    </div>
+    <div class="panel-body">
+        <canvas id="base" class="chart chart-doughnut"
+                chart-data="dataArtistSongs" chart-labels="labelsArtistSongs" options="options">
+        </canvas>
+    </div>
+
+</div>
+
+<div class="col-lg-5 col-md-5 col-sm-5 panel panel-default">
+    <div class="panel-heading">
+        Artist and number of their albums in our library
+    </div>
+    <div class="panel-body">
+        <canvas id="base1" class="chart chart-doughnut"
+                chart-data="dataArtistAlbums" chart-labels="labelsArtistAlbums" options="options">
+        </canvas>
+    </div>
+</div>
+<div class="col-lg-5 col-md-5 col-sm-5 panel panel-default">
+    <div class="panel-heading">
+        Genres and number of corresponding songs in our library
+    </div>
+    <div class="panel-body">
+        <canvas id="base2" class="chart chart-doughnut"
+                chart-data="dataGenreSongs" chart-labels="labelsGenreSongs" options="options">
+        </canvas>
+    </div>
+</div>

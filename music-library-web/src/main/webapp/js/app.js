@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app', [
-    'ngRoute', 'ngFileUpload', 'ngSanitize'
+    'ngRoute', 'ngFileUpload', 'ngSanitize', 'chart.js'
 ]).factory('commonTools', ['$http', function ($http) {
     return {
         //Album
@@ -127,7 +127,24 @@ angular.module('app', [
             return $http.get("/music/api/user/role").then(function (response){
                 return response.data;
             });
-        }
+        },
+
+        //Overview
+        getArtistNumberSongs: function () {
+            return $http.get("/music/api/overview/artistSongs").then(function (response){
+                return response.data;
+            });
+        },
+        getArtistNumberAlbums: function () {
+            return $http.get("/music/api/overview/artistAlbums").then(function (response){
+                return response.data;
+            });
+        },
+        getGenreNumberSongs: function () {
+            return $http.get("/music/api/overview/genreSongs").then(function (response){
+                return response.data;
+            });
+        },
 
     };
 }]).service('createUpdateTools', function () {
