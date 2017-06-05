@@ -28,25 +28,31 @@ angular.module('app')
         $scope.update = function (file) {
             if ($scope.doing === 'Create') {
                 commonTools.createAlbum($scope.album).then(function (response) {
-                    file.upload = Upload.upload({
-                        url: '/music/api/album/upload',
-                        data: {file: file, id: response.id}
-                    });
-                    file.upload.then(function (response) {
-                        $timeout(function () {
-                            $scope.albumArt = response.data;
+                    if(file) {
+                        file.upload = Upload.upload({
+                            url: '/music/api/album/upload',
+                            data: {file: file, id: response.id}
                         });
-                    }, function () {
+                        file.upload.then(function (response) {
+                            $timeout(function () {
+                                $scope.albumArt = response.data;
+                            });
+                        }, function () {
+                            $scope.status = "New album successfully created.";
+                            createUpdateTools.setAlerts([{type: 'success', title: 'Successful!', msg: $scope.status}]);
+                            $location.path("/albumsOverview");
+                        }, function (response) {
+                            $scope.alerts.push({
+                                type: 'danger',
+                                title: 'Cannot create album! Error ' + response.status,
+                                msg: response.statusText
+                            });
+                        });
+                    } else {
                         $scope.status = "New album successfully created.";
                         createUpdateTools.setAlerts([{type: 'success', title: 'Successful!', msg: $scope.status}]);
                         $location.path("/albumsOverview");
-                    },function (response) {
-                        $scope.alerts.push({
-                            type: 'danger',
-                            title: 'Cannot create album! Error ' + response.status,
-                            msg: response.statusText
-                        });
-                    });
+                    }
                 }, function (response) {
                     $scope.alerts.push({
                         type: 'danger',
