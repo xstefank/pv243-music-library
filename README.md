@@ -4,6 +4,9 @@ Semestral project for the PV243: JBoss - Advanced Java EE technologies - FI MUNI
 ## How to run
 We use WildFly maven project to simplify application deployment
 
+### First setup
+You need to run ``mvn clean install -Pnpm`` to setup frontend technologies. This doesn't start application, just prepares frontend libraries.
+
 ### One node configuration
 
 #### Easiest way to run

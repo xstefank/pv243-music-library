@@ -1,7 +1,6 @@
 package cz.muni.fi.pv243.musiclib.rest.endpoint;
 
 import cz.muni.fi.pv243.musiclib.entity.Album;
-import cz.muni.fi.pv243.musiclib.entity.Role;
 import cz.muni.fi.pv243.musiclib.service.AlbumService;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
