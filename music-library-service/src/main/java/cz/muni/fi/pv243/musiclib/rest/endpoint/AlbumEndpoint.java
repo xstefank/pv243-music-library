@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 import static cz.muni.fi.pv243.musiclib.entity.Role.ALLOW_ADMIN;
-import static cz.muni.fi.pv243.musiclib.entity.Role.ALLOW_SUPER_USER;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
