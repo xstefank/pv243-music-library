@@ -7,6 +7,7 @@ angular.module('app').component('songsList', {
         songs: '<',
         addSong: '<',
         myLibrary: '<',
+        albumDetail: '<',
         remove:'&',
         userRole:'<',
         add: '&'
