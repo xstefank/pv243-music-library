@@ -275,6 +275,11 @@ table {
     padding: 6px;
 }
 
+.recommend-label {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
 .recommend-songname {
     font-weight: bold;
 }

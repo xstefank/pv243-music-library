@@ -130,6 +130,6 @@ public class ArtistEndpoint {
     @RolesAllowed(ALLOW_ADMIN)
     public Response runCommentaryBatchlet() {
         commentaryBatchController.startCommentaryFillingJob();
-        return Response.ok("batch started").build();
+        return Response.ok().build();
     }
 }

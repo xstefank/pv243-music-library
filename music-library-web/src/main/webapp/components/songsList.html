@@ -4,7 +4,7 @@
         <th>Title</th>
         <th>Link</th>
         <th ng-if="!songList.albumDetail">Album</th>
-        <th ng-if="songList.userRole === 'SUPER_USER'"><span class="glyphicon glyphicon-star"></span></th>
+        <th ng-if="songList.userRole === 'SUPER_USER' || songList.userRole === 'ADMIN'"><span class="glyphicon glyphicon-star"></span></th>
         <th>Artist</th>
         <th>Genre</th>
     </tr>
@@ -15,7 +15,7 @@
         <td ng-if="!song.video" class="pointer"><a ng-click="videoClick(song)">{{song.youtubeLink}}</a></td>
         <td ng-if="song.video"><iframe width="560" height="315" ng-src="{{song.videoUrl}}" type="application/x-shockwave-flash " frameborder="1" allowfullscreen></iframe></td>
         <td ng-if="!songList.albumDetail">{{song.album.title}}</td>
-        <td ng-if="songList.userRole === 'SUPER_USER'"><div ng-controller="websocketCtrl"><a title="Recommend song" class="btn list-item-href" ng-click="recommendSong(song.id)"><span class="glyphicon glyphicon-star-empty"></span></a></div></td>
+        <td ng-if="songList.userRole === 'SUPER_USER' || songList.userRole === 'ADMIN'"><div ng-controller="websocketCtrl"><a title="Recommend song" class="btn list-item-href" ng-click="recommendSong(song.id)"><span class="glyphicon glyphicon-star-empty"></span></a></div></td>
         <td>{{song.artist.name}}</td>
         <td>{{song.genre.title}}</td>
         <td ng-show="!songList.addSong"><a title="Edit" class="btn list-item-href" ng-click="updateSong(song.id)"><span class="glyphicon glyphicon-tag"></span></a></td>

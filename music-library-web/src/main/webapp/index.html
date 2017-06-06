@@ -35,14 +35,17 @@
 <div class="col-lg-12">
     <div class="sidebar col-lg-4">
         <div data-ng-controller="websocketCtrl">
-            <div ng-show="userRole === 'SUPER_USER' || userRole === 'ADMIN'">
+            <div ng-show="userRole === 'ADMIN'">
                 <input class="recommend-field" type="text" ng-model="songId" name="sId" />
                 <input class="recommend-button do-btn" type="submit" ng-click="recommendSong(songId)" value="Recommend song" />
+            </div>
+            <div ng-show="userRole != 'ADMIN'" class="jumbotron recommend-label">
+                <label>Recommendations</label>
             </div>
             <div>
                 <div ng-repeat="item in songs">
                     <div class="recommend-songname">{{item.song.title}}</div>
-                    <div class="recommend-artist">{{item.song.artist.name}}</div>
+                    <div class="recommend-artist"><a ng-click="artistDetail(item.song.artist.id)" class="link">{{item.song.artist.name}}</a></div>
                     <div class="recommend-who">{{getUserString(item)}}</div>
                     <div class="recommend-line"></div>
                 </div>

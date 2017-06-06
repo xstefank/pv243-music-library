@@ -10,7 +10,7 @@ INSERT INTO Genre (title) VALUES ('Country')
 INSERT INTO Artist (name, dateOfBirth) VALUES('Linkin Park', '1996-06-20')
 INSERT INTO Artist (name, dateOfBirth) VALUES('Adele', '1988-05-05')
 INSERT INTO Artist (name, dateOfBirth) VALUES('Red Hot Chili Peppers', '1983-01-05')
-INSERT INTO Artist (name, dateOfBirth) VALUES('KISS', '1973-01-01')
+INSERT INTO Artist (name, dateOfBirth, commentary) VALUES('KISS', '1973-01-01', 'KISS is an American rock band formed in New York City in January 1973 by Paul Stanley, Gene Simmons, Peter Criss, and Ace Frehley.')
 
 
 INSERT INTO Album (title, artist_id, commentary, dateOfRelease) VALUES ('Living Things', '1','Living Things is the fifth studio album by Linkin Park', '2012-06-20')
@@ -28,8 +28,9 @@ INSERT INTO Album (title, artist_id, commentary, dateOfRelease) VALUES ('Kiss', 
 
 
 INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('ADMIN', 'admin@musiclib.com', 'Admin', 'MusicLibovy', 'pass')
-INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('USER', 'user1@musiclib.com', 'Basic', 'User', 'pass')
-INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('SUPER_USER', 'superUser1@musiclib.com', 'Super', 'User', 'pass')
+INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('USER', 'user1@musiclib.com', 'Elton', 'John', 'pass')
+INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('SUPER_USER', 'superUser1@musiclib.com', 'Michael', 'Jackson', 'pass')
+INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('SUPER_USER', 'superUser2@musiclib.com', 'Freddie', 'Mercury', 'pass')
 INSERT INTO User (role, email, firstName, lastName, passwordHash) VALUES ('USER', 'piskula@gmail.com', 'Piskula', 'Oravcok', 'pass')
 
 

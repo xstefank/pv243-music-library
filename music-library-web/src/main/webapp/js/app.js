@@ -145,6 +145,11 @@ angular.module('app', [
                 return response.data;
             });
         },
+        runBatch: function () {
+            return $http.get("/music/api/artist/runbatch").then(function (response){
+                return response.data;
+            });
+        }
 
     };
 }]).service('createUpdateTools', function () {

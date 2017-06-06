@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('websocketCtrl', ['$scope', function ($scope) {
+    .controller('websocketCtrl', ['$scope', '$location', function ($scope, $location) {
         $scope.songs = [];
         $scope.songId = "";
 
@@ -38,11 +38,14 @@ angular.module('app')
         $scope.getUserString = function (item) {
             var result = item.users[0].firstName;
             if (item.users.length > 1) {
-                result += '+'+ (item.users.length - 1) +' other recommend';
+                result += ' +'+ (item.users.length - 1) +' other recommend';
             } else {
                 result += ' recommends';
             }
             return result;
         };
+        $scope.artistDetail = function (id) {
+            $location.path('/artistDetail/' + id);
+        }
 
     }]);

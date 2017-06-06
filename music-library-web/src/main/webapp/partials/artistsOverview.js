@@ -30,5 +30,13 @@ angular.module('app')
 
         $scope.artistDetail = function (id) {
             $location.path('/artistDetail/' + id);
-        }
+        };
+        
+        $scope.runBatch = function () {
+            commonTools.runBatch().then(function () {
+                $scope.alerts.push({type: 'success', title: 'Running!' , msg: 'Batch started.'});
+            }, function (response) {
+                $scope.alerts.push({type: 'danger', title: 'Error starting batch '+ response.status, msg: response.statusText});
+            })
+        };
     }]);
