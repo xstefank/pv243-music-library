@@ -51,7 +51,7 @@ public class RecommendationEndpoint {
     public void onRecommendationMessage(long songId, Session session) {
         LogMessages.LOGGER.logMethodEntered(getClass().getSimpleName(), "onRecommendationMessage");
         String loggedUserName = session.getUserPrincipal().getName();
-        if(userService.findByEmail(loggedUserName).getRole().equals(Role.ADMIN) || userService.findByEmail(loggedUserName).getRole().equals(Role.SUPER_USER)) {
+        if(isUserInRole(loggedUserName, Role.ADMIN) || isUserInRole(loggedUserName, Role.SUPER_USER)) {
             recommendationService.recommend(songId, loggedUserName);
         }
     }
@@ -69,6 +69,10 @@ public class RecommendationEndpoint {
 
     private void sendPushUpdate(List<Recommendation.Aggregate> mostRecommended, Session session) {
         session.getAsyncRemote().sendObject(mostRecommended);
+    }
+
+    private boolean isUserInRole(String loggedUserName, Role admin) {
+        return userService.findByEmail(loggedUserName).getRole().equals(admin);
     }
 
 }

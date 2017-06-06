@@ -36,6 +36,14 @@
         </auth-constraint>
     </security-constraint>
 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>app</web-resource-name>
+            <url-pattern>/partials/logout.html</url-pattern>
+        </web-resource-collection>
+        <!-- OMIT auth-constraint -->
+    </security-constraint>
+
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>ApplicationRealm</realm-name>
