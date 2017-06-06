@@ -4,12 +4,12 @@
 'use strict';
 
 angular.module('app')
-    .controller('websocketCtrl', ['$scope', '$location', function ($scope, $location) {
+    .controller('websocketCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {
         $scope.songs = [];
         $scope.songId = "";
 
         $scope.recommendSong = function (msg) {
-            $scope.websocketSession.send(msg);
+            $rootScope.websocketSession.send(msg);
         };
         
         $scope.onMessage = function (evt) {
@@ -23,17 +23,15 @@ angular.module('app')
         };
 
         this.$onInit = function () {
-            if (!$scope.websocketSession) {
-                $scope.websocketSession = new WebSocket('ws://' + document.location.host +'/music/recommendations');
-                $scope.websocketSession.onmessage = $scope.onMessage;
+            if (!$rootScope.websocketSession) {
+                $rootScope.websocketSession = new WebSocket('ws://' + document.location.host +'/music/recommendations');
+                $rootScope.websocketSession.onmessage = $scope.onMessage;
             }
         };
         
-        this.$onDestroy = function () {
-            if ($scope.websocketSession) {
-                $scope.websocketSession.close();
-            }
-        };
+        // this.$onDestroy = function () {
+        //     if ($rootScope.websocketSession) { $rootScope.websocketSession.close(); }
+        // };
 
         $scope.getUserString = function (item) {
             var result = item.users[0].firstName;

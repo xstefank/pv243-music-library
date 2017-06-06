@@ -5,6 +5,9 @@ angular.module('app')
         $scope.alerts = [];
         $scope.logout = function(){
             window.location = "partials/logout.html";
+            if ($rootScope.websocketSession) {
+                $rootScope.websocketSession.close();
+            }
             commonTools.logout().then(function () {
             }, function (response) {
                 $scope.alerts.push({type: 'danger', title: 'Error '+ response.status, msg: response.statusText});
