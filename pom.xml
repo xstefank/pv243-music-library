@@ -30,6 +30,8 @@
         <version.org.jboss.arquillian>1.1.13.Final</version.org.jboss.arquillian>
         <version.org.jboss.logging>3.3.1.Final</version.org.jboss.logging>
         <version.org.jboss.logging.annotations>2.0.1.Final</version.org.jboss.logging.annotations>
+        <version.org.jboss.resteasy>3.1.0.Final</version.org.jboss.resteasy>
+        <version.org.jboss.shrinkwrap.resolver>2.2.2</version.org.jboss.shrinkwrap.resolver>
         <version.org.jboss.spec.jboss-javaee-7.0>1.1.0.Beta1</version.org.jboss.spec.jboss-javaee-7.0>
         <version.org.wildfly.arquillian>2.0.2.Final</version.org.wildfly.arquillian>
         <version.org.wildfly.bom>10.1.0.Final</version.org.wildfly.bom>
@@ -149,46 +151,46 @@
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
-            <version>3.3.1.Final</version>
+            <version>${version.org.jboss.logging}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging-annotations</artifactId>
-            <version>2.0.1.Final</version>
+            <version>${version.org.jboss.logging.annotations}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging-processor</artifactId>
-            <version>2.0.1.Final</version>
+            <version>${version.org.jboss.logging.annotations}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-depchain</artifactId>
-            <version>2.2.4</version>
+            <version>${version.org.jboss.shrinkwrap.resolver}</version>
             <scope>test</scope>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-api-maven</artifactId>
-            <version>2.2.2</version>
+            <version>${version.org.jboss.shrinkwrap.resolver}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxrs</artifactId>
-            <version>3.1.2-SNAPSHOT</version>
+            <version>${version.org.jboss.resteasy}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-multipart-provider</artifactId>
-            <version>3.1.2-SNAPSHOT</version>
+            <version>${version.org.jboss.resteasy}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-client</artifactId>
-            <version>3.1.2-SNAPSHOT</version>
+            <version>${version.org.jboss.resteasy}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
