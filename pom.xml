@@ -376,6 +376,7 @@
             </build>
             <properties>
                 <jboss.home>${project.build.directory}/test-server/wildfly-${version.org.wildfly.server}</jboss.home>
+                <hibernate.hbm2ddl.auto>create-drop</hibernate.hbm2ddl.auto>
             </properties>
         </profile>
 

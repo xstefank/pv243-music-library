@@ -23,7 +23,6 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.io.File;
 import java.net.URL;
-import java.util.Arrays;
 
 /**
  * @author <a href="mailto:xstefank122@gmail.com">Martin Stefanko</a>
@@ -36,8 +35,6 @@ public class AuthenticationTest {
     private static final String PASSWORD = "j_password";
     private static final String JSESSION_ID = "JSESSIONID";
 
-    private String jsession_cookie;
-
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
 
@@ -47,8 +44,6 @@ public class AuthenticationTest {
                 .resolve()
                 .withTransitivity()
                 .asFile();
-
-        Arrays.stream(files).forEach(System.out::println);
 
         WebArchive war = ShrinkWrap.create(WebArchive.class)
                 .addAsWebInfResource("WEB-INF/beans.xml", "beans.xml")
