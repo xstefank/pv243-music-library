@@ -50,6 +50,13 @@ There are three Wildfly servers runnning
 * web app context root 127.0.0.1:8080/music
 * rest endpoints context root 127.0.0.1:8080/music/api
 
+## Users
+'ADMIN', 'admin@musiclib.com','pass'
+'USER', 'user1@musiclib.com', 'pass'
+'SUPER_USER', 'superUser1@musiclib.com','pass'
+'SUPER_USER', 'superUser2@musiclib.com','pass'
+'USER', 'piskula@gmail.com', 'pass'
+
 ## Technologies
 * Wildfly application server
 * HTTP loadbalancing using Mod-Cluster
