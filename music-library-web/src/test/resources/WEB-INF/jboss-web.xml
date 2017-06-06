@@ -1,0 +1,4 @@
+<jboss-web>
+    <context-root>/music</context-root>
+    <security-domain>MusicLibDomain</security-domain>
+</jboss-web>
