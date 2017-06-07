@@ -63,7 +63,7 @@ angular.module('app', [
             });
         },
         deleteArtist: function (id){
-            return $http.delete("/music/api/album/" + id).then(function (response){
+            return $http.delete("/music/api/artist/" + id).then(function (response){
                 return response.data;
             });
         },
