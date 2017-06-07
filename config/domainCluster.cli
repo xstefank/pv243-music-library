@@ -36,6 +36,11 @@ connect
 
 /profile=full-ha/subsystem=datasources/data-source=ExampleDS:enable
 
+# set sticky session
+/profile=full-ha/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=sticky-session-force, value=true)
+
+
+
 # configure security domain
  
 /profile=full-ha/subsystem=security/security-domain=MusicLibDomain:add(cache-type=default)
