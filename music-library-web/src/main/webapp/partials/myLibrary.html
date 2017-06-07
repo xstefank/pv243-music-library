@@ -17,4 +17,4 @@
     <a ng-click="closeAlert($index)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>{{alert.title}} </strong>{{alert.msg}}
 </div>
-<songs-list songs="songs" add-song="false" my-library="true" remove="removeSong(id)"></songs-list>
+<songs-list songs="songs"  user-role="userRole" add-song="false" my-library="true" remove="removeSong(id)"></songs-list>

@@ -10,7 +10,7 @@
 </div>
 <div>
     <div class="col-lg-12">
-        <button class="col-lg-2 filter form-control do-btn" ng-click="byArtist = !byArtist; artist = null; filterSongs()">Select by artist
+        <button class="col-lg-2 filter form-control do-btn" ng-click="byArtist = !byArtist; artist = null; album = null; filterSongs()">Select by artist
         </button>
         <div class="col-lg-6" ng-show="byArtist">
             <select class="form-control filter" ng-model="artist" ng-change="filterSongs(); getAlbumsByArtist(artist.id)"
