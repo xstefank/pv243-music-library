@@ -20,7 +20,7 @@
         <td>{{song.genre.title}}</td>
         <td ng-if="songList.userRole === 'ADMIN'" ng-show="!songList.addSong"><a title="Edit" class="btn list-item-href" ng-click="updateSong(song.id)"><span class="glyphicon glyphicon-tag"></span></a></td>
         <td ng-if="songList.userRole === 'SUPER_USER' || songList.userRole === 'ADMIN'" ng-show="songList.addSong"><a title="Add" class="btn list-item-href" ng-click="songList.add({id: song.id})"><span class="glyphicon glyphicon-plus"></span></a></td>
-        <td ng-if="songList.userRole === 'ADMIN'" ng-show="!songList.myLibrary"><a title="Remove" class="btn list-item-href" ng-click="songList.remove({id: song.id})"><span class="glyphicon glyphicon-minus"></span></a></td>
+        <td ng-if="songList.userRole === 'SUPER_USER' || songList.userRole === 'ADMIN'" ng-show="!songList.myLibrary"><a title="Remove" class="btn list-item-href" ng-click="songList.remove({id: song.id})"><span class="glyphicon glyphicon-minus"></span></a></td>
     </tr>
     </tbody>
 </table>
