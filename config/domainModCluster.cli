@@ -42,9 +42,6 @@ connect
 # set modcluster communication on HTTP port
 /profile=full-ha/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=connector, value=default)
 
-# set sticky session
-/profile=full-ha/subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=sticky-session-force, value=true)
-
 # configure security domain
 
 /profile=full-ha/subsystem=security/security-domain=MusicLibDomain:add(cache-type=default)
@@ -94,3 +91,8 @@ batch
 /server-group=balancer-server-group:start-servers
 
 run-batch
+
+deploy ../music-library-web/target/music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
+
+
+
