@@ -44,13 +44,13 @@ public class ArtistDaoTest {
     @Inject
     private ArtistDao artistDao;
 
-    private Artist metalica;
+    private Artist metallica;
     private Artist queen;
 
     @Before
     public void before() {
-        metalica = Artist.builder()
-                .name("Metalica")
+        metallica = Artist.builder()
+                .name("Metallica")
                 .dateOfBirth(LocalDate.now().minusDays(20).minusYears(20))
                 .commentary("best metal band")
                 .build();
@@ -69,20 +69,20 @@ public class ArtistDaoTest {
 
     @Test
     public void testValidCreateThenFind() {
-        artistDao.create(metalica);
+        artistDao.create(metallica);
 
-        Assert.assertEquals(metalica, artistDao.find(metalica.getId()));
+        Assert.assertEquals(metallica, artistDao.find(metallica.getId()));
     }
 
     @Test
     public void testCreateSameTitle() {
         expectedException.expect(PersistenceException.class);
 
-        artistDao.create(metalica);
+        artistDao.create(metallica);
         artistDao.create(Artist.builder()
-                .name(metalica.getName())
-                .dateOfBirth(metalica.getDateOfBirth())
-                .commentary(metalica.getCommentary())
+                .name(metallica.getName())
+                .dateOfBirth(metallica.getDateOfBirth())
+                .commentary(metallica.getCommentary())
                 .build());
     }
 
@@ -97,33 +97,33 @@ public class ArtistDaoTest {
     public void testCreateNullName() {
         expectedException.expect(ConstraintViolationException.class);
 
-        metalica.setName(null);
-        artistDao.create(metalica);
+        metallica.setName(null);
+        artistDao.create(metallica);
     }
 
     @Test
     public void testCreateEmptyName() {
         expectedException.expect(ConstraintViolationException.class);
 
-        metalica.setName("");
-        artistDao.create(metalica);
+        metallica.setName("");
+        artistDao.create(metallica);
     }
 
     @Test
     public void testCreateInvalidDate() {
         expectedException.expect(ConstraintViolationException.class);
 
-        metalica.setDateOfBirth(LocalDate.now().plusWeeks(1));
-        artistDao.create(metalica);
+        metallica.setDateOfBirth(LocalDate.now().plusWeeks(1));
+        artistDao.create(metallica);
     }
 
     @Test
     public void testUpdateValid() {
-        artistDao.create(metalica);
-        metalica.setDateOfBirth(LocalDate.of(1999, 1, 1));
+        artistDao.create(metallica);
+        metallica.setDateOfBirth(LocalDate.of(1999, 1, 1));
 
-        Artist updated = artistDao.update(metalica);
-        Assert.assertEquals(updated, metalica);
+        Artist updated = artistDao.update(metallica);
+        Assert.assertEquals(updated, metallica);
     }
 
     @Test
@@ -135,30 +135,30 @@ public class ArtistDaoTest {
 
     @Test
     public void testUpdateEmptyName() {
-        artistDao.create(metalica);
-        metalica.setName("");
+        artistDao.create(metallica);
+        metallica.setName("");
 
         expectedException.expect(RollbackException.class);
 
-        artistDao.update(metalica);
+        artistDao.update(metallica);
     }
 
     @Test
     public void testRemoveValid() {
-        artistDao.create(metalica);
+        artistDao.create(metallica);
 
-        artistDao.remove(metalica.getId());
-        Assert.assertNull(artistDao.find(metalica.getId()));
+        artistDao.remove(metallica.getId());
+        Assert.assertNull(artistDao.find(metallica.getId()));
     }
 
     @Test()
     public void testRemoveAlreadyRemoved() {
-        artistDao.create(metalica);
-        artistDao.remove(metalica.getId());
+        artistDao.create(metallica);
+        artistDao.remove(metallica.getId());
 
         expectedException.expect(EntityNotFoundException.class);
 
-        artistDao.remove(metalica.getId());
+        artistDao.remove(metallica.getId());
     }
 
     @Test
@@ -170,10 +170,10 @@ public class ArtistDaoTest {
 
     @Test
     public void testFindValidId() {
-        artistDao.create(metalica);
+        artistDao.create(metallica);
 
-        Artist result = artistDao.find(metalica.getId());
-        Assert.assertEquals(result, metalica);
+        Artist result = artistDao.find(metallica.getId());
+        Assert.assertEquals(result, metallica);
     }
 
     @Test
@@ -183,12 +183,12 @@ public class ArtistDaoTest {
 
     @Test
     public void testFindRemoved() {
-        artistDao.create(metalica);
-        Artist result = artistDao.find(metalica.getId());
+        artistDao.create(metallica);
+        Artist result = artistDao.find(metallica.getId());
         Assert.assertNotNull(result);
 
-        artistDao.remove(metalica.getId());
-        result = artistDao.find(metalica.getId());
+        artistDao.remove(metallica.getId());
+        result = artistDao.find(metallica.getId());
         Assert.assertNull(result);
     }
 
@@ -201,24 +201,24 @@ public class ArtistDaoTest {
 
     @Test
     public void testSearchByNameExact() {
-        artistDao.create(metalica);
+        artistDao.create(metallica);
         artistDao.create(queen);
 
-        List<Artist> result = artistDao.searchByName(metalica.getName());
+        List<Artist> result = artistDao.searchByName(metallica.getName());
         Assert.assertEquals(result.size(), 1);
-        Assert.assertTrue(result.contains(metalica));
+        Assert.assertTrue(result.contains(metallica));
     }
 
     @Test
     public void testSearchByNameSimilar() {
         String name = "metalica";
-        metalica.setName(name);
-        artistDao.create(metalica);
+        metallica.setName(name);
+        artistDao.create(metallica);
         artistDao.create(queen);
 
         List<Artist> result = artistDao.searchByName("Metaika");
         Assert.assertEquals(result.size(), 1);
-        Assert.assertTrue(result.contains(metalica));
+        Assert.assertTrue(result.contains(metallica));
     }
 
     @Test
@@ -238,11 +238,11 @@ public class ArtistDaoTest {
 
     @Test
     public void testFindAllValid() {
-        artistDao.create(metalica);
+        artistDao.create(metallica);
         artistDao.create(queen);
 
         List<Artist> result = artistDao.findAll();
-        Assert.assertEquals(result, Arrays.asList(metalica, queen));
+        Assert.assertEquals(result, Arrays.asList(metallica, queen));
     }
 
     @Test
