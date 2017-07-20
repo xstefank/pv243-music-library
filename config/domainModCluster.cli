@@ -92,7 +92,9 @@ batch
 
 run-batch
 
+batch
+
 deploy ../music-library-web/target/music-library-web-1.0-SNAPSHOT.war --server-groups=musiclib-server-group
 
-
+run-batch
 

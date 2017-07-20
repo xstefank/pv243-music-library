@@ -77,7 +77,10 @@ public class AlbumDaoTest {
         expectedException.expect(PersistenceException.class);
 
         albumDao.create(testAlbum1);
-        albumDao.create(testAlbum1);
+        albumDao.create(Album.builder()
+                .title(testAlbum1.getTitle())
+                .dateOfRelease(testAlbum1.getDateOfRelease())
+                .build());
     }
 
     @Test

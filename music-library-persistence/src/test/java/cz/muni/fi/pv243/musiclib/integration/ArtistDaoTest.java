@@ -79,7 +79,11 @@ public class ArtistDaoTest {
         expectedException.expect(PersistenceException.class);
 
         artistDao.create(metalica);
-        artistDao.create(metalica);
+        artistDao.create(Artist.builder()
+                .name(metalica.getName())
+                .dateOfBirth(metalica.getDateOfBirth())
+                .commentary(metalica.getCommentary())
+                .build());
     }
 
     @Test

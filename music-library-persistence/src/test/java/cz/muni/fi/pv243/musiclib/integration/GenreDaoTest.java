@@ -70,7 +70,9 @@ public class GenreDaoTest {
         expectedException.expect(PersistenceException.class);
 
         genreDAO.create(rock);
-        genreDAO.create(rock);
+        genreDAO.create( Genre.builder()
+                .title(rock.getTitle())
+                .build());
     }
 
     @Test

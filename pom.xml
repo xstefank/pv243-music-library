@@ -193,6 +193,11 @@
             <version>${version.org.jboss.resteasy}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.193</version>
+        </dependency>
     </dependencies>
 
     <build>
