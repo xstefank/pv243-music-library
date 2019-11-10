@@ -19,14 +19,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <version.common-io>2.5</version.common-io>
-        <version.com.fasterxml.jackson.core>2.9.9</version.com.fasterxml.jackson.core>
+        <version.com.fasterxml.jackson.core>2.10.0</version.com.fasterxml.jackson.core>
         <version.junit>4.11</version.junit>
         <version.maven.checkstyle.plugin>2.17</version.maven.checkstyle.plugin>
         <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
         <version.maven.surefire.plugin>2.19.1</version.maven.surefire.plugin>
         <version.maven.war.plugin>3.1.0</version.maven.war.plugin>
         <version.org.hibernate.search>5.5.4.Final</version.org.hibernate.search>
-        <version.org.infinispan>8.2.0.Final</version.org.infinispan>
+        <version.org.infinispan>10.0.0.Final</version.org.infinispan>
         <version.org.jboss.arquillian>1.1.13.Final</version.org.jboss.arquillian>
         <version.org.jboss.logging>3.3.1.Final</version.org.jboss.logging>
         <version.org.jboss.logging.annotations>2.0.1.Final</version.org.jboss.logging.annotations>
